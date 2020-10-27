@@ -1,0 +1,130 @@
+<!--
+author：MierX
+github：https://github.com/MierX/StudyPhp 
+create time：20.10.27 17:02
+motto：有志者，事竟成
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table id="table">
+        <tr>
+            <td>年数</td>
+            <td>累计的生存年金</td>
+        </tr>
+    </table>
+</body>
+</html>
+<script type="text/javascript" language="JavaScript">
+    let money = 100000;
+    let total = 0; // 总金额
+    let year = 78; // 78年
+    let amount = 4112.8; // 每年可以领取的年金
+    let range = 1.04; // 每年年金利息加本金
+
+    // 循环计算
+    for (let i = 1; i <= year; ++i) {
+        // i是年数，第i年
+        // 规则，每年的年金不领取，就会存入账户计算利息，如第一年不领，到年底，已经算好利息之后为x，到第二年，再不领取。则账户里是x+第二年的年金，然后继续算利息
+        // 利滚利
+        total = Math.round(((total + amount) * range) * 100) / 100;
+        let _total = numberParseChina(total);
+        console.log('第' + i + '年积累年金：' + total + '（' + _total + '）');
+        if (i === 78) console.log('第' + i + '年积累年金加满期返回已交保费：' + (total + money) + '（' + numberParseChina(total + money) + '）');
+    }
+
+    //阿拉伯数字转换成大写汉字
+    function numberParseChina(money) {
+        let n;
+        let i;
+        //汉字的数字
+        const cnNums = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
+        //基本单位
+        const cnIntRadice = ['', '拾', '佰', '仟'];
+        //对应整数部分扩展单位
+        const cnIntUnits = ['', '万', '亿', '兆'];
+        //对应小数部分单位
+        const cnDecUnits = ['角', '分', '毫', '厘'];
+        //整数金额时后面跟的字符
+        const cnInteger = '整';
+        //整型完以后的单位
+        const cnIntLast = '圆';
+        //最大处理的数字
+        const maxNum = 999999999999999.9999;
+        //金额整数部分
+        let integerNum;
+        //金额小数部分
+        let decimalNum;
+        //输出的中文金额字符串
+        let chineseStr = '';
+        //分离金额后用的数组，预定义
+        let parts;
+        if (money === '') {
+            return '';
+        }
+        money = parseFloat(money);
+        if (money >= maxNum) {
+            //超出最大处理数字
+            return '';
+        }
+        if (money === 0) {
+            chineseStr = cnNums[0] + cnIntLast + cnInteger;
+            return chineseStr;
+        }
+        //转换为字符串
+        money = money.toString();
+        if (money.indexOf('.') === -1) {
+            integerNum = money;
+            decimalNum = '';
+        } else {
+            parts = money.split('.');
+            integerNum = parts[0];
+            decimalNum = parts[1].substr(0, 4);
+        }
+        //获取整型部分转换
+        if (parseInt(integerNum, 10) > 0) {
+            let zeroCount = 0;
+            const IntLen = integerNum.length;
+            for (i = 0; i < IntLen; i++) {
+                n = integerNum.substr(i, 1);
+                const p = IntLen - i - 1;
+                const q = p / 4;
+                const m = p % 4;
+                if (n === '0') {
+                    zeroCount++;
+                } else {
+                    if (zeroCount > 0) {
+                        chineseStr += cnNums[0];
+                    }
+                    //归零
+                    zeroCount = 0;
+                    chineseStr += cnNums[parseInt(n)] + cnIntRadice[m];
+                }
+                if (m === 0 && zeroCount < 4) {
+                    chineseStr += cnIntUnits[q];
+                }
+            }
+            chineseStr += cnIntLast;
+        }
+        //小数部分
+        if (decimalNum !== '') {
+            const decLen = decimalNum.length;
+            for (i = 0; i < decLen; i++) {
+                n = decimalNum.substr(i, 1);
+                if (n !== '0') {
+                    chineseStr += cnNums[Number(n)] + cnDecUnits[i];
+                }
+            }
+        }
+        if (chineseStr === '') {
+            chineseStr += cnNums[0] + cnIntLast + cnInteger;
+        } else if (decimalNum === '') {
+            chineseStr += cnInteger;
+        }
+        return chineseStr;
+    }
+</script>

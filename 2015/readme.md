@@ -217,4 +217,59 @@
         rows：显示行边线
         cols：显示列边线
         all：合并连线
+    <td>属性：
+        colspan：向右合并
+        rowspan：向下合并
+### 透明flash实例
+    无用内容
+### 表格布局
+    无用内容
+### 表单布局
+    <form></form>：表单标记
+        属性：
+            name
+            method：提交方式，get，post
+            action：提交的页面
+            enctype：数据类型
+    表单元素：
+        <input type='text' name='username' />：文本框
+        <input type='password' name='password' />：密码框
+    表单提交：
+        <input type='submit' name='提交'>：提交
+    表单重置：
+        <input type='reset' name='重置'>：重置
+##  04
+    学习第四天的知识
+### 表单radio
+    get提交方式：
+        通过gei方式传值，名称和值以“?”的跟在action处理页面的后面
+        如果有多个传递值，用“&”号连接
+        这个方式传值，名称和值都在地址栏中显示（不安全）
+        地址栏的容量有限，小于2KB
+        一般用在安全要求不高，并且简单的数据
+        通常用在查询
+    post提交方式： 
+        不在地址栏中显示
+        相对安全
+        一般用在数据库方面，写操作
+        在上传一些复杂的数据的时候用post
+        enctype是表单的编码方式
+### 表单fieldset
+    看看就好
+### from与服务器
+    安装phpstudy，启动apache服务
+####    02.html 03.php
+    表单实践
+### map
+    map：图像热区标签
+        将一个图片分割成多块并设置不同的点击事件、效果、访问页面
+        通过name属性与img标签的usemap绑定
+### frameset
+    frameset：框架集标签
+        在body标签之外
+        设置frameset标签后，需要在body标签之外再包一个noframes标签，当浏览器不支持框架集时则显示noframes内的内容
+        frameset中通过一个又一个的frames标签引入不同的页面文件
+        通过cols或rows分割浏览器页面
+### frame_name
     
+### 关于模板
