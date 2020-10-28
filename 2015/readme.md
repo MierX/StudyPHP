@@ -271,5 +271,153 @@
         frameset中通过一个又一个的frames标签引入不同的页面文件
         通过cols或rows分割浏览器页面
 ### frame_name
-    
+    无用内容
 ### 关于模板
+    iframe：浮动框架
+        src：要显示的页面
+        name：浮动框架名称
+        scrolling：是否滚动，yes，no，auto
+        align：位置
+##  05
+    学习第五天的知识
+### css初步
+    CSS：cascading style sheets，层叠样式表，级联式样式表，简称：样式表
+        扩展名：.css
+    样式表的位置：
+        内联样式表：在head标签中的style标签中
+            <style type='text/css'></style>
+```html
+    <!--内联样式表-->
+    <head>
+        <title></title>
+        <style type="text/css">
+        
+        </style>
+    </head>
+```
+    CSS语法格式：
+        声明方法：
+            选择器 {属性1：值1，属性2：值2，属性3：值3}
+            什么是选择器？
+                就是通过名称指定对哪些标签进行样式设置
+        CSS注释：
+            HTML注释：<!-- 注释内容 -->
+            CSS注释：/* 注释内容 */
+### 基本选择器
+    基本选择器：
+        style属性（行内样式）：
+            直接写在标签内
+            如：
+```html
+                <p style="font-size: 12px;color: red;">文字内容</p>
+```
+        标签选择器：
+            针对HTML的标签，直接在内联样式表中写样式
+        id选择器：
+            通过#号绑定标签的属性id的值
+        类选择器：
+            通过.号绑定标签的属性class的值
+        通配符选择器：
+            *号，针对当前页面所用的标签应用同样的样式（对标签的初始化）
+        标签和类结合：
+            如：p.test {}
+            针对p标签中的类名为test的标签的样式
+### 组合选择器
+    多元素选择器：
+        多个标签或者选择器一起声明
+        如：h1,ul,a,img {}
+        定义的方法，注意：
+            选择器之间用逗号隔开
+    后代选择器
+        父选择器与父选择器类的其它选择器用空格隔开，样式效果最终落实在最后一个标签里面
+        如：p span {}，针对p标签中所有的span标签定义样式
+    子元素选择器
+        父选择器与直接的子辈选择器之间用>号隔开
+        如：p>span {}
+### CSS单位与字体
+    伪类选择器：
+        不存在的选择器
+        链接（a标签）常用
+        :link 标签的正常状态
+        :visited 鼠标单机过的标签状态
+        :hover 鼠标放（悬停）在标签上的状态
+        :active 鼠标按住标签的状态
+    CSS尺寸属性：px、em、%（相对单位）
+        px：像素，相对单位，和屏幕的分辨率有关
+        em：一个字提高（1倍子提高），2em =》 当前默认字体的2倍
+        %：百分比，相对单位，相对于当前默认值的百分比
+        浏览器默认的字体大小是16px
+    CSS字体属性：
+        font-family：设置字体种类
+        font-size：字体的大小
+        font-weight：设置字体的加粗方式，100-900，bold（700），normal（不加粗）
+        font-style：设置字体样式，italic（斜体）
+### 新闻属性
+    CSS文本属性：
+        color：设置文本的颜色，用单词或16进制
+            可以简写
+        text-align：文本的对齐方式，left，right，center
+        line-height：行高
+            垂直方向居中，所在容器，所在元素的高度与line-height保持一致
+        text-indent：文本的缩进
+        letter-spacing：字间距
+        text-decoration：文本的描述，修饰
+            underline：下划线
+            line-through：删除线
+            none：没有修饰
+    CSS列表属性：
+        list-style：none
+        list-style-type：none
+        把列表项前面的项目符号去掉
+        ul,li {list-style-type:none}
+### 边框及案例
+    CSS细线表格：
+```html
+        <table rules="all"></table>
+    
+        <table bgcolor="" cellspacing="2">
+            <tr>
+                <td bgcolor="white"></td>
+            </tr>
+        </table>
+    
+        <table style="border-collapse: collapse"></table>
+```
+##  06
+    学习第六天的知识
+### padding_margin
+    CSS内边距属性：
+        padding：填充，填料
+            四位数字：上，右，下，左
+            三个数字：上，左右，下
+            两位数字：上下，左右
+            一个数字：上下左右
+            padding-top
+            padding-right
+            padding-bottom
+            padding-left
+    CSS外边距属性：margin
+    CSS背景：
+        background
+            background-color：背景色
+            background-image：背景图
+            background-repeat：重复
+            background-position：定位
+            background-attachment：依附方式，是否固定，fiexd
+### CSS_sprite
+    无用内容
+### backgroundfixed
+    无用内容
+### 背景案例
+    无用内容
+### 导航
+    CSS浮动和清除：
+        float：
+        浮动的元素可以理解为该元素已经脱离了文档流
+        浮动只有两个方向：right，left
+        浮动的位置：浮动到包含元素的边界或具有浮动属性元素的边上
+        浮动元素的层级高于普通元素的层级
+        凡是浮动的元素都是块元素
+        清除浮动：clear：right，left，both（清除全部，独占一行）
+### 关于浮动more的位置
+    无用内容
