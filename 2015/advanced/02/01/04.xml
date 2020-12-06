@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE note [
+    <!ELEMENT note (form,to,heading,body)>
+    <!ELEMENT form (#PCDATA)>
+    <!ELEMENT to (#PCDATA)>
+    <!ELEMENT heading (#PCDATA)>
+    <!ELEMENT body (#PCDATA)>
+]>
+<note>
+    <form>牛郎</form>
+    <to>织女</to>
+    <heading>思念</heading>
+    <body>车到山前必有路，人到七夕倍无助</body>
+</note>

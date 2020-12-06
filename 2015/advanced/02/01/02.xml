@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<bookstore>
+    <book id="1">
+        <title>水浒传</title>
+        <author>施耐庵</author>
+        <year>1341</year>
+        <price>10个铜板</price>
+    </book>
+    <book id="2">
+        <title>三国演义</title>
+        <author>罗贯中</author>
+        <year>1370</year>
+        <price>20个铜板</price>
+    </book>
+    <book id="3">
+        <title>西游记</title>
+        <author>施耐庵</author>
+        <year>1341</year>
+        <price>10个铜板</price>
+    </book>
+    <book id="4">
+        <title>红楼梦</title>
+        <author>罗贯中</author>
+        <year>1370</year>
+        <price>20个铜板</price>
+    </book>
+</bookstore>
