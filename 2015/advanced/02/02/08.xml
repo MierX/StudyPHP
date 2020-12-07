@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bookstore>
+    <book id="1">
+        <title>水浒传</title>
+
+        <year>1341</year>
+        <price>2</price>
+    </book>
+    <book id="2">
+        <title>三国演义</title>
+
+
+        <price>4</price>
+    </book>
+    <book id="3">
+        <title>西游记</title>
+
+        <year>1341</year>
+        <price>2</price>
+    </book>
+    <book id="4">
+        <title>红楼梦</title>
+
+        <year>1370</year>
+        <price>4</price>
+    </book>
+    <book>
+        <title>php学习宝典</title>
+
+        <year>2020</year>
+        <price>0</price>
+    </book>
+    <book id="1">
+        <title>php学习宝典</title>
+
+        <year>2020</year>
+        <price>0</price>
+    </book>
+</bookstore>
