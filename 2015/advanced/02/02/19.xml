@@ -31,4 +31,10 @@
         <year>2020</year>
         <price>0.00</price>
     </book>
+    <book id="99">
+        <title lang="cn">xml编程</title>
+        <author>mierX</author>
+        <year>2020</year>
+        <price>9.9</price>
+    </book>
 </bookstore>

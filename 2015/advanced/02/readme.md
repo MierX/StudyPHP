@@ -194,12 +194,23 @@
 ##  将xpath应用到在线词典中
     看视频
 ##  SimpleXMLElement介绍及操作步骤说明
-     
+    PHP专门提供的一种操作XML的简单方式
+    得到SimpleXMLElement有两种方式：
+        直接使用构造方法：需要传递XML文档的内容
+        使用普通函数（simplexml_load_file）：传递文件名
 ##  SimpleXMLElement操作XML之增加
+    看视频
 ##  SimpleXMLElement操作XML之查询
+    看视频
 ##  SimpleXMLElement操作XML之更新、删除
+    看视频
 ##  什么是RSS
+    RSS：Really Simple Syndication（信息简易聚合）
 ##  制作自己的RSS订阅源
+    看视频
 ##  Web Service简介及核心技术介绍
+    看视频
 ##  航班查询之获取所有城市
+    看视频
 ##  查询航班
+    看视频
