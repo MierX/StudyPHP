@@ -28,8 +28,7 @@ class factory
     static function getObject($className)
     {
 
-        $obj = new $className();
-        return $obj;
+        return new $className();
     }
 }
 

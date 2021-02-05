@@ -98,7 +98,6 @@ class db2
     }
 
     // 这个方法为了执行一条返回一行数据的语句，返回一维数组
-
     function getOneRow($sql)
     {
 
