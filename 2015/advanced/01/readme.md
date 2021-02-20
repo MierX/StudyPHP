@@ -2022,17 +2022,152 @@ A;
             /View // html视图文件夹
             /Common // 公共文件
 ##  新功能：产品删除
-    
+    看视频
 ##  有关平台的观念和目录设定
+    看视频
 ##  演示新建一个平台：后台
+    看视频
 ##  常见常量的设定及应用
+    看视频
 ##  自动加载的实现
+    看视频
 ##  禁止访问其他目录
+    看视频
 ##  ecshop安装
+    看视频
 ##  设计登录界面
+    看视频
 ##  登录功能的实现
+    看视频
 ##  pdo对象
+    PDO是别人写的“数据库操作工具类”，可以代替我们自己写的MySQLDB.class.php
+    如：
+        $pdo = new PDO(连接信息);
+        $sql = "...";
+        $result = $pdo->query($sql);
+    $pdo->commit()：提交一个事务
+    $pdo->rollBack()：回滚一个事务
+    $pdo->inTransaction()：判断当前行是否在事务中，true/false
+    $pdo->setAttribute(属性名, 属性值)：设置pdo对象的属性
 ##  pdo对象的常用方法
+    看视频
 ##  pdo的预处理语法
+    看视频
 #   20
     学习第二十天的知识
+##  login动作执行流程
+    看视频
+##  checkLogin的执行流程
+    看视频
+##  后台首页动作
+    看视频
+##  登陆标识判断的流程分析
+    看视频
+##  如何存储登录标识的测试分析
+    看视频
+##  什么是会话技术
+    在同一台浏览器的多次请求周期内持久性存储数据的一种技术
+    两种实现：
+        Cookie
+        Session
+##  cookie的基本原理
+    看视频
+##  cookie的基本操作
+    setcookie(属性名, 属性值, 存储时间, 有效路径, 域名)：设置cookie属性
+    $_COOKIE[属性名]：获取指定cookie属性的值
+##  cookie的有效期属性
+    默认浏览器关闭（会话周期结束）时COOKIE也会失效，称之为临时COOKIE
+    允许设置COOKIE的有效期，语法上，使用setcookie第三个参数来进行设置
+    
+    特殊值：
+        PHP_INT_MAX：PHP最大整数
+        time() - 1：将有效期强制设为过期
+        
+    删除cookie的方法：
+        设置属性的值为空，则有效期变为1970年（语法糖）
+##  有效路径
+    设置路径为'/'，则该cookie整站有效，使用setcookie第四个参数来进行设置
+##  有效域名（二级域名有效）
+    有效域：
+        默认的，在某个域名下设置的cookie，只有该域名下可以使用
+        
+    设置有效域为'.xxx.com'，则该cookie在这个域名下都有效，使用setcookie第五个参数来进行设置
+##  安全相关的属性
+    https：
+        是否仅安全连接：
+        告知浏览器，我们所设置的cookie，是否仅仅在https这个写一下，才会被发送到浏览器端
+        使用setcookie第五个参数来进行设置，true/false
+    HTTPONLY：
+        所设置好的cookie是否仅仅在http请求时所用
+        因为cookie还可以通过浏览器端的脚本获取到
+        使用setcookie第六个参数来进行设置，true/fasle
+##  cookie语法细节和常见使用
+    看视频
+##  session技术的基本原理
+    Cookie的劣势：
+        会话数据的存储位置在浏览器，安全性较差
+        请求（响应）传输的数据量大，因此浏览器限制cookie的大小和数量
+    Session技术：
+        会话数据的存储位置在服务器端，安全性较高
+    那么如何实现区分不同的浏览器来存储会话数据：
+        在服务器端，建立很多的会话数据区（Session数据区）
+        为每个session会话数据区分配唯一标识
+        将该唯一标识分配给对应的会话浏览器
+##  session的基本使用
+    开启session机制：
+        session_start()：
+            开启后，所有关于session机制（生成session_id）都由session机制完成
+    操作session数据：
+        $_SESSION超全局变量
+##  session的ID和服务器端会话
+    看视频
+##  session完成登录标识存储 - 登录验证
+    看视频
+##  管理员信息作为标识
+    看视频
+#   21
+    学习第二十一天的知识
+##  上天回顾
+    看视频
+##  语法细节注意
+    看视频
+##  session的属性
+    有效期：
+        默认关闭浏览器的时候国企
+    有效域名：
+        默认在当前域名下有效
+    session属性的来源：
+        cookie种存储的session-id的属性，决定了对应的session数据的属性
+    如何设置session数据的属性：
+        设置cookie中session-id这个cookie属性即可：
+            配置php.ini中的属性：
+                session.cookie_lifetime：有效期
+                session.cookie_path：有效路径
+                session.cookie_domain：有效域
+                session.cookie_secure：安全链接
+                session.cookie_httponly：是否为httponly
+            通过ini_set函数设置上述属性
+            通过session_set_cookie_params(有效期, 有效路径, 有效域)设置
+        先配置再开启
+##  session数据区的操作
+    Session数据区：
+        默认以文件的形式存储于服务器操作系统临时目录中
+        当session数据区过多时，文件形式的存储，操作速度变慢
+    Session数据区的操作：
+        看视频
+##  session入库的实现 - 结构
+    重写session数据区机制读写操作：
+        1、定义两个可以完成读写的函数
+        2、告知session机制，在需要读写时，使用用户自定义的读写函数（session_set_save_handle）
+    session_set_save_handle(开始函数, 结束函数, 读函数, 写函数, 删除函数, GC函数)
+##  session入库 - 表结构
+##  读写操作的完成
+##  session销毁
+##  垃圾回收
+##  开启和结尾函数
+##  几个语法细节
+##  常见问题总结
+##  后台页面的展示
+##  项目中实现集中登录校验
+#   22
+    学习第二十二天的知识
