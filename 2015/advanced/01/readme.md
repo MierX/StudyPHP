@@ -2161,13 +2161,106 @@ A;
         2、告知session机制，在需要读写时，使用用户自定义的读写函数（session_set_save_handle）
     session_set_save_handle(开始函数, 结束函数, 读函数, 写函数, 删除函数, GC函数)
 ##  session入库 - 表结构
+    看视频
 ##  读写操作的完成
+    看视频
 ##  session销毁
+    看视频
 ##  垃圾回收
+    垃圾：服务器上过时的session数据区
+    如何判定？
+        如果一个session数据区已经超过多久没有使用（最后一次写操作）了，就是被视为垃圾数据
+        该时间的临界点默认是1440s，在php.ini中配置session.gc_maxlifetime
+    如何删除？
+        在session_start过程中，开启session机制过程中，有几率地执行垃圾回收操作，一旦执行，就会删除所有的过期的数据区
+    如何设置触发概率？
+        默认是千分之一的概率，可以在php.ini中设置session.gc_probability（可能性、分子）和session.gc_divisor（分母）
 ##  开启和结尾函数
+    看视频
 ##  几个语法细节
+    先设置session配置，再开启session机制，不要自动开启
+    php配置项：session.save_handler：
+        php所使用的默认存储机制：files（以文件方式存储）
+        若自定义session配置，则建议将默认存储机制改为user
 ##  常见问题总结
+    相关配置
+        session.sava_handler：存储处理器（files|user）
+        session.cookie_xxx（lifetime|path|domain|......）
+        session.gc_maxlifetime
+        session.gc_probability
+        session.gc_divisor
+        session.save_path
+    session和cookie联系和区别？
+        都是会话技术
+        session基于cookie，session-id存储与cookie中
+        区别：
+            cookie：存储在浏览器端，安全性低，有大小限制，数据类型只支持字符串，长时间有效期存储
+            session：存储在服务器端，安全性较高，没有大小限制，支持全部数据类型，几乎不做持久化
+        session如何持久化？
+            session-ID要持久化：session_set_cookie_params(3600);
+            服务器session数据区有效期增加：修改ini_set('session.gc_maxlifetime', 3600)
+        浏览器禁用cookie，session是否可用？
+            cookie被禁用，session-id不能存储和传输，所以不可用
+            理论上的解决方案：
+                通过url或者post数据向服务端传输session-id
+                修改一下配置：
+                    session是否仅仅使用cookie完成session-id的传输：session.use_only_cookies = 1（是）
+                    是否通过其它方式传输session-id：session.use_trans_sid = 0 （否）
 ##  后台页面的展示
+    看视频
 ##  项目中实现集中登录校验
+    看视频
 #   22
     学习第二十二天的知识
+##  上天回顾
+    看视频
+##  记录登录状态功能分析
+    看视频
+##  记录状态
+    看视频
+##  验证登录状态的存储
+    看视频
+##  验证码概述
+    看视频
+##  php处理图片的典型步骤
+    使用GD扩展，开启php.ini中的gd2.dll扩展
+    创建画布资源：
+        创建新的画布：
+            imagecreate(宽, 高)：创建基于调色板画布（支持的颜色少）
+            imagecreatetruecolor(宽, 高)：创建正彩色画布（支持的颜色多）
+        基于已有图像创建画布：
+            imagecreatefromjpeg(图像路径):            
+            imagecreatefrompng(图像路径):
+            imagecreatefromgif(图像路径):
+    设置画布：
+        分配颜色：（为某张画布分配某种颜色）
+            imagecolorallocate(画布资源, 颜色R, 颜色G, 颜色B)
+        填充画布：（使用某个颜色，在画布的某个位置进行填充）
+            imagefill(画布, X坐标, Y坐标, 颜色) // 图片的左上角为原点（0，0），横向向右增加X，纵向向下增加Y
+    导出画布：
+        imagepng(画布资源, 存储路径):
+        imagegif(画布资源, 存储路径):
+        imagejpeg(画布资源, 存储路径):
+    销毁资源：
+        imagedestroy(画布资源)
+##  参考ecshop验证码生成
+    看视频
+##  码值居中
+    看视频
+##  验证码工具类
+    看视频
+##  项目中登录验证码
+    看视频
+##  图片程序的错误处理
+    看视频
+##  验证码校验
+    看视频
+##  点击更换
+    看视频
+##  上传的基本原理
+    看视频
+#   23
+    学习第二十三天的知识
+##  
+#   24
+    学习第二十四天的知识

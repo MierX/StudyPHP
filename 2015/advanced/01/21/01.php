@@ -11,28 +11,36 @@ motto：有志者，事竟成
 function sessionStart()
 {
 
+    var_dump('Start');
 }
+
 /**
  * 结束session
  */
 function sessionEnd()
 {
 
+    var_dump('End');
 }
+
 /**
  * 读取session
  */
 function sessionRead()
 {
 
+    var_dump('Read');
 }
 
 /**
  * 写入session
+ * @param $sessionName
+ * @param $sessionContent
  */
-function sessionWrite()
+function sessionWrite($sessionName, $sessionContent)
 {
 
+    var_dump('Write');
 }
 
 /**
@@ -41,6 +49,7 @@ function sessionWrite()
 function sessionDel()
 {
 
+    var_dump('Del');
 }
 
 /**
@@ -49,6 +58,11 @@ function sessionDel()
 function sessionGC()
 {
 
+    var_dump('GC');
 }
 
-session_set_save_handler(sessionStart(), sessionEnd(), sessionRead(), sessionWrite(), sessionDel(), sessionGC());
+session_set_save_handler('sessionStart', 'sessionEnd', 'sessionRead', 'sessionWrite', 'sessionDel', 'sessionGC');
+
+session_start();
+sleep(3);
+session_destroy();
