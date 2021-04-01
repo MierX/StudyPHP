@@ -1,0 +1,52 @@
+<!--
+author：MierX
+github：https://github.com/MierX/StudyPhp 
+create time：21.3.31 15:42
+motto：有志者，事竟成
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$title}</title>
+    <style>
+        .odd {
+            background-color: #fff;
+        }
+        .even {
+            background-color: #263cd5;
+        }
+    </style>
+</head>
+<body>
+<p onclick="setLocalStorage()">设置localStorage</p>
+<p>{$content}</p>
+<p>{$smarty.const.PI}</p>
+<p>{if $sex eq 1}男{else}女{/if}</p>
+<p>{$smarty.now}</p>
+<p>{$smarty.now|date_format:'%Y-%m-%d %H:%I:%S'}</p>
+<p>{$content|truncate:15:'~~~'}</p>
+<p>{'hi'|str_repeat:$level}</p>
+<table>
+    {foreach $arr as $key => $value}
+    {if $key is odd}
+    {$color = '#c62121'}
+    {else}
+    {$color = '#fff'}
+    {/if}
+
+    <tr class="{cycle values = 'odd, even'}">
+        <td>{$value}</td>
+    </tr>
+    {/foreach}
+</table>
+<p>请选择：</p>
+{html_radios name='name' values=$name output=$name selected='张三'}
+<p>请选择：</p>
+{foreach $name as $key => $value}
+<input type="radio" name="name" value="{$key}">{$value}
+{/foreach}
+<p>请选择：</p>
+{html_checkboxes name='name[]' values=$name output=$name selected=$name}
+</body>
+</html>
