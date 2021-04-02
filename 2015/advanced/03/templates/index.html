@@ -24,7 +24,9 @@ motto：有志者，事竟成
 <p>{$smarty.const.PI}</p>
 <p>{if $sex eq 1}男{else}女{/if}</p>
 <p>{$smarty.now}</p>
+{nocache}
 <p>{$smarty.now|date_format:'%Y-%m-%d %H:%I:%S'}</p>
+{/nocache}
 <p>{$content|truncate:15:'~~~'}</p>
 <p>{'hi'|str_repeat:$level}</p>
 <table>

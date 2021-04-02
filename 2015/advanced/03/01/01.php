@@ -13,8 +13,21 @@ $smarty = new Smarty();
 
 // 设置模板文件目录
 $smarty->setTemplateDir("../templates");
+
 // 设置模板编译文件目录
 $smarty->setCompileDir("../templates_c");
+
+// 开启缓存
+$smarty->caching = true;
+
+// 设置缓存目录
+$smarty->setCacheDir('../cache');
+
+// 设置缓存有效期
+$smarty->cache_lifetime = 60;
+
+// 开启调试模式
+$smarty->debugging = true;
 
 // 调用assign方法分配数据
 $smarty->assign('level', '15');
