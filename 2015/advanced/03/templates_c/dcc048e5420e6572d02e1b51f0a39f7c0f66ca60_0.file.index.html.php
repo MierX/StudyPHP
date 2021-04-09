@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2021-04-01 06:49:51
+/* Smarty version 3.1.39, created on 2021-04-06 06:35:26
   from 'D:\Project\Self\StudyPhp\2015\advanced\03\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_60656d0f669498_22450614',
+  'unifunc' => 'content_606c012eefb567_69136490',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'dcc048e5420e6572d02e1b51f0a39f7c0f66ca60' => 
     array (
       0 => 'D:\\Project\\Self\\StudyPhp\\2015\\advanced\\03\\templates\\index.html',
-      1 => 1617259789,
+      1 => 1617272271,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_60656d0f669498_22450614 (Smarty_Internal_Template $_smarty_tpl) {
+function content_606c012eefb567_69136490 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'D:\\Project\\Self\\StudyPhp\\2015\\advanced\\03\\libs\\plugins\\modifier.date_format.php','function'=>'smarty_modifier_date_format',),1=>array('file'=>'D:\\Project\\Self\\StudyPhp\\2015\\advanced\\03\\libs\\plugins\\modifier.truncate.php','function'=>'smarty_modifier_truncate',),2=>array('file'=>'D:\\Project\\Self\\StudyPhp\\2015\\advanced\\03\\libs\\plugins\\function.cycle.php','function'=>'smarty_function_cycle',),3=>array('file'=>'D:\\Project\\Self\\StudyPhp\\2015\\advanced\\03\\libs\\plugins\\function.html_radios.php','function'=>'smarty_function_html_radios',),4=>array('file'=>'D:\\Project\\Self\\StudyPhp\\2015\\advanced\\03\\libs\\plugins\\function.html_checkboxes.php','function'=>'smarty_function_html_checkboxes',),));
 ?>
 <!--
@@ -53,8 +53,10 @@ motto：有志者，事竟成
 <p><?php if ($_smarty_tpl->tpl_vars['sex']->value == 1) {?>男<?php } else { ?>女<?php }?></p>
 <p><?php echo time();?>
 </p>
+
 <p><?php echo smarty_modifier_date_format(time(),'%Y-%m-%d %H:%I:%S');?>
 </p>
+
 <p><?php echo smarty_modifier_truncate($_smarty_tpl->tpl_vars['content']->value,15,'~~~');?>
 </p>
 <p><?php echo str_repeat('hi',$_smarty_tpl->tpl_vars['level']->value);?>

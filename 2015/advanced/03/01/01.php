@@ -27,7 +27,7 @@ $smarty->setCacheDir('../cache');
 $smarty->cache_lifetime = 60;
 
 // 开启调试模式
-$smarty->debugging = true;
+$smarty->debugging = false;
 
 // 调用assign方法分配数据
 $smarty->assign('level', '15');
@@ -46,4 +46,6 @@ $arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 $smarty->assign('arr', $arr);
 
 // 调用display方法载入模板
+$id = rand(0, 10);
+var_dump($id);
 $smarty->display("index.html");

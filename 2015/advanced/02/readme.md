@@ -75,7 +75,7 @@
         <![CDATA[实体内容]]>：使用CDATA之后，实体内容部分会被原样输出，不被xml解读
     **注释**：<!-- 注释内容 -->
 ##  练习简单说明
-    看视频
+    TODO
 ##  什么是XML验证
     XML传输数据一般需要通过对方的验证，通常有两种方式：
         DTD：Document Type Definition（文档类型定义）
@@ -84,7 +84,7 @@
                 合法的文档：在语法正确的基础之上，符合某个规范的xml文档
         XSD：Xml Schema Definition（文档结构定义）
 ##  DTD快速入门 -- 定义、引用、验证
-    看视频
+    TODO
 ##  DTD元素定义之包含元素的元素 -- 顺序和选择
     元素定义：
         格式：<!ELEMENT 元素名 元素内容描述>
@@ -137,7 +137,7 @@
         定义格式：<!ENTITY% 实体名称 值>
         引用格式：%实体名称
 ##  DTD的一个小应用 -- 查看HTML的DTD定义
-    看视频
+    TODO
 ##  什么是DOM
     PHP操作XML的方式：
         **DOM方式**：所有语言都支持的方式，并且是一样API，稍微难一点
@@ -162,25 +162,25 @@
         DOMNodeList
         DOMDocument
         DOMElement
-    看视频
+    TODO
 #   02
 ##  dtd练习说明
-    看视频
+    TODO
 ##  dom操作xml之增加
-    看视频
+    TODO
 ##  dom操作xml之更新
-    看视频
+    TODO
 ##  dom操作xml之删除（注意有陷阱）
-    看视频
+    TODO
 ##  dom操作xml之验证（强制加载外部DTD）
     在默认情况下，对于外部的DTD而言，XML不会加载外部的DTD，需要让XML文档强制加载外部的DTD，就是用外部DTD文件来验证XML文档
     有两种方法验证：
         validataOnParse属性：$dom->validataOnParse属性 = true;// 开启强制加载
         validata()方法：$dom->validate()
 ##  在线词典之录入
-    看视频
+    TODO
 ##  在线词典之查询
-    看视频
+    TODO
 ##  xpath之选取节点（注意单双斜线的区别）
     XPath：XML路径，使用XPath快读的定位到某个节点
     选取节点：
@@ -190,27 +190,27 @@
         ..：选取当前节点的父节点
         @：选取属性
 ##  xpath之谓语
-    看视频
+    TODO
 ##  将xpath应用到在线词典中
-    看视频
+    TODO
 ##  SimpleXMLElement介绍及操作步骤说明
     PHP专门提供的一种操作XML的简单方式
     得到SimpleXMLElement有两种方式：
         直接使用构造方法：需要传递XML文档的内容
         使用普通函数（simplexml_load_file）：传递文件名
 ##  SimpleXMLElement操作XML之增加
-    看视频
+    TODO
 ##  SimpleXMLElement操作XML之查询
-    看视频
+    TODO
 ##  SimpleXMLElement操作XML之更新、删除
-    看视频
+    TODO
 ##  什么是RSS
     RSS：Really Simple Syndication（信息简易聚合）
 ##  制作自己的RSS订阅源
-    看视频
+    TODO
 ##  Web Service简介及核心技术介绍
-    看视频
+    TODO
 ##  航班查询之获取所有城市
-    看视频
+    TODO
 ##  查询航班
-    看视频
+    TODO
