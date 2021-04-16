@@ -1,0 +1,12 @@
+[ 2021-04-13T11:36:35+08:00 ] 127.0.0.1 /2015/advanced/04/01/index.php/Admin/Goods/showlist
+ERR: 1146:Table 'shop.goods' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `goods`
+
+[ 2021-04-13T11:42:25+08:00 ] 127.0.0.1 /2015/advanced/04/01/index.php/Admin/Goods/tianjia
+ERR: 1146:Table 'shop.sw_english' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `sw_english`
+
+[ 2021-04-13T11:54:52+08:00 ] 127.0.0.1 /2015/advanced/04/01/index.php/Admin/Goods/tianjia
+ERR: 1146:Table 'shop.sw_english' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `sw_english`
+
