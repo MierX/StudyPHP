@@ -6,6 +6,7 @@ namespace Admin\Controller;
 
 use Model\GoodsModel;
 use Think\Controller;
+use Think\Upload;
 
 class GoodsController extends Controller
 {
@@ -29,6 +30,12 @@ class GoodsController extends Controller
     //修改商品
     function upd()
     {
+        $upload = new Upload();
         $this->display();
+    }
+
+    function thumbnail()
+    {
+
     }
 }
