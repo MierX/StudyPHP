@@ -57,3 +57,9 @@ J
 2015/advanced/04/03/07.php,6\2\628051d9f90125386d0ac86cbcc46150e4a672e8
 J
 2015/advanced/04/03/09.php,e\f\ef04e261502da25bf0216c796f5521c9c27004ef
+q
+A2015/advanced/04/thinkphp/ThinkPHP/Library/Think/Verify.class.php,7\d\7d1c12032779fce6f7bfa4116d85f08b125b6e3f
+q
+A2015/advanced/04/thinkphp/ThinkPHP/Library/Think/Upload.class.php,e\2\e21399e5612e2ee04318c67883b453dc1e3dc187
+J
+2015/advanced/05/readme.md,a\7\a71bb0b598b6d0fa0695efe14cdb0301aa06687e
