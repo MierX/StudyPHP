@@ -12,8 +12,8 @@
     JS定义：
         基于事件和对象驱动，并具有安全性能的脚本语言
         该语言运行在客户端浏览器里边，也有运行在服务器端的名称为“node.js”
-![出现背景](./assets/readme-1618817488099.png)
-![发明javascript语言的公司](./assets/readme-1618817513171.png)
+![出现背景](../../markdown_assets/readme-1618817488099.png)
+![发明javascript语言的公司](../../markdown_assets/readme-1618817513171.png)
 ##  JS高级 - 基本语法规范
     在html代码里引入js语言
         <script type="text/javascript">具体js代码</script>
@@ -71,11 +71,66 @@
             两个意思：
                 算数加法运算符（两边操作数都需要为是Number数值类型）
                 字符串连接运算符（只要有一个操作数为字符串类型就做连接运算）
-![逻辑运算符最终结果](./assets/readme-1618821690122.png)
-![短路运算](./assets/readme-1618821759255.png)
+![逻辑运算符最终结果](../../markdown_assets/readme-1618821690122.png)
+![短路运算](../../markdown_assets/readme-1618821759255.png)
 ##  JS高级 - 流程控制（switch和break-continue）
+```javascript
+switch (变量) {
+    case 常量:
+        分支;
+        break;
+    case 常量:
+        分支;
+        break;
+    case 常量:
+        分支;
+        break;
+    default:
+        分支;
+        break;
+}
+switch (变量) {
+    case 条件判断表达式:
+        分支;
+        break;
+    case 条件判断表达式:
+        分支;
+        break;
+    case 条件判断表达式:
+        分支;
+        break;
+    default:
+        分支;
+        break;
+}
+```
+    break：在循环、switch中使用，结束当前的本层循环，跳出switch的分支结构
+    continue：在循环里面使用，跳出本次循环，进入下次循环
+    通过标志位设置，可以使得break和continue的作用效果发生改变：
+        for1
+            flag:
+            for2
+             cat:
+             for3
+                break flag; // 把flag标志的循环结束
+![switch条件判断表达式用法](../../markdown_assets/readme-1619773835333.png)
+![break设置标志位使用案例](../../markdown_assets/readme-1619774284555.png)
 ##  JS高级 - 函数的两种声明方式
+    什么是函数：有一定功能的代码体的集合
+    函数的封装：
+        传统方式：
+            function 函数名(){}
+            函数先调用、后声明的条件是：全部代码在同一个<script></script>标记里面
+        变量赋值方式声明函数（匿名函数使用）
+            var 函数名 = function(){}
+            在javascript里面，函数就是一个变量，数据类型是对象
+            该方式没有“预加载”，必须（先声明，后调用）
+![传统方式函数声明](../../markdown_assets/readme-1619774657843.png)
 ##  JS高级 - 实参与形参的对应关系
+    function 函数名(name, age, city = 'beijing'){}
+    函数名('tom', 23, 'guangzhou'); // 传递实参信息
+![在php里边，实参个数小于形参，系统要报错](../../markdown_assets/readme-1619775432453.png)
+![在javascript里边，实参 与 形参 没有对应要求](../../markdown_assets/readme-1619775442140.png)
 ##  JS高级 - arguments关键字灵活接收实参
 ##  JS高级 - callee关键字降低代码耦合度
 ##  JS高级 - return返回值
