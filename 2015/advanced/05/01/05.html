@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.5.11 16:17
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+    function jiecheng(n) {
+
+        if (n === 1) {
+            return 1;
+        }
+
+        return n * jiecheng(n - 1);
+    }
+    document.write(jiecheng(5));
+    document.write("<br />");
+    document.write(jiecheng(6));
+</script>
+<script type="text/javascript">
+    function jiechengV2(n) {
+
+        if (n === 1) {
+            return 1;
+        }
+
+        return n * arguments.callee(n-1);
+    }
+
+    var jc = jiechengV2;
+    jiechengV2 = null;
+    document.write("<br />");
+    document.write(jc(5));
+
+    var jcV2 = jc;
+    jc = null;
+    document.write("<br />");
+    document.write(jcV2(5));
+</script>

@@ -132,22 +132,131 @@ switch (变量) {
 ![在php里边，实参个数小于形参，系统要报错](../../markdown_assets/readme-1619775432453.png)
 ![在javascript里边，实参 与 形参 没有对应要求](../../markdown_assets/readme-1619775442140.png)
 ##  JS高级 - arguments关键字灵活接收实参
+    function  函数名(){}  //函数声明没有形参
+    函数名(实参，实参);  //调用的时候有传递实参
+    利用arguments可以在函数里边接收实参信息。
+![利用arguments实现方法重载效果](../../markdown_assets/readme-1620720749135.png)
 ##  JS高级 - callee关键字降低代码耦合度
+    callee关键字：在函数内部使用，代表当前函数的引用（名字），可以降低代码的耦合度
+    耦合度：一处代码的修改会导致其他代码也要发生改变(耦合度高)
+    function f1(){
+        arguments.callee();   //调用本函数（或者f1()）
+    }
+    f1();
 ##  JS高级 - return返回值
+    function 函数名称(){
+        函数执行体代码...
+        return  信息;
+    }
+    console.log(函数名称()); //可以输出函数的return信息
+    var rst = 函数名称(); //可以使得return信息对变量进行赋值
+    
+    一个函数执行完毕可以通过return关键字返回一定的信息，该信息可以直接输出，也可以进行变量赋值
+    return本身还有结束函数执行的效果
+    在一定意义上看，全部的数据类型（数值、字符串、布尔、对象、null）信息都可以用返回（undefined类型无需返回，本身无意义）
+    在js中，return除了可以返回基本类型的信息，还可以返回function函数
+    在js中，一切都是对象
+    在一个函数内部，可以声明数值、字符串、布尔、对象等局部变量信息，言外之意就还可以声明函数（函数内部嵌套函数）变量信息，因为函数是对象，并且函数可以被return给返回出来
+![什么是值传递](../../markdown_assets/readme-1620723235726.png)
+![什么是引用传递](../../markdown_assets/readme-1620723249393.png)
+![函数内部可以嵌套函数，并且嵌套的函数可以return返回](../../markdown_assets/readme-1620723262198.png)
 ##  JS高级 - 匿名函数自调用
+![匿名函数自调用](../../markdown_assets/readme-1620724322799.png)
 ##  JS高级 - 全局和局部变量
+    全局变量：
+        php：
+            函数外部声明的变量
+            在函数内部也可以声明全局变量（函数调用之后起作用）
+        js：
+            在函数外部声明的变量
+            在函数内部不使用“var”声明的变量（函数调用之后起作用）
+    局部变量：
+        php：在函数内部声明的变量
+        js：在函数内部用“var”关键字声明的变量
+![php允许在函数内部声明全局变量](../../markdown_assets/readme-1620725527927.png)
+![在javascript里边声明全局变量](../../markdown_assets/readme-1620725539995.png)
 ##  JS高级 - 三种方式声明数组
+    三种方式：
+        ①：var arr = [元素, 元素, 元素, 元素, ...];
+        ②：var arr = new Array(元素, 元素, 元素, 元素, ...);
+        ③：var arr = new Array();
+            arr[0] = 元素;
+            arr[1] = 元素;
+            arr[2] = 元素;
+            ......
+        注意：
+            js数组的下标都是数字
+            前两种方式声明的数组各个元素不能手动设置下标
+            第三种方式可以给数组逐一设置下标
+                数字下标就是数组部分
+                字符串下标就是对象的成员属性
+            js的数组本身是一个对象，内部有数组元素部分也有对象成员部分
+![三种方式声明数组](../../markdown_assets/readme-1620725793919.png)
 ##  JS高级 - 数组长度（遍历常用方法）
+    arr.length; // 获得数组元素个数和
+    数组遍历：
+        沿着一定的顺序对数组内部的元素做一次且仅做一次访问，称作遍历
+            for循环遍历：适合遍历下标是规则连续的数组
+            for-in遍历：对下标没有具体要求，可以遍历数组、对象
+![两种方式遍历数组](../../markdown_assets/readme-1620876420359.png)
+![数组常用方法](../../markdown_assets/readme-1620876820278.png)
 ##  JS高级 - 字符串调用成员原理
+    通过(单/双)引号把键盘上用于显示的一些信息给括起来，就是一个字符串
+![字符串调用成员的原理](../../markdown_assets/readme-1620877290580.png)
 ##  JS高级 - eval语法结构使用
+    eval(字符串)：
+        该eval可以把内部参数字符串当成表达式，在上下文环境中运行
+        该eval经常用于把其他用户传递过来的字符串信息转变为js的实体（对象、数组）信息
+![eval](../../markdown_assets/readme-1620878441240.png)
 #   02
     学习第二天的知识
 ##  JS高级 - 昨天内容回顾
+    TODO
 ##  JS高级 - DOM介绍
+    dom：document object model（文档对象模型）
+    DOM技术：
+        php：php与xml/html标签之间沟通的一个桥梁
+        js：js与xml/html标签之间沟通的一个桥梁
+    作用：DOM可以让我们通过js对HTML文档进行增删改查的操作
+    为了方便js通过DOM操作html文档比较方便，把html文档的各个组成内容划分为各种节点（对象）：
+        文档节点（document）：html根节点的父节点
+        元素节点
+        文本节点
+        属性节点
+        注释节点
+![DOM](../../markdown_assets/readme-1620888873823.png)
+![节点划分](../../markdown_assets/readme-1620889379257.png)
 ##  JS高级 - DOM获取元素节点对象
+    方法：
+        document.getElementById(id属性值)：每次只返回一个具体元素节点对象
+        document.getElementsByTagName(tag标签名称)：每次返回一个集合列表对象，可以通过下标方式获取具体元素对象
+        document.getElementsByName(name属性值)：该方法不推荐使用，有浏览器兼容问题
+![元素节点获取](../../markdown_assets/readme-1620889337012.png)
 ##  JS高级 - DOM获取文本节点对象
+    获取文本节点首先获得元素节点对象，再通过元素节点对象获得其内部的文本节点
+    元素节点.firstChild：获得元素节点内部的第一个子节点
+    文本节点.nodeValue：获得文本节点对应的文本信息
+![文本节点](../../markdown_assets/readme-1620890159999.png)
 ##  JS高级 - DOM子节点和兄弟节点获取
+    firstChild、lastChild:父节点获得第一个/最后一个子节点
+    nextSibling:获得下一个兄弟节点
+    previousSibling:获得上一个兄弟节点
+    childNodes:父节点获得内部全部的子节点信息
+    length: 获得“集合列表”的长度
+    以上属性在主流浏览器(火狐firefox、chrome、safari、opera、IE9以上)中会给考虑空白节点(回车、空格)。在IE(6/7/8)浏览器中不考虑空白节点。
+    空白节点本质：其是文本节点
+![子节点和兄弟节点](../../markdown_assets/readme-1620890415243.png)
+![父节点](../../markdown_assets/readme-1620891396455.png)
 ##  JS高级 - DOM属性值和属性节点操作
+    属性值操作：
+        获取属性值：
+            元素节点node.属性名称; //只能操作w3c规定的属性
+            元素节点node.getAttribute(属性名称); //规定的 和 自定义的属性都可以获取
+        修改属性值：
+            元素节点node.属性名称 = 值; //只能操作w3c规定的属性
+            元素节点node.setAttribute(名称，值); //规定的 和 自定义的属性都可以设置
+![获取属性值](../../markdown_assets/readme-1620891884337.png)
+![设置属性值](../../markdown_assets/readme-1620891983640.png)
 ##  JS高级 - DOM节点创建和追加操作
 ##  JS高级 - DOM节点复制和删除
 ##  JS高级 - DOMcss样式的获取和设置
