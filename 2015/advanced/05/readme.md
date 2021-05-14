@@ -257,10 +257,84 @@ switch (变量) {
             元素节点node.setAttribute(名称，值); //规定的 和 自定义的属性都可以设置
 ![获取属性值](../../markdown_assets/readme-1620891884337.png)
 ![设置属性值](../../markdown_assets/readme-1620891983640.png)
+![获取属性节点及类型判断](../../markdown_assets/readme-1620976937363.png)
 ##  JS高级 - DOM节点创建和追加操作
+    节点创建：
+        元素节点：document.createElement(tag标签名称)
+        元素节点：document.createTextNode(文本内容)
+        属性设置：node.setAttribute(名称, 值)
+    节点追加：
+        父节点.appendChild(子节点)
+        父节点.insertBefore(newnode, oldnode)：把newnode放到oldnode前边
+        父节点.replaceChild(newnode, oldnode)：把oldnode替换为newnode
+![单个节点的创建追加](../../markdown_assets/readme-1620977176155.png)
+![批量节点的创建和追加](../../markdown_assets/readme-1620977211361.png)
+![节点放到指定位置和替换节点操作](../../markdown_assets/readme-1620977229116.png)
+![已有节点的追加、替换操作](../../markdown_assets/readme-1620977279010.png)
 ##  JS高级 - DOM节点复制和删除
+    节点复制：
+        被复制节点.cloneNode(true/false)：
+            true：深层复制（本身节点和其内部节点）
+            flase：浅层复制（本身节点）
+    节点删除：
+        父节点.removeChild(子节点)
+        子节点.parentNode.removeChild(子节点)
+![节点复制](../../markdown_assets/readme-1620978943610.png)
+![节点删除](../../markdown_assets/readme-1620979028434.png)
 ##  JS高级 - DOMcss样式的获取和设置
+    <div style=”width:300px;height:200px; background-color:pink;”></div>
+    获取css样式：元素节点.style.css样式名称
+    设置（修改）css样式：元素节点.style.css央视名称 = 值
+    注意：
+        dom操作与css样式只能操作“行内样式”（css样式分为行内、内部、外部）
+        操作复合样式（background-color/border-left-color）需要将中间的横线去掉后边的首字母大写
+        修改样式，有则修改，无则新增，修改后的样式会变为行内样式
+![样式的获取和设置](../../markdown_assets/readme-1620979364677.png)
 ##  JS高级 - DOM2级事件设置
+    事件：
+        通过鼠标、键盘对浏览器页面所作的动作就是事件；
+        事件一旦发生需要有事件处理，该处理称为“事件驱动”，事件驱动通常由js函数担任
+        事件触发：
+            onclick：鼠标点击
+            onmouseover：鼠标移入
+            onkeyup：键盘按下并抬起
+            onkeydown：键盘按下
+            onchange：内容改变
+            onblur：失去焦点
+            onfocus：获得焦点
+            onsubmit：表单提交
+    设置事件：
+        dom一级方式设置：
+            ①：
+                <input  type=”text”  onclick=”函数名称()” />
+            	function 函数名称(){this[window]}
+            ②：
+                <input  type=”text” onclick=”过程代码this[itnode]” />
+            ③：
+                itnode.onclick = function(){this[itnode]}  // 匿名函数
+            ④：
+                itnode.onclick = 函数名称; // 有名函数
+                function 函数名称(){this[itnode]}
+            取消dom一级事件：itnode.onlick = null
+            以上是dom1级事件设置的4种具体表现形式，this关键字除了第①种其代表window对象，其他三种都代表事件节点对象本身。
+        dom二级方式设置：
+            主流浏览器方式（包括IE9以上）：
+                设置：itnode.addEventListener(事件类型, 事件处理[, 事件流])
+                取消：itnode.removeEventListener(事件类型, 事件处理[, 事件流])
+            IE浏览器方式（IE6/7/8）：
+                设置：itnode.attachEvent(事件类型, 事件处理)
+                取消：itnode.detachEvent(事件类型, 事件处理)
+            事件类型：
+                就是我们可以设置的具体事件（onclik/onmouseover等）
+                主流浏览器方式没有“on”标志，例如addEventListener('click', ...)
+                IE浏览器没有“on”标志
+            事件驱动：事件驱动是一个有名（匿名）函数
+            事件流：
+                true：捕捉型
+                false：冒泡型
+            事件取消操作具体要求：
+                事件处理必须是有名函数，不可以是匿名函数
+                事件取消的参数与绑定的参数完全一致
 ##  JS高级 - DOM2级事件取消操作
 ##  JS高级 - 事件流操作
 ##  JS高级 - 获取事件对象

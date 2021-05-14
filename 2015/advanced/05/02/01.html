@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.5.14 15:28
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+    function f1() {
+        var ul = document.createElement('ul');
+        var cars = ['奔驰', '别克', '宝马'];
+        var addrs = ['德国', '美国', '意大利'];
+        for (let carsKey in cars) {
+            var li = document.createElement('li');
+            var txt = document.createTextNode(cars[carsKey]);
+            li.setAttribute('addr', addrs[carsKey]);
+            li.appendChild(txt);
+            ul.appendChild(li);
+        }
+        document.body.appendChild(ul);
+    }
+
+    f1();
+
+    function f2() {
+        var bike = document.getElementsByTagName('li')[1];
+        var li = document.createElement('li');
+        var hongqi = document.createTextNode('红旗');
+        li.setAttribute('addr', '中国');
+        li.appendChild(hongqi);
+        var ul = document.getElementsByTagName('ul')[0];
+        ul.replaceChild(li, bike);
+    }
+
+    f2();
+
+    function f3() {
+        var benchi = document.getElementsByTagName('li')[0];
+        var biyadi = document.createTextNode('比亚迪');
+        var li = document.createElement('li');
+        li.appendChild(biyadi);
+        li.setAttribute('addr', '中国');
+        var ul = document.getElementsByTagName('ul')[0];
+        ul.insertBefore(li, benchi);
+    }
+
+    f3();
+</script>
