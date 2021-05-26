@@ -356,35 +356,188 @@ switch (变量) {
     获得事件对象：
         主流浏览器（IE9以上版本浏览器）：
             事件处理函数的第一个形参就是事件对象
+            node.onclick = function(evt){};
+            addEventListener(类型, function(evt){});
+            function 函数名称(evt){};
+            evt就是事件对象
+        IE（6/7/8）浏览器：
+            node.click = function()(window.event事件对象)
+            全局变量event就是事件对象
+            全局变量直接上级对象是window，可以通过window访问全局变量
+            window.document.getElementById()
+![获取事件对象](../../markdown_assets/readme-1621837717787.png)
 ##  JS高级 - 事件对象作用（获得鼠标坐标、阻止事件流、感知触发的键子）
+    获得鼠标的坐标信息：
+        event.clientX/clientY：相对DOM区域的X/Y坐标
+        event.pageX/pageY：相对DOM区域，结合计算滚动条距离的X/Y坐标
+        event.screenX/screenY：相对屏幕的X/Y坐标
+    阻止事件流：
+        主流浏览器：event.stopPropagation()
+        IE（6/7/8）：window.event.cancelBubble = true
+        冒泡型、捕捉型都可以进行阻止，为了阻止比较有意义，只考虑冒泡型即可
+    感知被触发键盘键子信息：
+        event.keyCode：获得键盘对应的键值码信息
+![鼠标的坐标信息](../../markdown_assets/readme-1621837873669.png)
+![阻止事件流](../../markdown_assets/readme-1621838387919.png)
+![通过事件触发时候获得的keyCode数值码信息可以对应键盘的键子信息](../../markdown_assets/readme-1621838533381.png)
 ##  JS高级 - 事件对象作用（组织浏览器默认动作）
-##  JS高级 - 加载时间onload
+    阻止浏览器默认动作：
+        浏览器默认动作，如提交表单的时候，浏览器的页面会根据action属性值进行跳转
+        主流浏览器：event.preventDefault()
+        IE（6/7/8）：event.returnValue = false
+![阻止浏览器默认动作](../../markdown_assets/readme-1621839030444.png)
+##  JS高级 - 加载事件onload
+    加载事件：
+        js代码执行时，需要html&css的支持，让html代码先执行（先进入内存），js代码后执行
+        js代码在最后执行的过程就是“加载过程”，通常通过“加载事件”实现加载过程
+        具体设置：
+            <body onload="加载函数()">
+            window.onload = 匿名/有名函数
+![加载事件](../../markdown_assets/readme-1621839903112.png)
 ##  JS高级 - BOM浏览器对象模型（显示时钟）
+    DOM：document object model（文档对象模型）
+    BOM：browser object model（浏览器对象模型）
+    通过BOM技术可以模拟浏览器对页面进行各种操作：
+        创建子级标签页面
+        操作历史记录页面
+        操作地址栏
+![获取和设置浏览器地址栏信息](../../markdown_assets/readme-1621840740305.png)
+![通过setInterval和 clearInterval实现时钟显示和停止效果](../../markdown_assets/readme-1621840761883.png)
+![通过setInterval和 clearInterval实现时钟显示和停止效果](../../markdown_assets/readme-1621840778564.png)
 #   03
     学习第三天的知识
 ##  JS高级 - 昨天内容回顾
+    TODO
 ##  JS高级 - 昨天作业总结
+    TODO
 ##  JS高级 - 什么是作用域链
+    定义：变量在当前环境、内部环境、内部深层环境……都起作用的现象形成了一个链条，这个链条就被称为变量的作用域链
+![作用域链](../../markdown_assets/readme-1621996626386.png)
 ##  JS高级 - 作用域链的三个作用
+    变量必须“先声明，后使用”，原因是函数有“预加载”过程
+    内部环境可以访问外部环境的变量，反之不然，每个函数内部都是一个环境，最外边则是全局环境
+![变量必须“先声明、后使用”](../../markdown_assets/readme-1621996879988.png)
+![内部环境可以访问外部环境的变量，反之不然 ](../../markdown_assets/readme-1621996894455.png)
 ##  JS高级 - 作用域链的作用
+    变量的作用域是声明时决定的，而不是运行时
+![变量的作用域是声明时决定的，而不是运行时](../../markdown_assets/readme-1621996912166.png)
 ##  JS高级 - AO活动对象
+    AO：Active Object（活动对象（抽象的概念））
+    执行环境：
+        js代码执行是有环境的（全局环境、函数内部环境）
+        环境定义了其有权访问的其他数据
+        环境有一个与之关联的“活动对象AO”
+        环境中所有的变量和函数都是活动对象AO的成员
+        全局环境是最外围的执行环境，活动对象是window对象
+        执行环境中的代码执行完毕后被销毁
+![AO活动对象](../../markdown_assets/readme-1621998494519.png)
 ##  JS高级 - 变量类型及优先级
+    内部变量 > 内部函数 > 形参 > 外部变量（变量/函数/形参）
+![4种类型变量及访问优先级](../../markdown_assets/readme-1622000948850.png)
 ##  JS高级 - 重新认识全局变量和局部变量
+    全局变量：
+        声明：
+            在函数外部声明的变量
+            在函数内部不使用var声明的变量（前提是函数执行之后才起作用）
+        全局变量是活动对象window的成员信息
+    局部变量：
+        声明：
+            在函数内部通过var声明的变量就是局部变量
+        重新认识：
+            局部变量相对概念上，在一定范围内可以看作是“全局变量”
+            其在本环境、内部环境、内部深层环境都可以被访问
+![全局变量](../../markdown_assets/readme-1622015641602.png)
 ##  JS高级 - 闭包特点及原理
+    什么是闭包：
+        闭包就是一个函数，两个函数彼此嵌套，内部函数就是闭包
+        形成闭包条件就是内部函数需要通过return给返回出来
+        特点：
+            闭包有权利调用其上级环境的变量信息
+            父级环境的信息已经固化为本身AO的成员了
+![闭包](../../markdown_assets/readme-1622016434140.png)
+![闭包特点](../../markdown_assets/readme-1622016638414.png)
 ##  JS高级 - 闭包使用规则
+    同一个闭包机制可以创建多个闭包函数出来，它们彼此没有联系，都是独立的，并且每个闭包函数可以保存自己个性化的信息
+![三个闭包彼此独立、没有联系](../../markdown_assets/readme-1622016952788.png)
 ##  JS高级 - 闭包案例（创建数组元素）
+    TODO
 ##  JS高级 - 闭包案例（事件操作）
+    TODO
 ##  JS高级 - 面向对象介绍
+    php：从一个类里获得一个具体对象
+    js：没有类的概念，可以直接创建一个对象（或通过函数）出来，对象可以有默认成员，后期也可以给对象丰富成员
 ##  JS高级 - 三种方式创建对象
+    字面量方式创建：var obj = {成员名称:值, 成员名称:值, 成员名称:值, ...}
+    构造函数创建对象：var obj = new 函数名称()
+    Object方式创建对象：var obj = new Object()
+![字面量方式创建对象及对象访问成员和丰富成员](../../markdown_assets/readme-1622018498434.png)
+![构造函数方式创建对象](../../markdown_assets/readme-1622018551302.png)
+![Object方式创建对象](../../markdown_assets/readme-1622018737003.png)
 ##  JS高级 - 对象在内存的分配
+    与对象有关系的内存空间：
+        栈空间：
+            存放的数据大小比较小，一般大小固定的信息适合存放在该空间，例如整型、boolean
+            对象的名称（引用）
+        堆空间：
+            该空间存储的数据比较多，空间比较大，一般数据长度不固定的信息在该空间存放，例如string、Array、对象实体
+        数据空间：
+            该空间存放常量、类的静态属性
+        代码空间：
+            存放函数体代码、方法体代码
+![内存空间](../../markdown_assets/readme-1622019257315.png)
+![对象在内存的分配](../../markdown_assets/readme-1622019336553.png)
 ##  JS高级 - 对象调用其他函数或方法
+    TODO
+![对象调用其他函数](../../markdown_assets/readme-1622019644986.png)
+![对象调用其他对象方法](../../markdown_assets/readme-1622019700686.png)
 ##  JS高级 - call和apply使得函数执行
+    构造函数与普通函数的区别：没有区别，就看使用，new就是构造函数，函数()就是普通函数调用
+    函数的各种执行方式：
+        普通函数调用（包括匿名函数自调用）
+        构造函数执行new函数
+        作为对象的成员方法执行
+        通过call和apply执行：
+            函数/方法.call(函数内部this指引,实参,实参, ...)
+            函数/方法.apply(函数内部this指引, [实参,实参, ...])
+            call和apply使得函数执行的时候可以控制变量污染的风险（对象调用其他函数/方法的时候，无需为对象创建新成员）
+![call使得函数执行](../../markdown_assets/readme-1622021275768.png)
+![call使得对象在不创建新成员情况下，可以调用其他函数](../../markdown_assets/readme-1622021292927.png)
+![给call方法传递被调用函数的实参](../../markdown_assets/readme-1622021347040.png)
+![call方式实现对象调用其他对象成员方法](../../markdown_assets/readme-1622021700318.png)
 ##  JS高级 - this的代表、构造器、return的影响
+    this的代表：
+        在函数/方法里面，this代表调用该函数/方法的当前对象
+        在事件中，this代表元素节点对象：
+            inputnode.onclick = function() {
+                alert(this.value);
+            }
+        代表window
+        可以任意代表其他对象
+            在call和apply使用的时候，可以任意设置被执行函数内部this的代表
+    获取构造器：
+        构造器：使用什么元素实例化的对象，元素就被称为该对象的构造器（php类/js函数）
+            var cat = new Animal()：Animal就是cat对象的构造器
+        对象.constructor：获取对象的构造器
+![通过new  Function()方式创建一个函数出来](../../markdown_assets/readme-1622023647804.png)
+![return对实例化对象的影响](../../markdown_assets/readme-1622023717684.png)
 #   04
     学习第四天的知识
 ##  JS高级 - 昨天内容回顾
+    TODO
 ##  JS高级 - 昨天作业总结
+    TODO
 ##  JS高级 - 封装性（私有成员）
+    封装特性：
+        php：
+            在php里面，通过给成员声明关键字（public、protected、private）提现封装
+            php中有2种方式访问私有成员属性private：
+                定义一个公开方法
+                通过魔术方法__get()
+        js：
+            在js里面，封装只体现public、private
+                public公开的，在构造函数里面通过this关键字声明的成员都是公开的，函数内部、外部都可以调用
+                private私有的，在构造函数里边声明局部变量，就是私有成员
+![构造函数内部声明的局部变量就是私有成员](../../markdown_assets/readme-1622027420931.png)
 ##  JS高级 - 原型继承具体实现
 ##  JS高级 - 原型继承注意
 ##  JS高级 - 对象访问成员类型及优先级

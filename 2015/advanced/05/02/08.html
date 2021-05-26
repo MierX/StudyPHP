@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.5.24 14:51
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="01.html">
+    <button type="submit">提交</button>
+</form>
+</body>
+</html>
+<script>
+    var form = document.getElementsByTagName('form')[0];
+    form.onsubmit = function () {
+        alert('验证中……');
+        event.preventDefault();
+    }
+</script>

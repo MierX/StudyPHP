@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.5.24 15:23
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="result">
+
+</div>
+<button onclick="stop()">停</button>
+<button onclick="start()">开始</button>
+</body>
+</html>
+<script type="text/javascript">
+    window.onload = function () {
+        start();
+    }
+    // 获取地址栏信息
+    console.log(window.location.href);
+
+    // 电子表
+    function showtime() {
+        var time = new Date();
+        // 获得的年月日
+        var year = time.getFullYear();
+        var month = time.getMonth();
+        var day = time.getDate();
+        var hour = time.getHours();
+        var minute = time.getMinutes();
+        var sec = time.getSeconds();
+        var s = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + sec;
+        document.getElementById('result').innerHTML = s;
+    }
+
+    function stop() {
+        window.clearInterval(shi);
+    }
+
+    function start() {
+        shi = window.setInterval('showtime()', 1000);
+        console.log(shi);
+    }
+</script>
