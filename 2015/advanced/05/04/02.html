@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.5.27 09:57
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>继承</title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+    var cat = {
+        name: 'miaomiao', climb: function () {
+            console.log('在爬树');
+        }
+    };
+
+    function Tiger() {
+        this.color = 'yellow';
+        this.leg = 4;
+        this.act = function () {
+            console.log('猛虎扑食');
+        }
+    }
+
+    Tiger.prototype = cat;
+    Tiger.prototype.age = 5;
+
+    console.log(new Tiger());
+</script>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.5.27 10:17
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+    function Tigger() {
+        this.color = 'yellow';
+        this.leg = 4;
+        this.act = function () {
+            console.log('猛虎扑食');
+        }
+    }
+
+    var dog = {hooby: '看家护院'};
+    var pig = {name: '静静', color: 'black'};
+
+    Tigger.prototype.addr = 'asda';
+
+    Tigger.prototype = dog;
+    Tigger.prototype = pig;
+
+    Tigger.prototype.asd = 'asda';
+
+
+    var north = new Tigger();
+    console.log(north);
+    console.log(north.addr);
+    console.log(north.asd);
+</script>

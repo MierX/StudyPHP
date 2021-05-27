@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.5.27 15:53
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+    // 静态成员
+    function Animal() {
+        this.age = 5;
+        this.leg = 4;
+    }
+
+    Animal.color = 'black';
+    Animal.run = function() {
+        console.log('奔跑');
+    }
+
+    var wangcai = new Animal();
+
+    console.log(Animal.color);
+    Animal.run();
+    console.log(wangcai.age);
+    console.log(wangcai.leg);
+    console.log(wangcai.color);
+    console.log(Animal.age);
+</script>

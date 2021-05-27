@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.5.27 14:53
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+    function Tigger() {
+        this.color = 'yellow';
+        this.leg = 4;
+        this.act = function () {
+            console.log('猛虎扑食')
+        };
+        this.weapon = '嘶吼';
+    }
+
+    Tigger.prototype = {addr: 'beijing', weight: 230};
+    var north = new Tigger();
+
+    // 遍历对象
+    for (var k in north) {
+        // 判断成员是本身的还是继承的
+        if (north.hasOwnProperty(k)) {
+            console.log('自己的：' + k + '--' + north[k]);
+        } else {
+            console.log('继承的：' + k + '--' + north[k]);
+        }
+    }
+</script>

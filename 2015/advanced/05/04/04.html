@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.5.27 10:26
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+    function Cat() {
+        this.weapon = '伶牙俐齿';
+    }
+    var kitty = new Cat();
+    kitty.weapon = '可爱';
+
+    function Tigger() {
+        this.color = 'yellow';
+        this.leg = 4;
+        this.act = function() {
+            console.log('猛虎扑食');
+        }
+        this.weapon = '嘶吼';
+    }
+
+    Tigger.prototype = kitty;
+    var north = new Tigger();
+    north.weapon = '大作家';
+
+    console.log(north.weapon);
+</script>

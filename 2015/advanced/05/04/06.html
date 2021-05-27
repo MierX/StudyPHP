@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.5.27 15:12
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+    function Tigger() {
+        this.leg = 4;
+        this.color = 'yellow';
+    }
+
+    Tigger.prototype.extend = function (obj) {
+        // 遍历obj的每个成员，赋予当前对象的this
+        for (var argumentsKey in obj) {
+            if (this.hasOwnProperty(argumentsKey) === false) {
+                this[argumentsKey] = obj[argumentsKey];
+            }
+        }
+    }
+
+    var north = new Tigger();
+    var dog = {mingzi: 'wangcai', age: 6, color: 'while'};
+    var pig = {hobby: 'sleep'};
+    north.extend(dog);
+    north.extend(pig)
+    console.log(north);
+    // for (var northKey in north) {
+    //     console.log(northKey + '--' + north[northKey]);
+    // }
+    var south = new Tigger();
+    console.log(south);
+    // for (var southKey in south) {
+    //     console.log(southKey + '--' + south[southKey]);
+    // }
+</script>
