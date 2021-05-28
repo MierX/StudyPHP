@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.5.28 17:44
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>定义字符集</title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+    var str = "2015-09-12 is a SunShine Day";
+    var reg = [
+        /[a-z]/,
+        /[m-w]/,
+        /[M-w]/,
+        /[uxpq]/,
+        /[0-9]/,
+        /[4-7]/,
+        /[a-z_-]/,
+        /[a-zA-Z0-9_-]/,
+    ];
+
+    console.log(str.match(reg[6]));
+</script>
