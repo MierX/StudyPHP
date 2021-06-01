@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.5.31 17:05
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>正则匹配邮箱</title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+    var str = '469216318@gmail.com';
+    var reg = /^\w{5,15}@[a-z0-9]+(\.[a-z]+)+$/;
+
+    console.log(str.match(reg));
+</script>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.5.31 16:53
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>正则匹配IP地址</title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+    var str = '127.0.0.1';
+    var reg = /^([1-9]|[1-9]\d|1\d\d|2[01]\d|22[0-3])(\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])){3}$/;
+
+    console.log(str.match(reg));
+</script>

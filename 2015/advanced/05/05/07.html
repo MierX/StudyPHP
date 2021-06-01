@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.5.31 17:31
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>贪吃蛇</title>
+    <style>
+        body, * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+    window.onload = function () {
+        var map = new Map();
+        map.showMap();
+
+        var food = new Food();
+        food.showFood();
+
+        var snake = new Snake();
+        snake.showSnake();
+        flashSnake = setInterval(snake.flashSnake, 500);
+        moveSnake = setInterval(snake.moveSnake, 500);
+    }
+
+    // 绘制操作界面
+    function Map() {
+        var w = 800;
+        var h = 400;
+
+        // 绘制地图
+        this.showMap = function () {
+            // 创建div、设置样式、追加给body
+            var map = document.createElement('div');
+
+            map.id = 'map';
+            map.style.width = w + 'px';
+            map.style.height = h + 'px';
+            map.style.backgroundColor = 'pink';
+            map.style.backgroundImage = "url(./bg.jpg)";
+
+            document.body.appendChild(map);
+        }
+    }
+
+    // 绘制食物
+    function Food() {
+        var len = 20;
+
+        // 声明食物坐标
+        this.foodX = 0;
+        this.foodY = 0;
+
+        // 保存食物节点对象
+        this.piece = null;
+
+        // 绘制食物
+        this.showFood = function () {
+            if (this.piece === null) {
+                this.piece = document.createElement('div');
+                this.piece.id = 'food';
+                this.piece.style.width = this.piece.style.height = len + 'px';
+                this.piece.style.backgroundColor = 'green';
+
+                // 给食物设置“绝对定位”
+                this.piece.style.position = 'absolute';
+                document.body.appendChild(this.piece);
+            }
+
+            /**
+             * 食物需要放到地图小格子里，不能压线
+             * 食物移动的最小距离是步进值20
+             * 食物移动的距离称为权，x轴有权坐标（0-39），y轴也有权坐标（0-19）
+             * 食物的随机权坐标设置
+             */
+            this.foodX = Math.floor(Math.random() * 40);
+            this.piece.setAttribute('foodX',this.foodX.toString());
+            this.foodY = Math.floor((Math.random() * 20));
+            this.piece.setAttribute('foodY',this.foodY.toString());
+            this.piece.style.left = this.foodX * len + 'px';
+            this.piece.style.top = this.foodY * len + 'px';
+        }
+    }
+
+    // 绘制贪吃蛇
+    function Snake() {
+        var len = 20;
+
+        // 定义小蛇（二维数组）
+        // 每个蛇节：x轴、y轴、颜色、蛇节div节点对象
+        var snakeBody = [
+            [0, 1, 'green', null],
+            [1, 1, 'green', null],
+            [2, 1, 'green', null],
+        ];
+
+        // 默认移动方向
+        var redirect = 'right';
+
+        // 绘制小蛇
+        this.showSnake = function () {
+            // 便利snakeBody创建4个div蛇节、设置样式、追加被body
+            for (var i = 0; i < snakeBody.length; ++i) {
+                /**
+                 * 以下创建的蛇节数量有限制，不能无限创建
+                 * 把创建好的蛇节给保存起来，以便后期进行对比
+                 */
+                if (snakeBody[i][3] === null) {
+                    var snake = document.createElement('div');
+                    snake.className = 'snake';
+                    snake.style.width = snake.style.height = len + 'px';
+                    snake.style.backgroundColor = snakeBody[i][2];
+                    snake.style.position = 'absolute';
+                    document.body.appendChild(snake);
+                }
+
+                snake.style.left = snakeBody[i][0] * len + 'px';
+                snake.style.top = snakeBody[i][1] * len + 'px';
+                snakeBody[i][3] = snake;
+            }
+        }
+
+        // 绘制闪烁小蛇
+        this.flashSnake = function () {
+            var snakeHead = snakeBody[snakeBody.length - 1][3];
+            if (snakeHead.style.backgroundColor === 'green') {
+                snakeHead.style.backgroundColor = '#ffffff';
+            } else {
+                snakeHead.style.backgroundColor = 'green';
+            }
+        }
+
+        // 移动小蛇
+        this.moveSnake = function () {
+            // 移动算法：当前蛇节的新坐标等于下一个蛇节的旧坐标
+            // 非头部蛇节
+            for (var i = 0; i < snakeBody.length - 1; ++i) {
+                snakeBody[i][0] = snakeBody[i+1][0];
+                snakeBody[i][1] = snakeBody[i+1][1];
+                snakeBody[i][3].style.left = snakeBody[i][0] * len + 'px';
+                snakeBody[i][3].style.top = snakeBody[i][1] * len + 'px';
+            }
+
+            // 头部蛇节
+            if (redirect === 'right') {
+                snakeBody[snakeBody.length - 1][0] += 1;
+            } else if (redirect === 'left') {
+                snakeBody[snakeBody.length - 1][0] -= 1;
+            } else if (redirect === 'up') {
+                snakeBody[snakeBody.length - 1][1] -= 1;
+            } else if (redirect === 'down') {
+                snakeBody[snakeBody.length - 1][1] += 1;
+            }
+            snakeBody[snakeBody.length - 1][3].style.left = snakeBody[snakeBody.length - 1][0] * len + 'px';
+            snakeBody[snakeBody.length - 1][3].style.top = snakeBody[snakeBody.length - 1][1] * len + 'px';
+
+            // 吃到食物增加蛇节
+            var food = document.getElementById('food');
+            var snakeX = snakeBody[snakeBody.length - 1][0].toString();
+            var snakeY = snakeBody[snakeBody.length - 1][1].toString();
+            if (snakeX === food.getAttribute('foodX') && snakeY === food.getAttribute('foodY')) {
+
+                var newSnakeNode = document.createElement('div');
+                newSnakeNode.className = 'snake';
+                newSnakeNode.style.width = newSnakeNode.style.height = len + 'px';
+                newSnakeNode.style.backgroundColor = 'green';
+                newSnakeNode.style.position = 'absolute';
+                newSnakeNode.style.left = snakeBody[0][0] * len + 'px';
+                newSnakeNode.style.top = snakeBody[0][1] * len + 'px';
+                document.body.appendChild(newSnakeNode);
+                snakeBody.unshift([snakeBody[0][0], snakeBody[0][1], 'green', newSnakeNode]);
+                document.body.removeChild(food);
+                new Food().showFood();
+            }
+            
+            // 控制小蛇在指定范围内移动
+            if (snakeX < 0 || snakeX > 39 || snakeY < 0 || snakeY > 19) {
+                alert('game over');
+                clearInterval(flashSnake);
+                clearInterval(moveSnake);
+                new Snake().showSnake();
+                return false;
+            }
+
+            // 不能吃到自己
+            for (var k = 0; k < snakeBody.length - 1; ++k) {
+                if (snakeX === snakeBody[k][0].toString() && snakeY === snakeBody[k][1].toString()) {
+                    alert('game over');
+                    clearInterval(flashSnake);
+                    clearInterval(moveSnake);
+                    new Snake().showSnake();
+                    return false;
+                }
+            }
+        }
+
+        // 控制方向
+        window.addEventListener('keydown', function (e) {
+            if (e.keyCode.toString() === '38') {
+                redirect = 'up';
+            } else if (e.keyCode.toString() === '40') {
+                redirect = 'down';
+            } else if (e.keyCode.toString() === '37') {
+                redirect = 'left';
+            } else if (e.keyCode.toString() === '39') {
+                redirect = 'right';
+            }
+        })
+    }
+</script>

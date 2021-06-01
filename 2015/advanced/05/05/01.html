@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.5.31 15:53
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>小括号模式单元重复使用</title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+    var str = '2015-09-09 09:09:09';
+    var reg = [
+        /[0-9]+-[0-9]+-[0-9]+ [0-9]+:[0-9]+:[0-9]+/, // 精确匹配年-月-日 时:分:秒
+        /[0-9]+-([0-9]+)-\1 \1:\1:\1/, // 通过"\1"重复匹配前边第一个小括号模式单元内容
+        /([0-9]+)-([0-9]+)-\2 \2:\2:\2/, // 通过'\2'重复匹配第二个小括号模式单元内容
+    ];
+
+    console.log(str.match(reg[1]));
+</script>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.5.31 16:34
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>正向预查</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    var str = 'http://study.php.local/2015/advanced/05/05/02.html?name=1&addr=xiamen&age=19';
+    var reg = [
+        /[a-z]+(?==)/g, // 正向匹配
+        /[a-z]+(?!=)/g, // 正向不匹配
+    ];
+
+    console.log(str.match(reg[1]));
+</script>
