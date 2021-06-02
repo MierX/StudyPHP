@@ -143,10 +143,30 @@
 #   02
     学习第二天的知识
 ##  Ajax - 回顾昨天内容
+    TODO
 ##  Ajax - json介绍
+    什么是JSON：
+        JavaScript Object Notation（js对象符号）
+    json在js里的使用：
+        var obj = {名称:值, 名称:值, 名称:值, ...}：json在js里面就是字面量对象
+![JSON介绍](../../markdown_assets/readme-1622628338474.png)
+![json数据格式](../../markdown_assets/readme-1622628471309.png)
 ##  Ajax - php生成json信息
+    json_encode(数组/对象)：生成json格式信息
+    json_encode(关联数组)：生成json对象
+    json_encode(索引数组)：生成js数组
+    json_encode(索引关联数组)：生成json数组
+    json_encode(对象)：生成json对象
+    注意：json数据在php中的数据类型是字符串
+![在php中生成json信息](../../markdown_assets/readme-1622628796474.png)
 ##  Ajax - php反编码json信息
+    json_decode(json数据, true/false)：反编码json数据，对json字符串进行反编码，解析为php可以识别的信息
+        true：默认转换成数组
+        false：转换成对象
+![php中反编码处理json字符串信息](../../markdown_assets/readme-1622629287664.png)
 ##  Ajax - javascript对json信息的接收处理
+    ajax获得接口信息，js处理json数据，通过eval()把接收的json字符串变成真实的对象信息
+![javascript对json信息的接收处理](../../markdown_assets/readme-1622629450812.png)
 ##  Ajax - json改造无刷新分页
 ##  Ajax - FormData快速收集表单信息和无刷新提交
 ##  Ajax - FormData和ajax实现无刷新方式上传附件
