@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.2 15:08
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajx之post方式请求</title>
+</head>
+<body>
+<p>用户名：<input id="name" type="text" onblur="checkName()" /></p>
+</body>
+</html>
+<script type="text/javascript">
+    function checkName() {
+        var name = document.getElementById('name').value;
+        name = encodeURIComponent(name);
+
+        var info = 'name=' + name + '&color=yellow';
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                alert(xhr.responseText);
+            }
+        }
+
+        xhr.open('post', './10.php?addr=beijing');
+        xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+        xhr.send(info);
+    }
+</script>

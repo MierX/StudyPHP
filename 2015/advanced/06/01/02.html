@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.2 09:47
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>发起对服务器的请求</title>
+</head>
+<body>
+<button onclick="f1()">请求</button>
+</body>
+</html>
+<script type="text/javascript">
+    function f1() {
+        // 创建ajax对象
+        var xhr = new XMLHttpRequest();
+
+        // 创建一个get方式的http请求协议
+        xhr.open('get', "./03.php");
+
+        // 发送数据
+        xhr.send(null);
+    }
+</script>

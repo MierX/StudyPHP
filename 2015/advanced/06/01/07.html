@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.2 14:42
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax之get方式请求</title>
+</head>
+<body>
+<p>用户名：<input id="name" type="text" onblur="checkName()" /></p>
+<p>密码：<input id="pwd" type="password" /></p>
+</body>
+</html>
+<script type="text/javascript">
+    function checkName() {
+        var name = document.getElementById('name').value;
+
+        name = encodeURIComponent(name);
+
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                alert(xhr.responseText);
+            }
+        }
+        xhr.open('get', './08.php?name=' + name + '&age=20');
+        xhr.send(null);
+    }
+</script>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.2 14:23
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax发起对服务器的请求</title>
+</head>
+<body>
+<button onclick="f1()">提交</button>
+<div id="result"></div>
+</body>
+</html>
+<script type="text/javascript">
+    function f1() {
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                console.log(xhr.readyState);
+                console.log(xhr.responseText);
+                document.getElementById('result').innerHTML = xhr.responseText;
+            }
+        }
+
+        xhr.open('get', './06.php');
+
+        xhr.send(null);
+    }
+</script>

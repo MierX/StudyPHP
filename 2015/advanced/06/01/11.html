@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.2 16:01
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>同步：<input type="text" onblur="f1()" /></p>
+<p>异步：<input type="text" onblur="f2()" /></p>
+</body>
+</html>
+<script type="text/javascript">
+    var xhr = new XMLHttpRequest();
+
+    function f1() {
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                alert(xhr.responseText);
+            }
+        }
+
+        xhr.open('get', './12.php?name=test', false);
+        xhr.send(null);
+        alert('123123');
+    }
+
+    function f2() {
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                alert(xhr.responseText);
+            }
+        }
+
+        xhr.open('get', './12.php?name=test2');
+        xhr.send(null);
+        alert('123123');
+    }
+</script>
