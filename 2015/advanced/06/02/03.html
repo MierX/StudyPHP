@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.3 17:40
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>传统方式(javascript+dom+ajax)无刷新收集表单信息和提交</title>
+</head>
+<body>
+<form action="05.php">
+    <p>名字：<input id="name" type="text" value=""/></p>
+    <p>密码：<input id="pwd" type="password" value=""/></p>
+    <button type="submit">提交</button>
+</form>
+</body>
+</html>
+<script type="text/javascript">
+    window.onload = function () {
+        var form = document.getElementsByTagName('form')[0];
+        form.onsubmit = function (e) {
+            var name = document.getElementById('name').value;
+            var pwd = document.getElementById('pwd').value;
+            var info = 'name=' + name + '&pwd=' + pwd;
+
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    alert(xhr.responseText);
+                }
+            }
+            xhr.open('post', './05.php');
+            xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+            xhr.send(info);
+
+            // 阻止浏览器提交表单
+            e.preventDefault();
+        }
+    }
+</script>

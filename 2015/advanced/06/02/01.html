@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.3 17:12
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>javascript接收处理json信息</title>
+</head>
+<body>
+<button onclick="f1()">提交</button>
+</body>
+</html>
+<script type="text/javascript">
+    function f1() {
+        var jn_info;
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                eval('jn_info=' + xhr.responseText);
+                console.log(jn_info);
+                console.log(jn_info.city);
+            }
+        }
+        xhr.open('get', './02.php');
+        xhr.send(null);
+    }
+</script>

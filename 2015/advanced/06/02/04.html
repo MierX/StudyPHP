@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.3 18:00
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新技术FormData+ajax实现无刷新方式收集并提交表单信息</title>
+</head>
+<body>
+<form action="05.php" method="post">
+    <p>名字：<input id="name" name="name" type="text" value=""/></p>
+    <p>密码：<input id="pwd" name="pwd" type="password" value=""/></p>
+    <button type="submit">提交</button>
+</form>
+</body>
+</html>
+<script type="text/javascript">
+    window.onload = function () {
+        var form = document.getElementsByTagName('form')[0];
+        form.onsubmit = function (e) {
+            // 收集用户输入的表单域信息[FormData]
+            var fd = new FormData(form);
+
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    alert(xhr.responseText);
+                }
+            }
+
+            xhr.open('post', './05.php');
+            xhr.send(fd);
+            e.preventDefault();
+        }
+    }
+</script>

@@ -168,8 +168,40 @@
     ajax获得接口信息，js处理json数据，通过eval()把接收的json字符串变成真实的对象信息
 ![javascript对json信息的接收处理](../../markdown_assets/readme-1622629450812.png)
 ##  Ajax - json改造无刷新分页
+    TODO
+![原因](../../markdown_assets/readme-1622712290758.png)
+![效果图](../../markdown_assets/readme-1622712266372.png)
+![在服务器端通过$info的二维数组把全部数据给组织起来并生成json信息](../../markdown_assets/readme-1622712314139.png)
+![在分页index.html页面把”html标签”和获得”数据”做结合](../../markdown_assets/readme-1622712342855.png)
 ##  Ajax - FormData快速收集表单信息和无刷新提交
+    收集表单信息：
+        利用新技术FormData表单数据对象，可以实现快速收集表单信息
+        FormData是html5的新技术，在主流浏览器都可以正常使用
+![传统方式(javascript+dom+ajax)无刷新收集表单信息和提交](../../markdown_assets/readme-1622712497579.png)
+![新技术FormData+ajax实现无刷新方式收集并提交表单信息](../../markdown_assets/readme-1622712517847.png)
 ##  Ajax - FormData和ajax实现无刷新方式上传附件
+    表单上传附件语法：
+        前端发送：
+            <form  enctype=”multipart/form-data”>
+                <input  type=”file”>
+            </form>
+        后端接收：
+            $_FILES：接收附件信息(name/error/size/type/tmp_name)
+                error：
+                    0：ok
+                    1：大小超出php.ini限制
+                    2：大小超出MAX_FILE_SIZE表单域限制
+                    3：附件只上传了一部分
+                    4：没有上传附件
+            move_uploaded_file(附件临时路径名, 真实附件路径名)：保存附件
+    收集附件信息：
+        dom方式只可以收集普通的表单域信息，并且浏览器由于安全方面的限制也禁止通过JS语言操作本地文件
+        可以利用FormData实现附件信息的收集：普通表单域和上传文件域都可以收集
+![在服务器端收集到“普通表单域”和“上传文件域”信息](../../markdown_assets/readme-1622715518201.png)
+![客户端页面1](../../markdown_assets/readme-1622715533168.png)
+![客户端页面2](../../markdown_assets/readme-1622715548320.png)
+![服务器端处理逻辑](../../markdown_assets/readme-1622715563379.png)
+![获得到的上传附件文件](../../markdown_assets/readme-1622715574370.png)
 ##  Ajax - 大附件上传进度条设置
 ##  Ajax - 聊天室（分析）
 ##  Ajax - 聊天室（即时显示最新聊天内容）
