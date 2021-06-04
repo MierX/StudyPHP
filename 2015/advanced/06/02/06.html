@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.4 15:47
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FormData和ajax实现无刷新方式上传附件</title>
+</head>
+<body>
+<form id="form" action="07.php" method="post" enctype="multipart/form-data">
+    <p>用户名：<input id="name" name="name" type="text" /></p>
+    <p>密码：<input id="pwd" name="pwd" type="password" /></p>
+    <p>邮箱：<input id="email" name="email" type="text" /></p>
+    <p>头像：<input id="headIcon" name="headIcon" type="file" /></p>
+    <button type="submit">注册</button>
+</form>
+</body>
+</html>
+<script type="text/javascript">
+    window.onload = function () {
+        var form = document.getElementById('form');
+        form.onsubmit = function (e) {
+            var fd = new FormData(form);
+
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    alert(xhr.responseText);
+                }
+            }
+            xhr.open('post', './07.php');
+            xhr.send(fd);
+
+            e.preventDefault();
+        }
+    }
+</script>

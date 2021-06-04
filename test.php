@@ -61,6 +61,6 @@ function readDirsV2($oldPath, $newPath)
 }
 
 set_time_limit(0);
-$oldPath = "D:/Download/test";
-$newPath = "D:/Download/test2";
+$oldPath = "D:/WeChat Files/WeChat Files/wxid_f907sqzyq59o22/FileStorage/Image";
+$newPath = "D:/Download/FILE/TimCache/wx";
 readDirsV2($oldPath, $newPath);
