@@ -3,4 +3,5 @@
 #   03 - smarty模板技术
 #   04 - MVC框架
 #   05 - JavaScript巩固加强
-#   04 - AJAX技术
+#   06 - AJAX技术
+#   07 - jQuery

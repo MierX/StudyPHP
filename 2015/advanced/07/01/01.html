@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.7 16:31
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基本选择器</title>
+    <script src="jquery-1.4.4.js" type="text/javascript"></script>
+</head>
+<body>
+<h2>jQuery基本选择器</h2>
+<input type="text" id="username" value="xiaoming" />
+<br />
+<input type="text" id="email" value="xiaoming@163.com" />
+<br />
+<input type="text" class="hi" id="addr" value="山东菏泽曹县" />
+<p>Today is Good Day</p>
+<input type="button" class="btn" value="触发" onclick="f1()" />
+<br />
+</body>
+</html>
+<script type="text/javascript">
+    function f1() {
+        $('#username').css('background-color', 'gray');
+        $('#email').css('width', '400px');
+
+        $('h2').css('color', 'orange');
+        $('input').css('color', 'red');
+
+        $('.hi').css('background-color', 'blue');
+
+        $('*').css('font-family', '仿宋');
+
+        $('#addr, p, .btn').css('font-size', '24px');
+    }
+</script>

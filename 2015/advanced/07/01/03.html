@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.7 17:13
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>并且（过滤）选择器</title>
+    <script type="text/javascript" src="jquery-1.4.4.js"></script>
+</head>
+<body>
+<h2>jQuery并且（过滤）选择器</h2>
+<h3>jQuery并且（过滤）选择器</h3>
+<h4>jQuery并且（过滤）选择器</h4>
+<ul>
+    <li>刘备</li>
+    <li>关羽</li>
+    <li>诸葛亮</li>
+    <li id="fei">张飞</li>
+    <li>赵云</li>
+    <li>马超</li>
+    <li>黄忠</li>
+    <li>魏延</li>
+</ul>
+<input type="button" value="触发" onclick="f1()" />
+</body>
+</html>
+<script type="text/javascript">
+    function f1() {
+        // :first :last 第一个/最后一个
+        $('li:first').css('color', 'red');
+        $('li:last').css('color', 'purple');
+
+        // eq(索引值)，指定节点下标等于索引值
+        $('li:eq(1)').css('color', 'orange');
+
+        // gt(索引值)，根据范围寻找节点大于索引值
+        $('li:gt(5)').css('background-color', 'pink');
+
+        // lt(索引值)，根据范围寻找节点小于索引值
+        $('li:lt(3)').css('background-color', 'gray');
+
+        // :even偶数下标节点 :odd奇数下标节点
+        $('li:even').css('font-size', '6px');
+        $('li:odd').css('font-size', '36px');
+
+        // :not(选择器) 排除指定选择器节点
+        $('li:not(#fei)').css('font-family', '仿宋');
+
+        // :header h1/2/3/4/5/6标题选择器
+        $(':header').css('color', 'yellow');
+    }
+</script>

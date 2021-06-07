@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.7 17:05
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>层次选择器</title>
+    <script src="jquery-1.4.4.js" type="text/javascript"></script>
+</head>
+<body>
+<h2>jQuery层次选择器</h2>
+<div>
+    <span>关羽</span>
+    <span>刘备</span>
+    <p>
+        <span>阿斗</span>
+    </p>
+    <span>张飞</span>
+</div>
+<span>曹操</span>
+<p>孙权</p>
+<span>董卓</span>
+<div>
+    <span>马超</span>
+</div>
+<input type="button" value="触发" onclick="f1()">
+</body>
+</html>
+<script type="text/javascript">
+    function f1() {
+        $('div span').css('background-color', 'green');
+
+        $('div > span').css('color', 'yellow');
+    }
+</script>

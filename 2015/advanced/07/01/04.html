@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.7 17:50
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>并且（过滤）选择器</title>
+    <script type="text/javascript" src="jquery-1.4.4.js"></script>
+</head>
+<body>
+<h2>jQuery并且（过滤）选择器</h2>
+<h3 class="orange">jQuery并且（过滤）选择器</h3>
+<h4 class="orange">jQuery并且（过滤）选择器</h4>
+<ul>
+    <li>刘备</li>
+    <li>关羽</li>
+    <li>诸葛亮</li>
+    <li id="fei">张飞</li>
+    <li class="orange">赵云</li>
+    <li class="orange">马超</li>
+    <li>黄忠</li>
+    <li>魏延</li>
+</ul>
+<input type="button" value="触发" onclick="f1()" />
+</body>
+</html>
+<script type="text/javascript">
+    function f1() {
+        $('li:gt(2):lt(3)').css('background-color', 'lightgreen');
+        $('li:lt(4):last').css('color', 'blue');
+
+        $('.orange:header').css('color', 'purple');
+
+        $('li.orange').css('color', 'gold');
+    }
+</script>
