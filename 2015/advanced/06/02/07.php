@@ -13,13 +13,13 @@ echo '文件上传：';
 print_r($_FILES);
 
 // 保存文件
-$path = './';
-$name = date('YmdHis', time());
-$name_arr = explode('.', $_FILES['headIcon']['name']);
-$ext = '.' . $name_arr[count($name_arr) - 1];
-$pathName = $path.$name.$ext;
-if(move_uploaded_file($_FILES['headIcon']['tmp_name'], $pathName)) {
-    echo 'ok';
-} else {
-    echo 'error';
-}
+//$path = './';
+//$name = date('YmdHis', time());
+//$name_arr = explode('.', $_FILES['headIcon']['name']);
+//$ext = '.' . $name_arr[count($name_arr) - 1];
+//$pathName = $path.$name.$ext;
+//if(move_uploaded_file($_FILES['headIcon']['tmp_name'], $pathName)) {
+//    echo 'ok';
+//} else {
+//    echo 'error';
+//}

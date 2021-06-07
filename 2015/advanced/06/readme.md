@@ -199,15 +199,34 @@
         可以利用FormData实现附件信息的收集：普通表单域和上传文件域都可以收集
     使用FormData注意：
         每个表单域必须有name属性
-        在
+        在form标签里边无需设置enctype="multipart/form-data"属性（即使有上传文件域也不需要设置）
+        ajax通过post方式传递FormData的数据不需要设置setRequestHeader()方法
+        普通表单域的特殊符号无需编码
 ![在服务器端收集到“普通表单域”和“上传文件域”信息](../../markdown_assets/readme-1622715518201.png)
 ![客户端页面1](../../markdown_assets/readme-1622715533168.png)
 ![客户端页面2](../../markdown_assets/readme-1622715548320.png)
 ![服务器端处理逻辑](../../markdown_assets/readme-1622715563379.png)
 ![获得到的上传附件文件](../../markdown_assets/readme-1622715574370.png)
 ##  Ajax - 大附件上传进度条设置
-    
+    ajax对象有成员upload，该upload成员是一个对象，本身有onprogress事件
+    该事件每间隔100ms左右就执行一次，执行的时候可以感知附件已经上传喝总大小等信息，使得“已经上传大小”和“总大小”做对比可以获得上传附件的百分比，进而可以设置进度条
+![ajax对象成员](../../markdown_assets/readme-1623031682027.png)
+![onprogress](../../markdown_assets/readme-1623031700317.png)
+![进度条具体设置](../../markdown_assets/readme-1623031724748.png)
+![进度条具体设置](../../markdown_assets/readme-1623031743444.png)
 ##  Ajax - 聊天室（分析）
+    分析：
+        买车票流程：在客户端下单，完成支付后，客户端也显示支付成功
+        利用“反向推技术”，客户端定时向服务器发起请求判断车票是否有付款
+        这就是轮询技术，在客户端每间隔一定时间就去完成一定的任务
+![聊天室分析](../../markdown_assets/readme-1623033244089.png)
 ##  Ajax - 聊天室（即时显示最新聊天内容）
+    TODO
 ##  Ajax - 聊天室（发表聊天信息及聊天室两个优化）
+    TODO
 ##  Ajax - 显示天气预报原理及现成接口使用
+    浏览器由于安全方面的问题，禁止ajax跨域请求其他网站的数据。
+    解决：利用本域php代理间接获得其他网站的数据。
+![天气预报设置](../../markdown_assets/readme-1623051386000.png)
+![通过php代理获得天气信息](../../markdown_assets/readme-1623051421034.png)
+![php跨域获得其他网站地址信息](../../markdown_assets/readme-1623051435786.png)

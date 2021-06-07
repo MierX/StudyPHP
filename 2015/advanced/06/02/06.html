@@ -25,6 +25,7 @@
         var form = document.getElementById('form');
         form.onsubmit = function (e) {
             var fd = new FormData(form);
+            console.log(fd);
 
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {

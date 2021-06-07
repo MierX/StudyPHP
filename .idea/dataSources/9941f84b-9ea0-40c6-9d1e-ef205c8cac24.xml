@@ -674,5 +674,61 @@
       <ObjectGrants>ALL PRIVILEGES!
 </ObjectGrants>
     </user>
+    <table id="209" parent="7" name="ajax_msg"/>
+    <column id="210" parent="209" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
+    <column id="211" parent="209" name="color">
+      <Position>2</Position>
+      <DataType>varchar(16)|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;#000000&apos;</DefaultExpression>
+    </column>
+    <column id="212" parent="209" name="sender">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;佚名&apos;</DefaultExpression>
+    </column>
+    <column id="213" parent="209" name="receiver">
+      <Position>4</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;大家&apos;</DefaultExpression>
+    </column>
+    <column id="214" parent="209" name="msg">
+      <Position>5</Position>
+      <DataType>text|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="215" parent="209" name="addTime">
+      <Position>6</Position>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0000-00-00 00:00:00&apos;</DefaultExpression>
+    </column>
+    <column id="216" parent="209" name="biaoqing">
+      <Position>7</Position>
+      <DataType>varchar(150)|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;微笑&apos;</DefaultExpression>
+    </column>
+    <index id="217" parent="209" name="id">
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+      <Type>btree</Type>
+    </index>
+    <key id="218" parent="209" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="219" parent="209" name="id">
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>id</UnderlyingIndexName>
+    </key>
   </database-model>
 </dataSource>
