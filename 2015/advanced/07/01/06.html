@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.8 14:59
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单域选中选择器</title>
+    <script src="jquery-1.4.4.js" type="text/javascript"></script>
+</head>
+<body>
+<h2 class="orange">jQuery表单域选中选择器</h2>
+爱好（复选框）：
+<input class="hby" name="hobby[]" type="checkbox" value="1"/>
+<input class="hby" name="hobby[]" type="checkbox" value="2"/>
+<input class="hby" name="hobby[]" type="checkbox" value="3"/>
+<input class="hby" name="hobby[]" type="checkbox" value="4"/>
+<br/>
+性别（单选按钮）：
+<input class="sx" name="sex" type="radio" value="a"/>男
+<input class="sx" name="sex" type="radio" value="b"/>女
+<input class="sx" name="sex" type="radio" value="c"/>保密
+<br/>
+城市（下拉列表）：
+<select>
+    <option value="0">请选择</option>
+    <option value="1">哈尔滨</option>
+    <option value="2">长春</option>
+    <option value="3">北京</option>
+    <option value="4">上海</option>
+    <option value="5">深圳</option>
+</select>
+<br />
+<input type="button" value="触发" onclick="f1()" />
+</body>
+</html>
+<script type="text/javascript">
+    function f1() {
+        console.log($('input:lt(4):checked'));
+
+        console.log($('.sx:checked'));
+
+        console.log($('option:selected'));
+    }
+</script>

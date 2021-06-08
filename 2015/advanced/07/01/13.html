@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.8 17:02
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>复选框全选、全不选、反选操作</title>
+    <script src="jquery-1.4.4.js" type="text/javascript"></script>
+</head>
+<body>
+<h2 class="orange">jQuery复选框全选、全不选、反选操作</h2>
+爱好（复选框）：
+<input class="hby" name="hobby[]" type="checkbox" value="1"/>
+<input class="hby" name="hobby[]" type="checkbox" value="2"/>
+<input class="hby" name="hobby[]" type="checkbox" value="3"/>
+<input class="hby" name="hobby[]" type="checkbox" value="4"/>
+<br/>
+<input onclick="f1()" type="button" value="全选"/>
+<input onclick="f2()" type="button" value="全不选"/>
+<input onclick="f3()" type="button" value="反选"/>
+</body>
+</html>
+<script type="text/javascript">
+    function f1() {
+        $('.hby').attr('checked', true);
+    }
+
+    function f2() {
+        $('.hby').attr('checked', false);
+    }
+
+    function f3() {
+        for (var i = 0; i < $('.hby').length; ++i) {
+            $('.hby:eq(' + i + ')').attr('checked', !$('.hby:eq(' + i + ')').attr('checked'));
+        }
+    }
+</script>

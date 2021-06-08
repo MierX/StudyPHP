@@ -131,18 +131,103 @@
         <div></div>
 ![内容过滤选择器](../../markdown_assets/readme-1623060313735.png)
 ##  jQuery - 表单域选中选择器
+    $(:checked)：复选框、单选按钮选中选择器
+    $(:selected)：下拉列表选中选择器
+![表单域选中选择器](../../markdown_assets/readme-1623135542440.png)
+![表单域选中选择器](../../markdown_assets/readme-1623135556861.png)
 ##  jQuery - 属性操作
+    dom方式操作属性值：
+        获取：
+            itnode.属性名称
+            itnode.getAttribute(属性名称)
+        修改：
+            itnode.属性名称 = 值
+            itnode.setAttribute(属性名称, 值)
+    jQuery方式操作属性值：
+        $().attr(属性名称)：获得属性信息值
+        $().attr(属性名称, 值)：设置（修改）属性信息值
+        $().removeAttr(属性名称)：删除属性信息值
+        $().attr(json对象)：同时为多个属性设置信息值，json对象的键值就是名称和值
+        $().attr(属性名称, fn)：通过fn函数执行的return返回值对属性进行赋值
+![获取属性信息](../../markdown_assets/readme-1623136355871.png)
+![三种方式修改属性](../../markdown_assets/readme-1623136370149.png)
+![删除属性](../../markdown_assets/readme-1623136383557.png)
 ##  jQuery - class属性快捷操作
+    class属性值操作：
+        $().attr('class', 值)：修改class属性
+        $().attr('class')：获取class属性
+        $().removeAttr(class属性值)：删除class的属性值
+    class具体快捷操作方法：
+        $().addClass(class属性值)：给class属性追加信息值
+        $().removeClass(class属性值)：删除class属性中的某个信息值
+        $().toggleClass(class属性值)：开关效果，有就删除，没有就添加
+![class具体快捷操作方法](../../markdown_assets/readme-1623137112562.png)
+![class具体快捷操作方法](../../markdown_assets/readme-1623137138159.png)
+![class属性值的删除和开关效果](../../markdown_assets/readme-1623137159496.png)
 ##  jQuery - 标签包含内容操作
+    js操作：
+        divnode.innerHTML：获得div包含的信息
+        divnode.innerHTML = XXX：设置div内包含的信息
+        （innerHTML不是w3c标准技术）
+    jq操作：
+        $().html()：获得节点包含的信息
+        $().html(XXX)：设置节点包含的信息
+        $().text()：获得节点包含的“文本字符串”信息
+        $().text(XXX)：设置节点包含的信息（有html标签就会把标记符号变为实体）
+    html()和text()方法的区别：
+        获取内容：
+            前者可以获取html标签和普通字符串内容
+            后者只获取普通字符串内容（会自动过滤html标签）
+        设置内容：
+            前者可以设置html标签和普通字符串的内容
+            后者只设置普通字符串内容，如果内容里面有tag标签内容，就把其中"<"、">"符号转变为实体符号“&lt;”、“&gt”
+        以上两种操作（获取/设置）如果针对的操作内容是纯字符串内容，则使用效果一致
+![标签包含内容操作](../../markdown_assets/readme-1623138193581.png)
+![标签包含内容操作](../../markdown_assets/readme-1623138207553.png)
 ##  jQuery - css样式操作
+    $().css(name, value)：设置css
+    $().css(name)：获取css属性值
+    $().css(json对象)：同时修改多个css样式
+    css()样式操作特点：
+        样式获取：
+            jq可以获取行内、内部、外部样式
+            dom只可以获取行内样式
+        获取复合属性样式，需要拆分为“具体样式”才可以操作（部分浏览器不需要）
+        样式的设置，会被设置为“行内样式”
+![div样式获取操作](../../markdown_assets/readme-1623140203511.png)
+![样式设置](../../markdown_assets/readme-1623140219687.png)
 ##  jQuery - 复选框操作（获取）
+    value属性值操作：
+        $().attr('value')：获取value值
+        $().attr('value', 信息值)：设置value值
+    value属性值快捷操作：
+        $().val()：获得value属性值
+        $().val(信息值)：设置value属性值
+        该val()方法在复选框、单选按钮、下拉列表的使用有卓越表现
+    复选框操作：
+        获得被选中复选框的value属性值
+        设置默认情况下哪个复选框被选中
+![获取选中复选框的value属性值](../../markdown_assets/readme-1623140970782.png)
 ##  jQuery - 复选框操作（设置选中项目）
+    TODO
+![设置复选框默认选中项目](../../markdown_assets/readme-1623141007456.png)
 ##  jQuery - 下拉列表和单选按钮的获取和设置操作
+    TODO
+![下拉列表的获取和设置操作](../../markdown_assets/readme-1623142317424.png)
+![下拉列表的获取和设置操作](../../markdown_assets/readme-1623142330315.png)
+![单选按钮获取和设置操作](../../markdown_assets/readme-1623142350836.png)
 ##  jQuery - 复选框全选、全不选、反选操作
+    $().attr('checked', true)：设置复选框选中
+    $().attr('checked', false)：取消复选框选中
+    $().attr('checked')：判断复选框选中情况，返回布尔值
+![复选框操作](../../markdown_assets/readme-1623142426042.png)
+![复选框操作](../../markdown_assets/readme-1623142439078.png)
 #   02
     学习第二天的知识
 ##  jQuery - 昨天内容回顾
+    TODO
 ##  jQuery - 昨天作业总结
+    TODO
 ##  jQuery - $符号由来
 ##  jQuery - jQuery对象和dom对象的关系及转化
 ##  jQuery - jQuery对象可调用成员分析

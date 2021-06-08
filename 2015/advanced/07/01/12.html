@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.8 16:54
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>下拉列表和单选按钮的获取和设置操作</title>
+    <script src="jquery-1.4.4.js" type="text/javascript"></script>
+</head>
+<body>
+<h2 class="orange">jQuery下拉列表和单选按钮的获取和设置操作</h2>
+性别（单选按钮）：
+<input class="sx" name="sex" type="radio" value="a"/>男
+<input class="sx" name="sex" type="radio" value="b"/>女
+<input class="sx" name="sex" type="radio" value="c"/>保密
+<br/>
+城市（下拉列表）：
+<select>
+    <option value="0">请选择</option>
+    <option value="1">哈尔滨</option>
+    <option value="2">长春</option>
+    <option value="3">北京</option>
+    <option value="4">上海</option>
+    <option value="5">深圳</option>
+</select>
+<br/>
+<input onclick="f1()" type="button" value="触发"/>
+<input onclick="f2()" type="button" value="设置"/>
+<input onclick="f3()" type="button" value="触发"/>
+<input onclick="f4()" type="button" value="设置"/>
+</body>
+</html>
+<script type="text/javascript">
+    function f1() {
+        console.log($('select').val());
+    }
+    function f2() {
+        $('select').val([4]);
+    }
+    function f3() {
+        console.log($('.sx:checked').val());
+    }
+    function f4() {
+        $('.sx').val(['c']);
+    }
+</script>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.8 15:13
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>属性操作</title>
+    <script type="text/javascript" src="jquery-1.4.4.js"></script>
+</head>
+<body>
+<h2>jQuery属性操作</h2>
+<input type="text" class="apple" id="name" name="name" value="tom" address="shanghai" />
+<input type="button" value="触发" onclick="f1()" />
+</body>
+</html>
+<script type="text/javascript">
+    function f1() {
+        console.log($('input:first').attr('name'));
+
+        $('input:first').attr('name', 'test');
+        console.log($('input:first').attr('name'));
+        $('input:first').attr({name: 'test2'});
+        console.log($('input:first').attr('name'));
+        $('input:first').attr('name', f2());
+        console.log($('input:first').attr('name'));
+
+        $('input:first').removeAttr('name');
+        console.log($('input:first').attr('name'));
+    }
+
+    function f2() {
+        return 'test3';
+    }
+</script>

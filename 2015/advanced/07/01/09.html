@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.8 15:46
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>标签包含内容操作</title>
+    <script type="text/javascript" src="jquery-1.4.4.js"></script>
+</head>
+<body>
+<h2>jQuery标签包含内容操作</h2>
+<div>hello world</div>
+<input type="button" value="获取" onclick="f1()" />
+<input type="button" value="设置" onclick="f2()" />
+<input type="button" value="设置" onclick="f3()" />
+</body>
+</html>
+<script type="text/javascript">
+    function f1() {
+        console.log($('div').html());
+        console.log($('div').text());
+    }
+
+    function f2() {
+        $('div').html("<span>test1</span>");
+    }
+
+    function f3() {
+        $('div').text("<span>test1</span>");
+    }
+</script>
