@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.9 18:15
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>属性选择器</title>
+    <script src="../01/jquery-1.4.4.js"></script>
+</head>
+<body>
+<h2>属性选择器</h2>
+<input type="text" class="banane" value="jim" />
+<input type="text" id="one" class="apple" value="jim@163.com" />
+<input type="text" id="usertel" value="110" />
+<input type="text" id="useraddr" class="orange" value="shanghai" />
+<input type="button" class="apple" value="触发" onclick="f1()" />
+<p class="grape">xxxx</p>
+</body>
+</html>
+<script>
+    function f1() {
+        $('[id]').css('color', 'red');
+
+        $('[id=usertel]').css('width', '400px');
+
+        $('[id^=us]').css('background-color', 'pink');
+    }
+</script>

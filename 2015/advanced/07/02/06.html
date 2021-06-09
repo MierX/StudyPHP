@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.9 17:27
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>节点追加</title>
+    <script src="../01/jquery-1.4.4.js"></script>
+</head>
+<body>
+<h2>节点追加（父子）</h2>
+<ul id="wei">
+    <li>曹操</li>
+    <li>夏侯惇</li>
+    <li>贾诩</li>
+</ul>
+<ul id="shu">
+    <li>刘备</li>
+    <li>关羽</li>
+    <li>张飞</li>
+</ul>
+<input type="button" value="触发" onclick="f1()" />
+<h2>节点追加（兄弟）</h2>
+<ul id="wu">
+    <li>孙权</li>
+    <li id="ce">孙策</li>
+    <li>孙坚</li>
+</ul>
+<ul id="qun">
+    <li>吕布</li>
+    <li id="diao">貂蝉</li>
+    <li>董卓</li>
+</ul>
+<input type="button" value="触发" onclick="f2()" />
+</body>
+</html>
+<script>
+    function f1() {
+        // 后置主动
+        $('#shu').append("<li style='color: red'>赵云</li>");
+
+        // 前置主动
+        $('#shu').prepend("<li style='color: red'>诸葛亮</li>")
+
+        // 后置被动
+        $("<li style='color: blue'>司马懿</li>").appendTo('#wei');
+
+        // 前置被动
+        $("<li style='color: blue'>许褚</li>").prependTo('#wei');
+    }
+
+    function f2() {
+        // 主动后置
+        $('#ce').after("<li style='color: red;'>黄盖</li>");
+
+        // 主动前置
+        $('#ce').before("<li style='color: red;'>吴国太</li>");
+
+        // 被动后置
+        $("<li style='color: red'>张角</li>").insertAfter('#diao');
+
+        // 被动前置
+        $("<li style='color: red'>华佗</li>").insertBefore('#diao');
+    }
+</script>

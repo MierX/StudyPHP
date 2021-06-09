@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.9 16:37
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>加载事件（jQuery和传统的区别）</title>
+    <script src="../01/jquery-1.4.4.js"></script>
+</head>
+<body>
+<h2>加载事件（jQuery和传统的区别）</h2>
+</body>
+</html>
+<script>
+    window.onload = function () {
+        console.log(1);
+    }
+    window.onload = function () {
+        console.log(2);
+    }
+    window.onload = function () {
+        console.log(3);
+    }
+</script>
+<script>
+    $().ready(function () {
+        console.log(4);
+    })
+    $().ready(function () {
+        console.log(5);
+    })
+    $().ready(function () {
+        console.log(6);
+    })
+</script>

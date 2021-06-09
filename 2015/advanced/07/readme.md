@@ -229,22 +229,156 @@
 ##  jQuery - 昨天作业总结
     TODO
 ##  jQuery - $符号由来
+    选择器使用的过程就是函数调用过程
+     $符号就是一个函数，函数名称为“$”符号而已，也可以使用“jQuery”符号替代
+     在jQeury框架外部使用的$符号本质是一个“函数”，除此之外还可以使用jQuery，它们都是同一个函数的不同名字，并且通过window声明的全局变量
+ ![$符号的由来](../../markdown_assets/readme-1623219838709.png)
 ##  jQuery - jQuery对象和dom对象的关系及转化
+    jQuery对象封装DOM对象：DOM对象事jQuery对象的数组组成部分
+    jQuery对象和DOM对象的转化：
+        jQuery对象转化为DOM对象：$()['context']
+        DOM对象转化为jQuery对象：$(dom对象)
+![jQuery对象和DOM对象](../../markdown_assets/readme-1623220242802.png)
+![互调对方的成员 ](../../markdown_assets/readme-1623220433759.png)
+![$('#id属性值')封装dom对象原理](../../markdown_assets/readme-1623220741988.png)
+![$('tag标签')封装dom对象原理](../../markdown_assets/readme-1623220800127.png)
+![jQuery对象转化为DOM对象](../../markdown_assets/readme-1623221416885.png)
+![jQuery对象转化为DOM对象](../../markdown_assets/readme-1623221438899.png)
+![DOM对象转化为jQuery对象](../../markdown_assets/readme-1623221478526.png)
+![DOM对象转化为jQuery对象](../../markdown_assets/readme-1623221497937.png)
 ##  jQuery - jQuery对象可调用成员分析
+    jQuery框架对象类型：jQuery对象和$对象
+    jQuery对象（普通对象）：就是各种选择器创建出来的对象，$('div')
+    $对象（函数对象）：$.get()
+    jQuery对象：
+        $('#one') = $函数 = new jQuery.fn.init()
+        $('#one').css()/attr()/addClass()/html()/text()等等，jquery对象可以调用许多成员
+    jQuery对象可以调用的成员一共有三种:
+        init本身成员
+        fn的成员
+        fn.extend复制继承过来的
+![方法](../../markdown_assets/readme-1623223048617.png)
 ##  jQuery - $对象分析
+    $对象使用例如：$.get(url请求地址)：ajax请求
+    $本身就是函数，函数也是对象
+    在javascript里边可以给函数声明成员(称为”静态成员”)
+![$对象](../../markdown_assets/readme-1623223624308.png)
 ##  jQuery - each遍历方法
+    $.each(数组/对象, function (key, value) {})：$对象调用的
+    $(选择器).each(function (key, value) {})：jQuery对象调用的
+![$对象调用的each遍历方法](../../markdown_assets/readme-1623224194298.png)
+![jQuery对象调用的each遍历方法](../../markdown_assets/readme-1623224215810.png)
 ##  jQuery - 三种加载事件体现
+    加载事件的作用：使得html和css代码先执行，最后执行JavaScript代码
+    JavaScript加载事件：
+        <body onload="函数"></body>
+        window.onload = function(){}
+    jQuery加载事件：
+        $(document).ready(function(){})：$(document)是把document的DOM对象变为jQuery对象
+        $().ready(function(){})：$()也是创建jQuery对象，不过内部没有DOM对象的组成部分
+        $(function(){})：对第一种加载的封装，简写
+![第三种函数选择器$(function)加载事件本质就是对第一种加载事件的封装](../../markdown_assets/readme-1623225104807.png)
+![三种加载事件体现](../../markdown_assets/readme-1623225127351.png)
 ##  jQuery - 加载事件（jQuery和传统的区别）
+    设置个数：
+        在同一个请求里，jQuery加载事件可以设置多个，而传统方式只能设置一个
+        传统方式加载事件是给onload事件属性赋值，多次赋值，后者会覆盖前者
+        jQuery方式加载事件是把每个加载事件都存入一个数组里边并成为数组的元素，执行的时候就遍历数组执行每个元素即可
+    执行时机不一样：
+        传统方式加载事件是会等页面全部内容（文字、图片、样式）在浏览器显示（加载）完毕后再执行加载事件
+        jQuery方式加载事件，只要页面全部内容在内存里对应的DOM树结构绘制完毕就会执行，有可能出现对应的内容还未在浏览器页面上显示
+![jQuery和传统的区别](../../markdown_assets/readme-1623227676269.png)
+![传统加载事件在同一个请求里边只能设置一个](../../markdown_assets/readme-1623228071012.png)
+![jQuery加载事件在同一个请求里边可以出现多个](../../markdown_assets/readme-1623228050700.png)
+![传统加载事件执行时机](../../markdown_assets/readme-1623228223406.png)
+![jQuery加载事件执行时机](../../markdown_assets/readme-1623228243369.png)
+![jQuery加载事件执行时机](../../markdown_assets/readme-1623228336281.png)
 ##  jQuery - jQuery加载事件原理
+    TODO
+![jQuery加载事件是对DOMContentLoaded的封装(非onload)](../../markdown_assets/readme-1623228857233.png)
 ##  jQuery - jQuery简单事件操作
+    DOM一级事件设置：
+        <div 触发时间='function(){}'></div>
+        <div 触发时间='函数名()'></div>
+        itnode.onclick = function(){}
+        itnode.onclick = 函数名
+    DOM二级事件设置：
+        itnode.addEventListener(类型, 处理, 事件流)
+        itnode.removeEventListener(类型, 处理, 事件流)
+        node.attachEvent()
+        node.detachEvent()
+    jQuery事件设置（无需考虑浏览器兼容问题）：
+        $(选择器).事件类型(事件处理函数fn)：设置事件
+        $(选择器).事件类型()：触发事件执行
+    jQuery事件类型：
+        click
+        keyup
+        keydown
+        mouseover
+        mouseout
+        blur
+        focus
+        ……
+![具体可以操作的各种事件](../../markdown_assets/readme-1623229779359.png)
+![jQuery简单事件的设置（可以为同一个对象设置多个同类型事件）](../../markdown_assets/readme-1623229797788.png)
+![间接触发指定对象的事件执行](../../markdown_assets/readme-1623229829490.png)
 ##  jQuery - 支挡操作（节点追加）
+    父子关系追加：
+        主动追加：
+            $(选择器).append(追加内容)：向每个匹配的节点内部后置追加内容
+            $(选择器).prepend(追加内容)：向每个匹配的节点内部前置追加内容
+        被动追加：
+            $(被追加内容).appendTo(选择器)：把所有匹配的节点后置追加到另一个指定的节点中
+            $(被追加内容).prependTo(选择器)：把所有匹配的节点前置追加到另一个指定的节点中
+    兄弟关系追加：
+        主动追加：
+            $(选择器).after(追加内容)：向每个匹配的节点之后插入追加内容
+            $(选择器).before(追加内容)：向每个匹配的节点之前插入追加内容
+        被动追加：
+            $(被追加内容).insertAfter(选择器)：把所有匹配的节点插入到另一个指定的节点的后面
+            $(被追加内容).insertBefore(选择器)：把所有匹配的节点插入到另一个指定的节点的前面
+![父子关系追加](../../markdown_assets/readme-1623230691720.png)
+![父子关系追加](../../markdown_assets/readme-1623230706704.png)
+![父子关系追加](../../markdown_assets/readme-1623230716112.png)
+![兄弟关系追加](../../markdown_assets/readme-1623231406572.png)
+![兄弟关系追加](../../markdown_assets/readme-1623231416108.png)
+![兄弟关系追加](../../markdown_assets/readme-1623231423290.png)
 ##  jQuery - 节点替换、删除、新增和删除节点案例效果
+    节点替换：
+        $(替换内容).replaceAll(被替换节点)：主动替换
+        $(被替换节点).replaceWith(替换内容)：被动替换
+    节点删除：
+        $(父节点).empty()：清空父节点内部
+        $(选择器).remove()：删除指定节点
+![节点替换](../../markdown_assets/readme-1623231788212.png)
+![节点删除](../../markdown_assets/readme-1623231863686.png)
+![文档操作案例（节点增加和删除）](../../markdown_assets/readme-1623232036734.png)
 ##  jQuery - 节点复制操作
+    节点复制：
+        $(选择器).clone(true)：复制指定的节点和其属性（事件）
+        $(选择器).clone(false)：只复制节点本身和节点内部信息（不包含属性）
+        DOM的节点复制操作：
+            node.cloneNode(true/false)：
+                true：深层复制（本身和内部节点）
+                false：浅层复制（本身）
+![节点复制](../../markdown_assets/readme-1623232020956.png)
 ##  jQuery - 属性选择器
+    例：<input type=”text” name=”username” id=”username” class=”pear” addr=’beijing’ />
+        $([name])：匹配必须有“name”属性存在的节点
+        $([name=value])：匹配必须有“name”属性值等于“value”的节点
+        $([name^=value])：匹配必须有“name”属性值以“value”开头的节点
+        $([name$=value])：匹配必须有“name”属性值以“value”结尾的节点
+        $([name*=value])：匹配必须有“name”属性值包含“value”的节点
+        $([name!=value])：匹配必须有“name”属性值不等于“value”的节点（没有“name”属性也可以）
+        $([name1][name2][name3]...)：多个属性选择器可以构成“并且”关系
+![属性选择器](../../markdown_assets/readme-1623233667557.png)
+![属性选择器](../../markdown_assets/readme-1623233676898.png)
 #   03
     学习第三天的知识
 ##  jQuery - 昨天内容回顾
+    TODO
 ##  jQuery - 昨天作业总结
+    TODO
 ##  jQuery - 事件绑定的三种形式
 ##  jQuery - 取消事件绑定及事件对象和作用
 ##  jQuery - 基本和垂直动画效果

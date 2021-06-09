@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.9 15:37
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>each遍历方法</title>
+    <script src="../01/jquery-1.4.4.js"></script>
+</head>
+<body>
+<h2>each遍历方法</h2>
+<ul>
+    <li>北京</li>
+    <li>上海</li>
+    <li>广州</li>
+    <li>深圳</li>
+</ul>
+<input onclick="f1()" type="button" value="触发"/>
+</body>
+</html>
+<script>
+    var arr = [0, 1, 2, 3, 4, 5];
+
+    function f1() {
+        $.each(arr, function (k, v) {
+            console.log('key:' + k + ' => ' + 'value:' + v);
+        })
+
+        jQuery.each(arr, function (k, v) {
+            console.log('key:' + k + ' => ' + 'value:' + v);
+        })
+
+        $('li').each(function (k, v) {
+            console.log('key:' + k + ' => ' + 'value:' + $(v).text());
+        })
+    }
+</script>

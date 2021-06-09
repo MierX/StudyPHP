@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.9 17:10
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery简单事件操作</title>
+    <script src="../01/jquery-1.4.4.js"></script>
+</head>
+<body>
+<h2>jQuery简单事件操作</h2>
+<input type="button" value="触发" onclick="f1()" />
+<input type="button" value="触发" onclick="f2()" />
+</body>
+</html>
+<script>
+    $().ready(function () {
+        $('h2').mouseover(function () {
+            $(this).css('color', 'blue');
+        }).mouseout(function () {
+            $(this).css('color', 'red');
+        })
+    })
+    
+    function f1() {
+        $('h2').mouseover();
+    }
+
+    function f2() {
+        $('h2').mouseout();
+    }
+</script>

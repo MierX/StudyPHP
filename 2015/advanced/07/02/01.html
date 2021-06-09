@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.9 14:34
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery对象和dom对象的关系及转化</title>
+    <script src="../01/jquery-1.4.4.js"></script>
+</head>
+<body>
+<h2>jQuery对象和dom对象的关系及转化</h2>
+<input type="button" value="触发1" onclick="f1()" />
+<input type="button" value="触发2" onclick="f2()" />
+<input type="button" value="触发3" onclick="f3()" />
+<input type="button" value="触发4" onclick="f4()" />
+</body>
+</html>
+<script>
+    function f1() {
+        $('h2').css('color', 'red');
+        console.log(document.getElementsByTagName('h2')[0].css('color'));
+    }
+
+    function f2() {
+        document.getElementsByTagName('h2')[0].style.backgroundColor = 'yellow';
+        console.log($('h2').style.css('background-color'));
+    }
+    function f3() {
+        $('h2').css('color', 'red');
+        console.log($(document.getElementsByTagName('h2')[0]).css('color'));
+    }
+
+    function f4() {
+        document.getElementsByTagName('h2')[0].style.backgroundColor = 'yellow';
+        console.log($('h2')[0].style.backgroundColor);
+    }
+</script>

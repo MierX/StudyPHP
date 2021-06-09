@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.9 17:47
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>节点替换、删除、新增和删除节点案例效果</title>
+    <script src="../01/jquery-1.4.4.js"></script>
+</head>
+<body>
+<h2>节点替换</h2>
+<ul id="wei">
+    <li id="cao">曹操</li>
+    <li id="xia">夏侯惇</li>
+    <li>贾诩</li>
+    <li id="pi">曹丕</li>
+    <li id="si">司马懿</li>
+</ul>
+<h2>节点删除</h2>
+<ul id="shu">
+    <li>刘备</li>
+    <li id="guan">关羽</li>
+    <li id="fei">张飞</li>
+</ul>
+<h2>节点复制</h2>
+<ul id="wu">
+    <li id="quan" style="color: yellow"><span></span>孙权</li>
+    <li id="ce">孙策</li>
+    <li>孙坚</li>
+</ul>
+<input type="button" value="触发" onclick="f1()" />
+</body>
+</html>
+<script>
+    $().ready(function () {
+        $('#wu li').each(function (k, v) {
+            $(this).append('<span></span>').click(function () {
+                console.log($(this).text());
+            });
+        })
+    })
+
+    function f1() {
+        // 节点替换 - 主动
+        $('#cao').replaceAll($('#pi'));
+
+        // 节点替换 - 被动
+        $('#xia').replaceWith($('#si'));
+
+        // 节点删除 - 清空
+        $('#guan').empty();
+
+        // 节点删除 - 指定
+        $('#fei').remove();
+
+        // 节点复制 - 真复制
+        var node = $('#quan').clone(true);
+        $('#wei').append(node);
+
+        // 节点复制 - 假复制
+        var init = $('#quan').clone(false);
+        $('#shu').append(init);
+    }
+</script>

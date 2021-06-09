@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.9 15:52
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>三种加载事件体现</title>
+    <script src="../01/jquery-1.4.4.js"></script>
+</head>
+<body>
+<h2>三种加载事件体现</h2>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $('h2').css('color', 'red');
+    })
+
+    $().ready(function () {
+        $('h2').css('background-color', 'yellow');
+    })
+
+    $(function () {
+        $('h2').css('font-family', '仿宋');
+    })
+</script>
