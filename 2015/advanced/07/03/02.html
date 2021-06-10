@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.10 15:24
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>取消事件绑定及事件对象和作用</title>
+    <script src="../01/jquery-1.4.4.js"></script>
+</head>
+<body>
+<h2>取消事件绑定及事件对象和作用</h2>
+<div>asdasda</div>
+<input type="button" value="触发" onclick="f2()" />
+</body>
+</html>
+<script>
+    $(function () {
+       $('h2').bind({
+           foucs:function () {
+               console.log('foucs');
+           },
+           click:f1,
+           mouseover:function () {
+               console.log('mouseover')
+           }
+       });
+       $('div').bind('click', function () {
+           console.log('click1');
+       });
+
+       $('div').bind('click', f1);
+    });
+
+    var f1 = function () {
+        console.log('click');
+    }
+
+    function f2() {
+        $('div').unbind('click', f1);
+        $('h2').unbind('mouseover');
+    }
+</script>

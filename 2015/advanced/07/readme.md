@@ -380,13 +380,110 @@
 ##  jQuery - 昨天作业总结
     TODO
 ##  jQuery - 事件绑定的三种形式
+    jQuery事件的简单操作：
+        $().事件类型(function(){})
+        $().事件类型()
+    jQuery事件绑定：
+        事件绑定后可以很方便的取消绑定
+        $().bind(事件类型, function(){})
+        $().bind(事件类型1 事件类型2 事件类型3 ..., function(){})：给指定节点绑定多个不同类型的事件
+        $().bind(json对象)：同时绑定多个不同类型的事件
+![简单事件绑定](../../markdown_assets/readme-1623288105736.png)
+![给同一对象的多个不同类型事件绑定同一个处理](../../markdown_assets/readme-1623288129487.png)
+![json对象批量绑定事件](../../markdown_assets/readme-1623288156481.png)
 ##  jQuery - 取消事件绑定及事件对象和作用
+    DOM取消事件：
+        node.onclick = null：DOM一级事件取消
+        node.removeEventListener(类型, 函数, 事件流)：DOM二级事件取消
+    jQuery取消事件：
+        $().unbind()：取消节点的全部事件（无视事件类型、处理函数）
+        $().unbind(事件类型)：取消节点的指定事件类型（无视处理函数）
+        $().unbind(事件类型， 有名函数)：取消节点的指定事件类型的指定处理函数
+![给div绑定多个事件](../../markdown_assets/readme-1623290111331.png)
+![取消事件](../../markdown_assets/readme-1623290124537.png)
+![事件对象](../../markdown_assets/readme-1623290361834.png)
+![阻止浏览器默认动作、阻止事件冒泡](../../markdown_assets/readme-1623290450285.png)
 ##  jQuery - 基本和垂直动画效果
+    基本动画：
+        $(选择器).show(speed, [callback])：显示隐藏的匹配元素
+        $(选择器).hide(speed, [callback])：隐藏显示的匹配元素
+        $(选择器).toggle()：切换匹配元素的可见状态
+        $(选择器).toggle(switch)：根据switch参数切换匹配元素的可见状态（true为可见，false为隐藏）
+        $(选择器).toggle(speed, [callback])：以优雅的动画切换匹配元素的可见状态
+    垂直动画：
+        $(选择器).slideDown(speed, [callback])：垂直显示隐藏的匹配元素
+        $(选择器).slideUp(speed, [callback])：垂直隐藏显示的匹配元素
+        $(选择器).slideToggle(speed, [callback])：垂直切换匹配元素的可见性
+![基本动画](../../markdown_assets/readme-1623290502289.png)
+![基本动画](../../markdown_assets/readme-1623290757661.png)
+![基本动画](../../markdown_assets/readme-1623290767635.png)
+![基本动画](../../markdown_assets/readme-1623290780801.png)
+![垂直动画](../../markdown_assets/readme-1623291071082.png)
+![垂直动画](../../markdown_assets/readme-1623291224530.png)
+![垂直动画](../../markdown_assets/readme-1623291246637.png)
 ##  jQuery - 颜色渐变动画效果
+    颜色渐变动画效果：
+        $(选择器).fadeIn(speed, [callback])：通过透明度的变化来实现匹配元素的淡入效果（显示）
+        $(选择器).fadeOut(speed, [callback])：通过透明度的变化来实现匹配元素的淡出效果（隐藏）
+        $(选择器).fadeTo(speed, opacity, [callback])：匹配元素以渐进方式调整到指定的透明度
+![颜色渐变动画效果](../../markdown_assets/readme-1623291327880.png)
+![给元素设置指定的透明度](../../markdown_assets/readme-1623291392898.png)
+![透明度基本设置](../../markdown_assets/readme-1623291411232.png)
 ##  jQuery - 对ajax的封装使用
+    $.get(url[, data, function(msg){}, dataType])：
+        data：给服务器传递的数据，请求字符串、json对象都可以设置
+        function(msg){}：回调函数，ajax请求完成后调用该函数，可以在此函数完成ajax的后续处理，msg泛指从服务器传递回来的信息
+        dataType：指定服务器返回的数据类型（html、text、xml、json）
+    $.post(url[, data, function(msg){}, dataType])：
+        该方法与$.get()方法使用完全一致，不同的是其为post方式请求
+        给服务器传递数据的时候，不需要设置header头
+    注意：$.get()、$.post()都是异步的ajax请求
+    $.ajax({url:请求地址[, data:请求数据, dataType:返回数据格式, type:请求方式, success:function(msg){}]})：
+        url：请求的服务器地址
+        data：给服务器传递的数据（请求字符串/json对象）
+        dataType：默认字符串返回信息，数据从服务器返回格式（html、text、xml、json）
+        type：请求方式（get/post）
+        success：ajax请求成功后的回调函数
+        async：true异步/false同步
+        cache：true缓存/false不缓存
+![jQuery封装的ajax具体使用](../../markdown_assets/readme-1623292396166.png)
+![jQuery封装的ajax具体使用](../../markdown_assets/readme-1623292422376.png)
 ##  jQuery - 地区三级联动（显示省份）
+    TODO
 ##  jQuery - 地区三级联动（显示城市）
+    TODO
 ##  jQuery - 迷你jQuery开发（制作选择器）
+    jQuery里边的大部分方法有“遍历机制”
+    jQuery方法里边的参数this是代表dom对象
+![迷你jQuery开发](../../markdown_assets/readme-1623292577756.png)
+![迷你jQuery开发](../../markdown_assets/readme-1623292617563.png)
+![制作选择器](../../markdown_assets/readme-1623292632049.png)
 ##  jQuery - 迷你jQuery开发（attr和css方法制作）
+    TODO
+![attr和css方法制作](../../markdown_assets/readme-1623292670022.png)
+![attr和css方法制作](../../markdown_assets/readme-1623292721444.png)
 ##  jQuery - 迷你jQuery开发（each方法制作）
+    TODO
+![each方法制作](../../markdown_assets/readme-1623292696794.png)
 ##  jQuery - 插件开发使用
+    什么是jQuery插件：
+        jQuery框架本身给我们提供了一些方法供使用，但是方法有限，不能完全满足所有功能的需求
+        需要给jQuery框架开发、扩展一些额外功能方法
+    给jQuery框架开发、扩展额外方法的过程就是“插件开发”
+    作用：避免写重复代码，简化开发
+    两种形式丰富方法：
+        给$.fn丰富成员（该成员可以给jQuery对象使用）：
+            $.fn.成员 = 值
+            $.fn.extend(json对象)
+        给$函数对象丰富成员（该成员可以给$对象使用）：
+            $.成员 = 值
+            $.extend(json对象)
+    使用成品jQuery插件的步骤：
+        引入jQuery的插件文件
+        引入对应的css样式文件、img图片、辅助的相关js文件
+        检查jQuery插件对本身jQuery是否有要求
+![制作一个应用插件](../../markdown_assets/readme-1623292898957.png)
+![制作一个应用插件](../../markdown_assets/readme-1623292912195.png)
+![制作一个应用插件](../../markdown_assets/readme-1623292923743.png)
+![给jQuery对象丰富成员](../../markdown_assets/readme-1623293041185.png)
+![给$函数对象丰富成员](../../markdown_assets/readme-1623293057647.png)

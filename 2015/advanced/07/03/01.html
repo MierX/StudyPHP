@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.10 15:13
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件绑定的三种形式</title>
+    <script src="../01/jquery-1.4.4.js"></script>
+</head>
+<body>
+<h2>事件绑定的三种形式</h2>
+<div>sss</div>
+</body>
+</html>
+<script>
+    $(function () {
+        $('h2').bind('click', function () {
+            $(this).css('color', 'red');
+        }).bind({
+            mouseout:function () {
+                $(this).css('color', 'yellow');
+            },
+            mouseover:function () {
+                $(this).css('color', 'green');
+            },
+        });
+        $('div').bind('click mouseout', f1);
+    });
+
+    var f1 = function () {
+        console.log('1');
+    }
+</script>

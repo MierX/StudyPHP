@@ -5,3 +5,4 @@
 #   05 - JavaScript巩固加强
 #   06 - AJAX技术
 #   07 - jQuery
+#   08 - Linux（LAMP）

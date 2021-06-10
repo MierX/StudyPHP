@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.10 16:33
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>对ajax的封装使用</title>
+    <script src="../01/jquery-1.4.4.js"></script>
+</head>
+<body>
+<h2>对ajax的封装使用</h2>
+<input type="button" value="get" onclick="f1()">
+<input type="button" value="post" onclick="f2()">
+<input type="button" value="ajax" onclick="f3()">
+</body>
+</html>
+<script>
+    function f1() {
+        $.get('./06.php?name=get', function (msg) {
+            console.log(msg);
+        }, 'json');
+    }
+    
+    function f2() {
+        $.post('./06.php', {'name' : 'post'}, function (msg) {
+            console.log(msg);
+        }, 'json');
+    }
+
+    function f3() {
+        $.ajax({
+            url:'./06.php',
+            data:{
+                name:'ajax',
+            },
+            dataType:'json',
+            success:function (msg) {
+                console.log(msg);
+            }
+        });
+    }
+</script>

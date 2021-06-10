@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.10 16:05
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>颜色渐变动画效果</title>
+    <script src="../01/jquery-1.4.4.js"></script>
+</head>
+<body>
+<h2>颜色渐变动画效果</h2>
+<div style="width: 100px;height: 100px;background-color: blue">12312</div>
+<script src="../01/jquery-1.4.4.js"></script>
+<input type="button" value="淡出" onclick="f1()" />
+<input type="button" value="淡入" onclick="f2()" />
+<input type="button" value="指定" onclick="f3()" />
+</body>
+</html>
+<script>
+    function f1() {
+        $('div').fadeOut(5000, function () {
+            f2();
+        });
+    }
+    function f2() {
+        $('div').fadeIn(5000, function () {
+            f1();
+        });
+    }
+    function f3() {
+        $('div').fadeTo(5000, 0.1, function () {
+            console.log(1);
+        });
+    }
+</script>

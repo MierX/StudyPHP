@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.10 15:47
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基本和垂直动画效果</title>
+    <script src="../01/jquery-1.4.4.js"></script>
+</head>
+<body>
+<h2>基本和垂直动画效果</h2>
+<div style="width: 100px;height: 100px;background-color: blue">12312</div>
+<input type="button" value="直接隐藏" onclick="f1()" />
+<input type="button" value="直接显示" onclick="f2()" />
+<input type="button" value="垂直隐藏" onclick="f3()" />
+<input type="button" value="垂直显示" onclick="f4()" />
+<input type="button" value="开关" onclick="f5()" />
+</body>
+</html>
+<script>
+    function f1() {
+        $('div').hide(5000, function () {
+            f2();
+        });
+    }
+    
+    function f2() {
+        $('div').show(5000, function () {
+            f1();
+        });
+    }
+
+    function f3() {
+        $('div').slideUp(5000, function () {
+            f4();
+        })
+    }
+
+    function f4() {
+        $('div').slideDown(5000, function () {
+            f3();
+        })
+    }
+
+    function f5() {
+        $('div').toggle(5000, function () {
+            f5();
+        });
+    }
+</script>
