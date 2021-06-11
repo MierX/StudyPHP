@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!--
+  author：MierX
+  github：https://github.com/MierX/StudyPhp
+  create：21.6.11 11:16
+  motto ：有志者，事竟成
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>制作迷你jQuery</title>
+<!--    <script src="../01/jquery-1.4.4.js"></script>-->
+</head>
+<body>
+<h2>制作迷你jQuery</h2>
+<input type="text" name="username" id="username" value="123" /><br />
+<input type="password" name="pwd" id="pwd" value="321" /><br />
+<input type="text" name="email" id="email" value="123@qq.com" /><br />
+<input type="text" name="addr" id="addr" value="shanghai" /><br />
+<input type="button" value="id触发" onclick="f1()">
+</body>
+</html>
+<script>
+    (function () {
+        var jq = function (sel) {
+            return new jq.fn.init(sel);
+        };
+
+        jq.fn = {
+            init: function (sel) {
+                if (sel.nodeType) {
+                    console.log('DOM对象选择器');
+                    console.log(sel);
+
+                } else if(sel.indexOf('#') === 0) {
+                    console.log('#id选择器');
+                    var ele = document.getElementById(sel.substr(1));
+                    this.length = 1;
+                    this[0] = ele;
+                } else {
+                    console.log('tag标签选择器');
+                    var eles = document.getElementsByTagName(sel);
+                    for (var i = 0; i < eles.length; ++i) {
+                        this[i] = eles[i];
+                    }
+                    this.length = eles.length;
+                }
+            },
+            css: function (k, v) {
+
+            },
+            attr: function () {
+                
+            },
+            each: function () {
+                
+            }
+        };
+
+        jq.fn.init.prototype = jq.fn;
+        window.$ = jq;
+    })();
+
+    function f1() {
+        console.log($(document.getElementsByTagName('h2')[0]));
+        console.log($('#username'));
+        console.log($('input'));
+    }
+</script>
