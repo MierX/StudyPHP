@@ -21,7 +21,7 @@ $xml = "<?xml version='1.0' encoding='utf-8'>
                 <title>PHP</title>
                 <link>test.com</link>
                 <description>学</description>
-                <language>zh-cn</language>";
+                <language>zh-cn</language></channel></rss>";
 foreach ($blogs as $blog) {
     $xml .= "<item>
                 <title>{$blog['title']}</title>

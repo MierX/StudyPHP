@@ -7,3 +7,4 @@
 #   07 - jQuery
 #   08 - Linux（LAMP）
 #   09 - SVN版本控制
+#   10 - Redis

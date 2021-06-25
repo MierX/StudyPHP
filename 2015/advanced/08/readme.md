@@ -648,6 +648,7 @@
             首先删除CmakeCache.txt
             然后安装ncurses-devel软件(在光盘里边寻找安装)
             最后重新执行cmake指令
+![编译安装mysql](./assets/readme-1624524323106.png)
 ![在光盘里边获得cmake并安装](../../markdown_assets/readme-1624442610421.png)
 ![出现依赖问题](../../markdown_assets/readme-1624442667483.png)
 ![删除CmakeCache.txt](../../markdown_assets/readme-1624442678147.png)
@@ -656,6 +657,7 @@
 ![安装成功](../../markdown_assets/readme-1624442723231.png)
 ##  Linux - 配置mysql并使用
     TODO
+![配置并初始化mysql](./assets/readme-1624524377773.png)
 ![mysql配置文件](../../markdown_assets/readme-1624442738171.png)
 ![给mysql复制一个medium.cnf配置文件到指定目录](../../markdown_assets/readme-1624442756065.png)
 ![启动mysql服务并查看进程](../../markdown_assets/readme-1624442791424.png)
