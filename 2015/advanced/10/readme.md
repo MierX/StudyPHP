@@ -105,6 +105,25 @@
     这使得list既可以用作栈，也可以用作队列
     栈：先进先出
     队列：先进后出
+    list类型操作：
+        blpop key1 key2 key3 ... keyN time：移出并获取列表的第一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+        brpop key1 key2 key3 ... keyN time：移出并获取列表的最后一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+        brpoplpush key1 key2 time：从key1中弹出一个值，将弹出的元素插入到key2中并返回它； 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+        lindex key index：通过索引获取列表中的元素
+        linsert key before pivot value：将值value插入到列表key当中，位于值pivot之前
+        linsert key after pivot value：将值value插入到列表key当中，位于值pivot之后
+        llen key：获取列表长度
+        lpop key：移出并获取列表的第一个元素
+        lpush key value1 value2 ... valueN：将一个或多个值插入到列表头部
+        lpushx key value：将一个值插入到已存在的列表头部，列表不存在就会失效
+        lrange key start stop：获取列表指定范围内的元素
+        lrem key count value：移除列表元素
+        lset key index value：通过索引设置列表元素的值
+        ltrim key start stop：对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除
+        rpop key：移除列表的最后一个元素，返回值为移除的元素
+        rpoplpush key1 key2：移除key1的最后一个元素，并将该元素添加到key2并返回
+        rpush key value1 value2 ... valueN：在列表中添加一个或多个值
+        rpushx key value：为已存在的列表添加值，列表不存在就会失效
 ![list类型](../../markdown_assets/readme-1624612173567.png)
 ![该list链表类型应用场合](../../markdown_assets/readme-1624612245660.png)
 ![给newlogin链表添加5个元素](../../markdown_assets/readme-1624612272734.png)
@@ -119,7 +138,21 @@
     注意：
         每个集合中的各个元素不能重复
     set类型操作：
-        sadd
+        sadd key value1 value2 ... valueN：向集合添加一个或多个成员
+        scard key：获取集合的成员数
+        sdiff key1 key2 ... keyN：返回第一个集合与其他集合之间的差异
+        sdiffstore key key1 key2 ... keyN：返回给定所有集合的差集并存储在key中
+        sinter key1 key2 ... keyN：返回给定所有集合的交集
+        sinterstore key key1 key2 ... keyN：返回给定所有集合的交集并存储在key中
+        sismember key value：判断value元素是否是集合key的成员
+        smembers key：返回集合中的所有成员
+        smove key1 key2 value：将value元素从key1集合移动到key2集合
+        spop key：移除并返回集合中的一个随机元素
+        srandmember key [count]：返回集合中一个或多个随机数
+        srem key value1 value2 ... valueN：移除集合中一个或多个成员
+        sunion key1 key2 ... keyN：返回所有给定集合的并集
+        sunionstore key key1 key2 ... keyN：所有给定集合的并集存储在key集合中
+        sscan key cursor [match pattern] [count count]：迭代集合中的元素
 ![应用场景](../../markdown_assets/readme-1624612519613.png)
 ![把tom的好友通过集合给设置好](../../markdown_assets/readme-1624613363356.png)
 ![linken的好友集合](../../markdown_assets/readme-1624613376141.png)
@@ -128,8 +161,8 @@
 ![求差集(前者对后者求差集，结果只有前者的信息没有后者)](../../markdown_assets/readme-1624613490636.png)
 ![查看集合内部的全部元素信息](../../markdown_assets/readme-1624613498362.png)
 ![把mary从tom集合里边移动到linken的集合中去](../../markdown_assets/readme-1624613507384.png)
-##  Redis - SortSet排序集合类型操作
-    Sort Set是list和set两种类型的集中体现，称为排序集合类型
+##  Redis - SortedSet排序集合类型操作
+    Sorted Set是list和set两种类型的集中体现，称为排序集合类型
     和set一样，sorted set也是string类型元素的集合
     不同的是每个元素都会关联一个权
     通过权/值可以有序的获取集合中的元素
@@ -138,7 +171,7 @@
         zrem key member：删除指定元素，1表示成功，如果元素不存在则返回0
         zincrby key incr member：按照incr幅度增加对应member的score值，返回score值
         zrank key member：返回指定元素在集合中的排名（下标），集合中元素是按score从小到大排序的
-        zrevrank key member：同上，但是集合中元素是按score从小到大排序
+        zrevrange key member：同上，但是集合中元素是按score从小到大排序
         zrange key start end：类似lrange操作从集合中去指定区间的元素，返回的是有序结果
         zrevrange key start end：同上，返回结果是score逆序的
         zcard key：返回集合中元素个数
@@ -213,7 +246,10 @@
 ![之后重启apache](../../markdown_assets/readme-1624616793186.png)
 ![通过浏览器访问php代码(phpinfo())](../../markdown_assets/readme-1624616798050.png)
 ##  Redis - php实现redis操作
+    在php里边，redis就是一个功能类Redis
+    Redis类里边有许多成员方法（名字基本与redis指令的名字一致，参数也一致）
     获得Redis类内部一共的方法(利用反射Reflection实现)：
         php大部分操作都是正向的：类、实例化对象、对象调用成员
         其实类可以反向操作：类、反过来感知类的成员、反方向感知方法是否是公开的/私有的/受保护的/最终的
+![php实现redis操作](../../markdown_assets/readme-1625048639887.png)
 ![反射Reflection](../../markdown_assets/readme-1624617224779.png)
