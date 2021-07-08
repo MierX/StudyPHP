@@ -37,7 +37,7 @@
         redis：集合计算
 ![中间介质](../../markdown_assets/readme-1625133190887.png)
 ##  Memcache - 安装与开启服务
-    TODO：
+    TODO
 ![解压](../../markdown_assets/readme-1625135864789.png)
 ![解压后生成文件（服务器端执行文件）](../../markdown_assets/readme-1625135872293.png)
 ![前台开启服务（不推荐）](../../markdown_assets/readme-1625135938593.png)
@@ -86,14 +86,112 @@
 ![有效期的限制（变形）](../../markdown_assets/readme-1625137662082.png)
 ![前者的信息可以正常获取，后者已经早早过期](../../markdown_assets/readme-1625137666993.png)
 ##  Memcache - 各种数据类型的存储
+    php的数据类型：
+        基本类型：int、string、boolean、float
+        复合类型：array、object、resource、null
+    有的时候在memcache中需要把各种数据类型信息都变为字符串存储，就需要对复合类型信息进行序列化操作:
+        serialize()
+        unserailize()
+    第三个参数压缩作用：通过zlib进行压缩处理
+![基本类型数据在memcache内部通过字符串存储](../../markdown_assets/readme-1625735596614.png)
+![基本类型数据在memcache内部通过字符串存储](../../markdown_assets/readme-1625735604959.png)
+![复合类型数据在memcache中是原样存储](../../markdown_assets/readme-1625735631019.png)
+![复合类型数据在memcache中是原样存储](../../markdown_assets/readme-1625735639035.png)
 ##  Memcache - php中其他方法介绍
+    add()：给memcache增加一个key，不存在就增加，存在则报错
+    set()：给memcache设置一个key，不存在就增加，存在则修改
+    close()：关闭memcache连接，一般设置在脚本最后
+    decrement()：给指定key的值自减1
+    increment()：给指定key的值自加1
+    flush()：清空memcache的全部key
+    replace()：替换key的值为其他值，存在就替换，不存在就报错
 ##  Memcache - Telnet终端操作
+    telnet是远程登录协议
+    telnet提示不是内部或外部指令的解决：控制面板--》程序和功能--》打开或关闭windows服务--》telnet客户端
+    在终端窗口实现memcache的操作：
+        设置：
+            > set key 是否压缩  有效期  数据长度  [回车]
+            > 数据
+    
+            > add  key  是否压缩  有效期  数据长度  [回车]
+            > 数据
+    
+            > replace  key  是否压缩  有效期  数据长度 [回车]
+            > 数据
+            注意：数据真实长度与设置长度要完全一致
+        获取：
+            > get  key
+        删除：
+            > delete key
+            > flush_all：删除全部的key
+    获取memcache统计的信息：
+        在php程序里边可以通过getStats()获得memcache服务器的统计信息
+![登录到memcache的操作终端](../../markdown_assets/readme-1625736212695.png)
+![登录memcache终端成功](../../markdown_assets/readme-1625736250393.png)
+![telnet提示不是内部或外部指令的解决](../../markdown_assets/readme-1625736322371.png)
+![给memcache设置一个key和读取](../../markdown_assets/readme-1625736581372.png)
+![通过php程序也可以读取到终端窗口设置的key](../../markdown_assets/readme-1625736595326.png)
+![获取memcache统计的信息](../../markdown_assets/readme-1625736613639.png)
+![利用SecureCRT也可以实现对memcache的终端操作](../../markdown_assets/readme-1625736644192.png)
+![利用SecureCRT也可以实现对memcache的终端操作](../../markdown_assets/readme-1625736655494.png)
 ##  Memcache - 分布式设计
+    分布式：如果单个memcache保存的数据非常多，memcache本身工作负载就会非常高，为了降低该memcache的工作量，提高其运行速度，可以设置多个memcache平均分担工作量
+    redis的分布式是“主从模式”结构，一主多从
+    memcache的分布式与Redis的不同，其是把一台memcache的工作平均分配给多个memcache分担
 ##  Memcache - 分布式设计具体使用
+    分布式的具体实施：
+        可以在一个服务器里边开启多个memcache服务
+        可以配置多个服务器，每个服务器里都运行memcache服务
+        每个memcache服务器都是平等的，中间通过“算法”保证数据的平均分配
+        php代码的编写还保持原有习惯即可
+        key的分配原则：依次轮询、求余
+![memcache分布式](../../markdown_assets/readme-1625736861760.png)
+![一台服务器开启三个memcache服务](../../markdown_assets/readme-1625736897853.png)
+![分布式php代码的设计](../../markdown_assets/readme-1625736917997.png)
+![无需考虑key存储在那个memcache服务器内部，memcache通过算法会自动给匹配上，不影响我们正常获得数据](../../markdown_assets/readme-1625736926760.png)
+![在每个php脚本文件内部服务器连接的顺序都要保持一致，否则数据有可能获取不到](../../markdown_assets/readme-1625736931913.png)
+![在每个php脚本文件内部服务器连接的顺序都要保持一致，否则数据有可能获取不到](../../markdown_assets/readme-1625736937431.png)
 ##  Memcache - 缓存失效
+    缓存失效：memcache中的key超过有效期、或被系统强制删除掉了
+    有效期过期：
+        session信息过期(失效了)，通过“懒惰”模式给删除的
+        session是在文件中存储，如果session已经过期，其文件还是存在的，下次有一个用户访问session信息(用户登录系统)，此时已经过期的session就有一定的几率被删除(session文件被删除)
+        memcache中key的删除也是懒惰模式，如果超过有效期，该key还是存在的，当你get获取它的时候，其就消失了
+    空间不足被强制删除：
+        memcache的内存可用空间默认为64MB，如果存储的数据非常多，可用空间不足了，此时仍然可以存储数据，因为memcache内部有LRU机制
+        LRU: Least  recently use（最近很少被使用的数据），内存空间如果不足，就会删除最近很少经常使用的数据
+        如果不想使用LRU机制，就可以在开启memcache服务的时候设置参数-M
+        -M:内存空间耗尽，要报错，而不使用LRU机制删除数据
+![有效期过期](../../markdown_assets/readme-1625737077560.png)
+![懒惰模式](../../markdown_assets/readme-1625737090746.png)
+![关闭LRU机制](../../markdown_assets/readme-1625737224068.png)
 ##  Memcache - session存储在memcache介绍
+    传统session的数据是在硬盘的文件中存储的
+    该session很大情况用于存储用户的相关信息
+    两个服务器的session如果是文件形成存储，则他们的session互相不能通信
+    两个服务器的session如果是存储在memcache中的，则他们的session可以通信
+    一个网站是有多个服务器支撑的，用户在服务器1里边登录系统，其session持久化的信息报保存在一个memcache服务器里边，这样服务器2/3/4也可以去memcache读取session信息，就可以保证用户访问各个服务器的时候无需重复登录系统
+![session存储在memcache](../../markdown_assets/readme-1625737552867.png)
 ##  Memcache - session存储在memcache操作
+    php.ini关于session的设置：
+![存储session形式](../../markdown_assets/readme-1625737625310.png)
+![存储在哪](../../markdown_assets/readme-1625737632369.png)
+![session存储到memcache的设置](../../markdown_assets/readme-1625737637694.png)
+![读取memcache中的session信息](../../markdown_assets/readme-1625737642878.png)
+![session保存到memcache中key的名称为session_id的值](../../markdown_assets/readme-1625737648695.png)
+![如果memcache是分布式的](../../markdown_assets/readme-1625737655162.png)
 ##  Memcache - tp框架案例应用
+    在网站前台商品列表页面处，给商品列表信息存储在memcache中，这样许多人在访问的时候就通过memcache获得数据，提供页面的请求速度
+    在thinkphp框架中使用memcache缓存：
+        通过S()函数连接memcache服务：S(array(type=>’memcache’,‘host’=>主机名,’port’=>端口号码)) 
+        操作key：S(key,value,有效期);
+        获取key：S(key);
+        删除key：S(key,null);
+![商品列表页面没有使用memcache，请求时间为192ms](../../markdown_assets/readme-1625737757171.png)
+![设置memcache缓存之后的效果：请求时间从192ms变为129ms](../../markdown_assets/readme-1625737763945.png)
+![在thinkphp框架中使用memcache缓存](../../markdown_assets/readme-1625737804450.png)
+![在thinkphp框架中使用memcache缓存](../../markdown_assets/readme-1625737769290.png)
+![数据库的数据如果有做修改，就要删除旧的缓存，根据新的数据内容生成一个新缓存，具体有两种实现方式](../../markdown_assets/readme-1625737774626.png)
 #   02
     学习第二天的知识
 ##  MySQL优化 - 昨天内容回顾
