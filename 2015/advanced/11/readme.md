@@ -138,7 +138,6 @@
     分布式：如果单个memcache保存的数据非常多，memcache本身工作负载就会非常高，为了降低该memcache的工作量，提高其运行速度，可以设置多个memcache平均分担工作量
     redis的分布式是“主从模式”结构，一主多从
     memcache的分布式与Redis的不同，其是把一台memcache的工作平均分配给多个memcache分担
-##  Memcache - 分布式设计具体使用
     分布式的具体实施：
         可以在一个服务器里边开启多个memcache服务
         可以配置多个服务器，每个服务器里都运行memcache服务
@@ -147,6 +146,8 @@
         key的分配原则：依次轮询、求余
 ![memcache分布式](../../markdown_assets/readme-1625736861760.png)
 ![一台服务器开启三个memcache服务](../../markdown_assets/readme-1625736897853.png)
+##  Memcache - 分布式设计具体使用
+    TODO
 ![分布式php代码的设计](../../markdown_assets/readme-1625736917997.png)
 ![无需考虑key存储在那个memcache服务器内部，memcache通过算法会自动给匹配上，不影响我们正常获得数据](../../markdown_assets/readme-1625736926760.png)
 ![在每个php脚本文件内部服务器连接的顺序都要保持一致，否则数据有可能获取不到](../../markdown_assets/readme-1625736931913.png)
@@ -197,7 +198,72 @@
 ##  MySQL优化 - 昨天内容回顾
     TODO
 ##  MySQL优化 - 优化概述及存储引擎介绍
+```
+优化概述：
+    存储层：存储引擎、字段类型选择、范式设计
+    设计层：索引、缓存、分区（分表）
+    架构层：多个mysql服务器设置，读写分离（主从模式）
+    sql语句层：多个sql语句都可以达到目的的情况下，要选择性能高、速度快的sql语句
+存储引擎：
+    我们使用的数据是通过一定的技术存储在数据库当中
+    数据库的数据是以文件形式存储在硬盘中
+    存储的技术不止一种，并且每种技术都有自己独特的性能和功能
+    存储数据的技术和其功能的合并就被称为“存储引擎”
+    在mysql中经常使用的存储引擎：myisam、innodb等
+```
+![MySQL存储引擎](../../markdown_assets/readme-1626340881968.png)
+```
+数据库的数据存储在不同的存储引擎里边，所有的特性就与当前的存储引擎有一定关联
+需要按照项目的需求、特点选择不同的存储引擎
+```
 ##  MySQL优化 - innodb和myisam表的具体特点
+![查看mysql中支持的全部存储引擎](../../markdown_assets/readme-1626341349299.png)
+### innodb
+```
+数据库每个数据表的数据设计的三方面信息：表结构、数据、索引
+innodb的技术特点是：支持事务、行级锁定、外键
+```
+![表结构、数据、索引](../../markdown_assets/readme-1626341600641.png)
+```
+表结构、数据、索引的物理存储：
+    所有innodb表的数据和索引信息都存储在ibdata1文件中
+    给innodb类型表的数据和索引创建自己对应的存储空间：
+        默认情况下每个innodb表的数据和索引不会创建单独的文件存储
+    后期无论innodb_file_per_table的设置状态如何变化，在innodb_file_per_table为ON期间创建的表的数据和索引都有独立的存储位置
+```
+![创建一个innodb数据表](../../markdown_assets/readme-1626341850843.png)
+![表结构文件](../../markdown_assets/readme-1626341883804.png)
+![该类型数据、索引的物理文件位置](../../markdown_assets/readme-1626341928502.png)
+![默认情况下每个innodb表的数据和索引不会创建单独的文件存储](../../markdown_assets/readme-1626342021224.png)
+![设置变量，使得每个innodb表有独特的数据和索引存储文件](../../markdown_assets/readme-1626342048367.png)
+![重新创建order2数据表](../../markdown_assets/readme-1626342264069.png)
+![此时order2数据表有单独的数据和索引存储文件](../../markdown_assets/readme-1626342315626.png)
+```
+数据存储顺序：
+    innodb表数据的存储是按照主键的顺序（即使sql插入时的主键是错乱的）排列每个写入的数据
+    该特点决定了该类型表的写入操作较慢
+```
+![innodb数据存储顺序](../../markdown_assets/readme-1626342464630.png)
+![innodb写入速度](../../markdown_assets/readme-1626342982031.png)
+![mysiam写入速度](../../markdown_assets/readme-1626342949283.png)
+```
+事务、外键：
+    该类型数据表支持事务、外键
+    事务：
+        把许多写入（增删改）的sql语句捆绑在一起，要么一起执行，要么不执行
+        事务经常用于与“钱”有关的业务
+        事务的四个特性：原子性、一致性、持久性、隔离性
+        具体操作：
+            start transaction;开启事务
+            sql语句...
+            如果sql语句有误：
+                rollback;回滚
+            commit;否则提交
+    外键：
+        两个数据表A、B，B表的主键是A表中的某个普通字段，这个字段就是A表的外键，外键的使用有一定的约束
+        约束：A、B表中，必须先有B表的数据，才能有A表的数据，A表的外键的值必须于B表的主键值集合中存在
+        真实项目里面很少使用“外键”，因为有约束
+```
 ##  MySQL优化 - myisam压缩技术
 ##  MySQL优化 - myisam压缩技术和存储引擎选择
 ##  MySQL优化 - 字段类型选取
