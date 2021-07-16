@@ -263,24 +263,292 @@ innodb的技术特点是：支持事务、行级锁定、外键
         两个数据表A、B，B表的主键是A表中的某个普通字段，这个字段就是A表的外键，外键的使用有一定的约束
         约束：A、B表中，必须先有B表的数据，才能有A表的数据，A表的外键的值必须于B表的主键值集合中存在
         真实项目里面很少使用“外键”，因为有约束
+并发性：
+    该类型表的并发性非常高
+    多人同时操作该数据表
+    为了操作数据表的时候，数据内容不会随便发生变化，要对信息进行“锁定”
+    该类型锁定级别为“行锁”，只锁定被操作的当前记录
 ```
 ##  MySQL优化 - myisam压缩技术
+### Myisam
+```
+结构、数据、索引独立存储：
+    该类型的数据表、表结构、数据、索引都有独立的存储文件
+    *.frm：表结构文件
+    *.MYD：表数据文件
+    *.MYI：表索引文件
+```
+![创建Myisam数据表](../../markdown_assets/readme-1626406505859.png)
+![该类型的数据表、表结构、数据、索引都有独立的存储文件](../../markdown_assets/readme-1626406560945.png)
+```
+数据存储顺序：
+    myisam表数据的存储是按照自然顺序排列每个写入的数据
+    该特点决定了该类型表的写入操作较快
+```
+![myisam表数据的存储是按照自然顺序排列每个写入的数据](../../markdown_assets/readme-1626406874231.png)
+```
+并发性：
+    该类型并发性较低
+    该类型的锁定级别为“表锁”
+压缩技术：
+    如果一个数据表的数据非常多，为了节省存储空间，需要对该表进行压缩处理
+```
+![复制当前数据表的数据](../../markdown_assets/readme-1626407039848.png)
+![不断复制使得order3数据表的数据变为200多万条](../../markdown_assets/readme-1626407065735.png)
+![对应的存储该200万条信息的文件的物理大小为40多兆](../../markdown_assets/readme-1626407094912.png)
 ##  MySQL优化 - myisam压缩技术和存储引擎选择
+    压缩工具：myisampack.exe
+    压缩方法：myisampack.exe 表名
+![压缩工具](../../markdown_assets/readme-1626415455604.png)
+
+    重建索引：myisamchk.exe-rq表名
+![重建索引工具](../../markdown_assets/readme-1626415699963.png)
+
+    解压缩工具：myisamchk.exe--unpack表名
+![解压缩工具](../../markdown_assets/readme-1626415771284.png)
+![压缩效果](../../markdown_assets/readme-1626415793280.png)
+![压缩后索引问题](../../markdown_assets/readme-1626415829217.png)
+![重建索引](../../markdown_assets/readme-1626415857702.png)
+![索引文件恢复了](../../markdown_assets/readme-1626415878103.png)
+![刷新数据表](../../markdown_assets/readme-1626415903536.png)
+![压缩的数据表是只读表](../../markdown_assets/readme-1626415926545.png)
+
+    压缩的数据表有特点：
+        不能频繁的写入操作，只是内容固定的数据表可以做压缩处理（如：存储全国地区信息的数据表）
+        如果必须要写数据：就解压该数据表，写入数据，再压缩
+![解压并重建索引](../../markdown_assets/readme-1626415991852.png)
+![数据解压完毕](../../markdown_assets/readme-1626416015476.png)
+
+    更新解压后的数据：flush table 表名
+![更新解压后的数据](../../markdown_assets/readme-1626416039050.png)
+![可读可写](../../markdown_assets/readme-1626416088953.png)
+
+    innodb与myisam的比较：
+        innodb存储引擎：适合做修改、删除
+        myisam存储引擎：适合做查询、写入
+    Archive存储引擎：
+        归档型存储引擎，该引擎只有写入、查询操作，没有修改、删除操作
+        适合“日志”性质的信息存储
+    memory存储引擎：
+        优点：内存型存储引擎，操作速度非常快速，比较适合存储临时信息
+        缺点：服务器断电的话，该存储引擎的数据会立即丢失
+    存储引擎的选择：
+        myisam和innodb：
+            网站大多数情况下“读写”操作非常多，适合选择myisam类型，例如dedecms、phpcms等内容型网站
+            网站对业务逻辑有一定要求，适合选择innodb，如办公网站、商城
+            mysql5.5默认存储引擎都是innodb
 ##  MySQL优化 - 字段类型选取
+    字段类型选择
+        尽量少的占据存储空间
+            整型：
+                tinyint(1)
+                smallint(2)
+                mediumint(3)
+                int(4)
+                bigint(8)
+![整型](../../markdown_assets/readme-1626417195732.png)
+
+            时间类型：
+                time()：时分秒
+                datetime()：年月日 时分秒
+                year()：年份
+                date()：年月日
+                timestamp()：时间戳（1970-1-1至今的总秒数）
+                根据不同时间信息的范围选取不同类型的使用
+        数据的整合最好固定长度：
+            char(n)：长度固定，运行速度快，n最大为255
+            varchar(n)：长度不固定，内容比较少要进行部位操作，该类型要保留1-2个字节保存当前数据的长度，n最大为65535
+        信息最好存储为整型的：
+            时间信息可以存储为整型的，如时间戳
+            格式化时间戳语法：select from_unixstamp(时间戳字段) from 表名
+            set集合类型（多选类型）：set('篮球', '足球', '棒球', ...)
+            enum枚举类型（单选类型）：enum('男', '女')
+            推荐使用set和enum类型，mysql内部会通过整型信息参数具体计算、运行
+            ip地址也可以变为整型信息进行存储，mysql内部有算法，可以把ip变为一串数字
+![ip算法](../../markdown_assets/readme-1626418833560.png)
+
+            mysql的ip算法：
+                inet_aton(ip)：将ip转化为数字串
+                inet_ntoa(数字串)：将数字串转化为ip
+            php的ip算法：
+                ip2long(ip)：将ip转化为数字串
+                long2ip(数字)：将数字串转化为ip
 ##  MySQL优化 - 逆范式
+    数据库设计需要遵守三范式
+![案例](../../markdown_assets/readme-1626419523752.png)
+
+        select c.cat_id,c.name,count(c.*) from category as c left join goods as g on g.cat_id=c.cat_id
+        上边的sql语句是一个多表查询，并且还有count的聚合计算
+        如果这样的需求很多，类似的sql语句查询速度就会没有优势
+        如果需要查询速度提升，最好设置为单表查询，并且不要聚合计算
+![解决方法](../../markdown_assets/readme-1626419620521.png)
+
+        以上对经常使用的需求做优化，增加了一个字段，该字段的数据其实通过另一个表做聚合计算可以获得，该设计就不满足三范式，因此被称为“逆范式”
+    什么是三范式：
+        一范式：
+            原子性，数据不可以再细分分割
+        二范式：
+            数据没有冗余
+![数据冗余](../../markdown_assets/readme-1626420050820.png)
+
+        三范式：
+            数据表的每个字段与当前表的主键产生直接关联（非间接关联）
+![直接关联的数据表字段](../../markdown_assets/readme-1626420306826.png)
 ##  MySQL优化 - 是否使用索引的比较
+    索引（index）：
+        索引是优化数据库设计，提升数据库性能非常显著的技术之一
+        各个字段都可以设计为索引，经常使用的索引就是主键索引（primary key）
+        索引可以明显提升查询sql语句的速度
+    是否使用索引的速度的差别：
+![直接复制文件到数据库文件目录](../../markdown_assets/readme-1626420660554.png)
+![被复制到shop0407的数据库文件目录里](../../markdown_assets/readme-1626420679763.png)
+![数据库有体现emp数据表](../../markdown_assets/readme-1626420695421.png)
+![对一个没有索引的数据表进行数据查询操作](../../markdown_assets/readme-1626420712242.png)
+![没有索引，查询一条记录消耗1.49s的时间](../../markdown_assets/readme-1626420726188.png)
+![一旦设置索引，再做数据查询，时间提升是百倍至千倍级的](../../markdown_assets/readme-1626420738991.png)
 ##  MySQL优化 - 什么是索引
+    索引本身是一个独立的存储单位，在该单位里边有记录着数据表某个字段和字段对应的物理空间
+    索引内部有算法支持，可以使得查询速度非常快
+![索引](../../markdown_assets/readme-1626421066256.png)
+
+    有了索引，我们根据索引为条件进行数据查询速度就非常快
+        索引本身有“算法”支持，可以快速定位我们要找到的关键字（字段）
+        索引字段与物理地址有直接对应，帮助我们快速定位到要找的信息
+    一个数据表的字段都可以设置索引
 ##  MySQL优化 - 索引具体操作（创建和删除）
+    索引类型：
+        主键索引（primary key）：
+            auto_increment必须给主键索引设置，字段要求不能为空，字段值唯一
+        唯一索引（unique key）：
+            字段值在表中不能重复
+        普通索引（index）：
+            无具体要求
+        全文索引（fulltext index）：
+            myisam数据表可以设置该索引
+    复合索引：索引关联的字段十多个组成的，该索引就是复合索引
+![复合索引](../../markdown_assets/readme-1626421837347.png)
+
+    索引的操作：
+        创建索引：
+            方法一：
+                创建数据表时，就给字段设置好索引
+![创建一个student数据表，并设置各种索引](../../markdown_assets/readme-1626422763975.png)
+
+                查看表结构的语法：show create table 表名
+![查看student表结构可以看到各种索引是成功的](../../markdown_assets/readme-1626422783001.png)
+
+            方法二：
+                给现有的数据表添加索引
+                语法：alter table 表名 add 索引类型 索引名称(索引字段, ...)
+![给现有的数据表添加索引](../../markdown_assets/readme-1626423066761.png)
+![给现有的数据表添加索引](../../markdown_assets/readme-1626423113866.png)
+![给现有的数据表添加索引](../../markdown_assets/readme-1626423125255.png)
+![创建一个复合索引](../../markdown_assets/readme-1626423201839.png)
+![创建一个复合索引](../../markdown_assets/readme-1626423224536.png)
+
+        删除索引：
+            语法：alter table 表名 drop 索引类型 [索引名称]
+            如果是删除主键索引，就不需要索引名称，但是由于索引字段内部有auto_increment属性，所以不能删除，需要先删除该属性（修改该字段的属性），才可以删除
+![去除数据表主键字段的auto_increment属性](../../markdown_assets/readme-1626423583792.png)
+![去除数据表主键字段的auto_increment属性](../../markdown_assets/readme-1626423597096.png)
+![禁止删除主键，原因是内部有auto_increment属性](../../markdown_assets/readme-1626423617191.png)
+![删除主键](../../markdown_assets/readme-1626423689644.png)
+![删除其他索引](../../markdown_assets/readme-1626423704797.png)
+![此时数据表没有任何索引](../../markdown_assets/readme-1626423720750.png)
 ##  MySQL优化 - 执行索引计划
+    执行计划（explain）：
+        针对查询语句设置执行计划，当前数据库只有查询语句支持计划
+        每个select查询sql语句执行之前，需要把该语句用到的各方面资源都计划好，如：
+            cpu资源、内存资源、索引支持、涉及到的数据量等
+        查询sql语句真实执行之前所有的资源计划就是执行计划
+        我们讨论的执行计划，就是看看一个查询sql语句是否可以使用上索引
+        具体操作：
+            explain 查询sql语句\G
+![一条sql语句在没有执行之前，可以看一下执行计划](../../markdown_assets/readme-1626423928965.png)
+![主键索引删除后，该查询语句的执行计划就没有使用索引(执行速度、效率低)](../../markdown_assets/readme-1626424136027.png)
 ##  MySQL优化 - 适合索引的场景
+    where查询条件：
+        where之后设置的查询条件字段都适合做索引
+    排序查询：
+        order by 字段名：用于排序的字段适合做索引
+![排序字段没有索引，做排序查询就没有使用](../../markdown_assets/readme-1626424258612.png)
+![给排序字段设置索引，做排序查询就会使用](../../markdown_assets/readme-1626424276925.png)
+
+    索引覆盖：
+![给ename和job设置一个复合索引](../../markdown_assets/readme-1626424319301.png)
+![给ename和job设置一个复合索引](../../markdown_assets/readme-1626424330783.png)
+![给ename和job设置一个复合索引](../../markdown_assets/readme-1626424349891.png)
+        
+        我们查询的全部字段（ename，job）已经在索引里边存在，就直接获取即可
+        不用再到数据表中获取，因此被称为“索引覆盖”
+        该查询速度非常快，效率高，该索引也被称为“黄金索引”
+![索引本身需要消耗资源的(空间资源、升级维护困难)](../../markdown_assets/readme-1626424446463.png)
+
+    连接查询：
+        在数据表中给外键或者约束字段设置索引，可以提高联表查询的速度
+![连接查询](../../markdown_assets/readme-1626424473873.png)
 ##  MySQL优化 - 索引使用原则
+    字段独立原则：
+        select * from 表名 where 字段名=值：字段名条件字段独立
+        select * from 表名 where 字段名+2=值：字段名条件字段不独立
+        只有独立的条件字段才可以使用索引
+![独立的条件字段可以使用索引](../../markdown_assets/readme-1626425431086.png)
+![不独立的条件字段不给使用索引](../../markdown_assets/readme-1626425456361.png)
+![独立和不独立的查询速度差异](../../markdown_assets/readme-1626425524658.png)
+
+    左原则：
+        模糊查询（like）：
+            like %：关联多个模糊内容
+            like _：关联一个模糊内容
+            select * from 表名 where 字段名 like "模糊内容%"：可以使用索引
+            select * from 表名 where 字段名 like "模糊内容_"：可以使用索引
+![不可以使用索引（中间条件查询）](../../markdown_assets/readme-1626425739577.png)
+![不可以使用索引（右边条件查询）](../../markdown_assets/readme-1626425775368.png)
+![可以使用索引（左边条件查询）](../../markdown_assets/readme-1626425826624.png)
+![可以使用索引（左边条件查询）](../../markdown_assets/readme-1626425860181.png)
+
+    复合索引：
+        复合索引内部中有多个字段，前者字段可以作为查询条件使用复合索引，后者字段作为查询条件不能使用复合索引
+![复合索引的第一个字段可以使用索引](../../markdown_assets/readme-1626425952884.png)
+![复合索引的其余字段不能使用索引](../../markdown_assets/readme-1626425975095.png)
+![如果第一个字段的内容已经确定好，第二个字段也可以使用索引](../../markdown_assets/readme-1626425997153.png)
+
+    or原则：
+        or左右的关联条件必须都具备索引才可以使用索引
+![表结构](../../markdown_assets/readme-1626426044568.png)
+![or的左右关联条件都是索引字段](../../markdown_assets/readme-1626426064715.png)
+![or的左右，只有一个有索引，导致整体都没有的使用](../../markdown_assets/readme-1626426085860.png)
 #   03
     学习第三天的知识
 ##  MySQL优化 - 昨天内容回顾
     TODO
 ##  MySQL优化 - 索引设计依据
+    要估算每个数据表全部的查询sql语句类型
+    分析、统计每个sql语句的特点（where、order by、or等）
+    原则：
+        被频繁执行的sql语句要设置
+        执行时间比较长的sql语句（可以统计）
+        业务逻辑比较重要的sql语句（例如支付宝2小时内答应返现的业务逻辑）
 ##  MySQL优化 - 索引前缀
+    设计索引的字段，不适用全部内容，而只使用该字段前面一部分内容
+        count()：统计查询结果的行数
+        distinct 字段名：指定查询字段去重
+        substring(字段名, n, m)：截取字段值的从n位到m位的部分出来
+    如果字段的前N位的信息已经足够可以标识当前记录信息，就可以把前N位信息设置为索引内容，好处：
+        索引占据的物理空间小
+        运行速度就非常快
+![例子](../../markdown_assets/readme-1626428051626.png)
+![例子](../../markdown_assets/readme-1626428139793.png)
+![例子](../../markdown_assets/readme-1626428149213.png)
+![从结果可以看出，密码的前9位就可以唯一标识当前记录信息](../../markdown_assets/readme-1626428185242.png)
+![现在给epassword创建索引，就可以只取得前9位即可](../../markdown_assets/readme-1626428216740.png)
+![现在给epassword创建索引，就可以只取得前9位即可](../../markdown_assets/readme-1626428247093.png)
+    
+    索引设计原则：
+        字段内容需要足够花样
+        性别字段不适合做索引
 ##  MySQL优化 - 全文索引
+    
 ##  MySQL优化 - 索引结构（非聚集）
 ##  MySQL优化 - 索引结构（聚集）
 ##  MySQL优化 - 查询缓存
