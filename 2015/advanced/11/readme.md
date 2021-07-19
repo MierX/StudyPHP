@@ -543,16 +543,116 @@ innodb的技术特点是：支持事务、行级锁定、外键
 ![从结果可以看出，密码的前9位就可以唯一标识当前记录信息](../../markdown_assets/readme-1626428185242.png)
 ![现在给epassword创建索引，就可以只取得前9位即可](../../markdown_assets/readme-1626428216740.png)
 ![现在给epassword创建索引，就可以只取得前9位即可](../../markdown_assets/readme-1626428247093.png)
-    
+##  MySQL优化 - 全文索引
     索引设计原则：
         字段内容需要足够花样
         性别字段不适合做索引
-##  MySQL优化 - 全文索引
-    
+    全文索引：
+        MySQL5.5中myisam存储引擎支持全文索引
+        MySQL5.6中myisam和innodb存储引擎都支持全文索引
+        目前中文不支持全文索引
+![查看mysql版本](../../markdown_assets/readme-1626684018003.png)
+![全文索引的应用](../../markdown_assets/readme-1626684108200.png)
+![创建articles数据表，并设置一个单列全文索引](../../markdown_assets/readme-1626684159530.png)
+![普通sql语句模糊查询不能使用全文索引](../../markdown_assets/readme-1626684178531.png)
+![需要变形为match() against()才可以使用全文索引](../../markdown_assets/readme-1626685169599.png)
+![使用全文索引的方法](../../markdown_assets/readme-1626685448510.png)
+![复合全文索引的使用](../../markdown_assets/readme-1626685510603.png)
+![复合全文索引的使用](../../markdown_assets/readme-1626685525297.png)
 ##  MySQL优化 - 索引结构（非聚集）
+    索引内部有算法，算法可以保证查询速度比较快速
+    算法的基础就是数据结构
+    索引的直接称谓就是“数据结构”
+    在MySQL数据库中，索引是存储引擎层面的技术
+    不同的存储引擎使用的数据结构是不一样的
+    
+    索引结构：
+        非聚集索引结构（如myisam）
+        聚集索引结构（如innodb）
+    
+    myisam非聚集索引结构：
+        又被称为B+Tree索引结构
+![myisam表的索引和数据是分离的](../../markdown_assets/readme-1626685808878.png)
+![Myisam存储引擎的索引结构为B+Tree](../../markdown_assets/readme-1626685834201.png)
+![Myisam存储引擎的索引结构为B+Tree](../../markdown_assets/readme-1626685935426.png)
 ##  MySQL优化 - 索引结构（聚集）
+    B+Tree索引结构（聚集型，两种情况）：
+        主键索引结构：
+            叶子节点的关键字（如主键id值）对应整条记录信息
+        非主键索引结构：
+            唯一、普通等
+            叶子节点的关键字对应主键id值
+![聚集索引结构](../../markdown_assets/readme-1626689389899.png)
+
+    非主键索引 -> innodb的主键索引 -> 整条记录
+    innodb表物理文件的索引和数据是在一起的
+![innodb表物理文件的索引和数据是在一起的](../../markdown_assets/readme-1626689471958.png)
+
+    概念问题：
+        B+Tree是B-Tree的一个变形：
+            B-Tree与B+Tree的明显区别是，B-Tree的每个节点的关键字都是与物理地址对应
+        Binary Tree：二进制树结构
 ##  MySQL优化 - 查询缓存
+    一条sql查询语句有可能获得很多数据，并且有一定的时间消耗
+    如果该sql语句被频繁执行获得数据（这些数据还不经常发生变化），为了使得每次获得信息的速度更快
+    就可以把执行结果给缓存起来，供后续的每次使用
+    
+    查看并开启查询缓存：
+        show vatiables like ''query_cache%;
+![缓存大小为0，不能缓存](../../markdown_assets/readme-1626689973296.png)
+![没有设置缓存前的查询速度](../../markdown_assets/readme-1626690025004.png)
+![设置缓存](../../markdown_assets/readme-1626690197407.png)
+![设置缓存后的速度](../../markdown_assets/readme-1626690214418.png)
+
+    缓存失效：
+        数据表或数据有变动（增删改），会引起缓存失效
+![数据变动后会缓存失效](../../markdown_assets/readme-1626690277167.png)
+
+    什么情况下不会使用缓存：
+        sql语句有变动的信息，就不使用缓存（如时间信息、随机数）
+![有时间信息的不给缓存](../../markdown_assets/readme-1626690405665.png)
+![有随机数的也不给缓存](../../markdown_assets/readme-1626690427809.png)
+
+    生成多个缓存：
+        获得相同结果的sql语句，如果有空格、大小写等sql语句上的内容不同，也会分别进行缓存
+![相同结果不同样子的sql语句会分别缓存](../../markdown_assets/readme-1626690486695.png)
+
+    不进行缓存：
+        针对特殊语句不需要缓存
+![针对特殊语句不需要缓存](../../markdown_assets/readme-1626690591984.png)
+
+    查看缓存空间状态：
+        show status like 'Qcache%';
+![查看缓存空间状态](../../markdown_assets/readme-1626690702562.png)
+![缓存被使用后，空间有变小](../../markdown_assets/readme-1626690721868.png)
 ##  MySQL优化 - 分表分区概述
+    一个数据表里边可以存储多条记录信息
+    如果一个数据表里存储的数据非常多（如淘宝商品表、订单表）
+    这样该表的相关工作量就很多（增删改查）
+    负载（工作量）高到一定程度，会造成把表锁死的情况发生
+    为了降低表的负载，可以给该表拆分为多个数据表，这样单个数据表的工作量会有所降低
+    
+    MySQL5.1版本之后就支持分表分区的设计：
+        宏观拆分可以如下：表_1、表_2、表_3...
+    
+    数据表拆分以后，需要考虑php如何操作这些数据表：
+        php -> 手动/mysql算法 -> 数据表（分表）
+        
+    手动算法：
+        需要在php语言里设计操作逻辑。增加php语言的代码工作量
+    mysql算法：
+        php语言不需要做额外操作就可以像以往一样操作同一个数据表的不同分区。是mysql分表推荐的方式
+![mysql内部算法](../../markdown_assets/readme-1626692460900.png)
+    
+    创建一个“分表/分区”数据表：
+        myisam和innodb数据表都可以做分表设计
+        推荐使用myisam存储引擎
+        设计分区的字段，需要是主键的一部分
+        语法：创建表语句的最后跟上“partition by key(主键名) partitions 分区数”
+![创建一个有10个分区的goods数据表](../../markdown_assets/readme-1626692669831.png)
+![可以看到goods数据表有10个分区](../../markdown_assets/readme-1626693454374.png)
+
+        上图每个分区表都有独立的*.MYD数据文件和*.MYI索引文件，给该表存放信息，信息会平均分摊到各个数据表里
 ##  MySQL优化 - 四种分区算法
 ##  MySQL优化 - 分区增加减少管理
 ##  MySQL优化 - 物理分表设计
