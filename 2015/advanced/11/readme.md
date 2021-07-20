@@ -654,26 +654,312 @@ innodb的技术特点是：支持事务、行级锁定、外键
 
         上图每个分区表都有独立的*.MYD数据文件和*.MYI索引文件，给该表存放信息，信息会平均分摊到各个数据表里
 ##  MySQL优化 - 四种分区算法
+    各种分区设计关联的字段必须是主键的一部分，或者是主键本身，或是复合主键索引的从属主键部分
+    求余算法：
+        key：根据指定的字段进行分区设计
+        hash：根据指定的表达式进行分区设计
+    条件算法：
+        range：字段/表达式，符合某个条件范围的分区设计
+        list：字段/表达式，符合某个列表范围的分区设计
+    
+    key分区算法：
+![key的分区算法](../../markdown_assets/readme-1626746222474.png)
+
+    hash分区算法：
+        根据指定的表达式进行分区设计
+        设计分区的时候，分区字段必须是主键的一部分
+![hash分区算法](../../markdown_assets/readme-1626746276819.png)
+![hash分区算法](../../markdown_assets/readme-1626746302112.png)
+![hash分区算法](../../markdown_assets/readme-1626746319797.png)
+![给数据表写入数据，数据会根据“月份”添加到对应的分区表中](../../markdown_assets/readme-1626746337980.png)
+![hash分区算法](../../markdown_assets/readme-1626746366825.png)
+
+    range分区算法：
+![range分区算法](../../markdown_assets/readme-1626747045570.png)
+![range分区算法](../../markdown_assets/readme-1626747062719.png)
+![range分区算法](../../markdown_assets/readme-1626747090867.png)
+![range分区算法](../../markdown_assets/readme-1626747104441.png)
+
+    list分区算法：
+![list分区算法](../../markdown_assets/readme-1626747793306.png)
+![list分区算法](../../markdown_assets/readme-1626747812014.png)
+
+    key分区算法：
+        该方式分区不明显（不一定会严格将数据平均写入分区），但大方向（数据量大之后）明显
+    hash/range/list分区方法：会根据业务特点（设置好的分区规则）严格将数据写入到对应的分区表里边
 ##  MySQL优化 - 分区增加减少管理
+    管理分区：增加、减少分区
+    
+    求余（key、hash）算法管理：
+        增加分区语法：
+            alter table 表名 add partition partitions 数量;
+        减少分区语法：
+            alter table 表名 coalesce partition 数量;
+            注意：减少分区会丢失数据
+![增加分区](../../markdown_assets/readme-1626748430635.png)
+![增加分区](../../markdown_assets/readme-1626748749665.png)
+![减少分区](../../markdown_assets/readme-1626748760408.png)
+
+    条件（range、list）算法管理：
+        增加分区语法：
+            alter table 表名 add partition(
+                partition 分区名 values in/less than (常量/列表),
+                partition 分区名 values in/less than (常量/列表),
+                ...
+            );
+        减少分区语法：
+            alter table 表名 drop partition 分区名称;
+            注意：减少分区会丢失数据
+![增加分区](../../markdown_assets/readme-1626749006842.png)
+![减少分区](../../markdown_assets/readme-1626749020512.png)
 ##  MySQL优化 - 物理分表设计
+    物理分表即将表人为分成表_1，表_2，表_3...
+    物理分表需要通过php算法，实现数据平均分配给每个表存储
+![物理分表](../../markdown_assets/readme-1626749880347.png)
+![创建5张物理表（表内部结构完全一致）](../../markdown_assets/readme-1626749991061.png)
+![创建5张物理表（表内部结构完全一致）](../../markdown_assets/readme-1626750014905.png)
+![通过php的算法，实现给分表进行数据的增、删、改、查操作](../../markdown_assets/readme-1626750032919.png)
+![通过php的算法，实现给分表进行数据的增、删、改、查操作](../../markdown_assets/readme-1626750046607.png)
 ##  MySQL优化 - 垂直分表设计
+    对记录进行分割并存储到分表中，称为“水平分表”
+    对字段进行分割并存储到分表中，称为“垂直分表”
+    
+    一个数据表，内部有许多字段，有的字段频繁被操作，有的字段很少被操作
+    这样当操作数据表中的某些字段时候，没有直接业务关系的字段也需要给其分配相应的资源，这样速度就会变慢，还会消耗系统额外的工作量
+![例子](../../markdown_assets/readme-1626751344670.png)
 ##  MySQL优化 - 架构设计
+    一个MySQL服务器的操作分为：增删改查
+    其中查询操作最为频繁：查询/写入 = 7/1
+    查询操作本身还是最消耗资源的
+    
+    架构设计：
+        原先有一个MySQL服务器做的工作现在平摊给多个MySQL服务器实现
+        多个数据库设计与redis的分布式设计相似
+        主从模式（一主多从/读写分离）
+![MySQL架构设计](../../markdown_assets/readme-1626752408293.png)
+
+        安装多个服务器（多个MySQL服务器）
+        负载均衡（软件级：便宜 硬件级：性能更好）
+        主MySQL给从MySQL同步数据
 ##  MySQL优化 - 慢查询日志设置
+    系统运行起来，内部需要执行许多sql语句
+    此时要把查询速度很慢的sql语句给统计出来，并做优化设计
+    设定一个时间阈值，超过该时间，就说明sql语句很慢
+    
+    查看慢查询语法：
+        show variables like 'slow_query%';
+![查看慢查询设置](../../markdown_assets/readme-1626753404740.png)
+
+    开启慢查询日志语法：
+        set global slow_query_log = 1;
+![开启慢查询日志语法](../../markdown_assets/readme-1626753484803.png)
+
+    查看慢查询的时间阈值语法：
+        show variables lile 'long_query_time%';
+![查看慢查询的时间阈值](../../markdown_assets/readme-1626753540893.png)
+
+    设置时间阈值语法：
+        set long_query_time = 2;
+![设置时间阈值](../../markdown_assets/readme-1626753617833.png)
+![会自动记录超过时间阈值的sql语句](../../markdown_assets/readme-1626753638460.png)
 #   04
     学习第四天的知识
 ##  静态化 - 昨天内容回顾
     TODO
 ##  静态化 - 大量数据写入优化
+    保证数据非常快地写入到数据库中：
+        insert into 表名 values(),(),()...;
+        上方一个insert语句可以同时写入多条记录信息，但是不要写太多，避免意外情况发生
+        若要写入大量数据，可以分批分时间地把数据写入数据库中
+        
+        以上设计写入大量数据的方法损耗时间：
+            第一批写入，为第一批写入的数据维护索引
+            第二批写入，为第二批写入的数据维护索引
+            ...
+            第N批写入，为第N批写入的数据维护索引
+            由此可以看出，时间主要损耗在“维护索引”上
+        优化：
+            减少索引的维护次数，达到整体运行时间变少
+        方法：
+            先把索引维护关掉，等所有数据写入数据库中，再进行索引维护
+            
+    myisam数据表：
+        数据表中已经存在数据（索引已经存在一部分）：
+            首先关闭索引：alter table 表名 disable keys;
+            然后写入大量数据;
+            最后开启索引维护：alter table 表名 enable keys;
+        数据表中美欧数据（索引内部没有东西）：
+            首先删除索引：alter table 表名 drop primary key, drop index （唯一/普通/全文）索引名称;
+            然后写入大量数据;
+            最后增加被删除的索引：alter table 表名 add primary key(id), （唯一/普通/全文）索引 index 索引字段名
+    innodb数据表：
+        该存储引擎支持“事务”
+        该特性使得可以一次性写入大量sql语句
+        具体操作：
+            start transaction;（开启事务）
+            写入大量数据;（事务内部执行的insert的时候，数据还没有写入到数据库，只有数据真实写入到数据库才会执行“索引”维护）
+            commit;（commit执行完毕后最后会自动维护索引）
 ##  静态化 - 单表和多表查询
+    数据库操作有的时候涉及到连表查询、子查询操作
+    复合查询一般要涉及到多个数据表
+    多个数据表一起做查询好处：
+        sql语句逻辑清晰、简单
+        其中不妥当的地方是消耗资源比较多、时间长，不利于数据表的并发处理，因为需要长时间锁住多个表
+![例子](../../markdown_assets/readme-1626764254482.png)
 ##  静态化 - limit使用
+    数据分页使用limit
+    limit(偏移量, 长度)：偏移量指（当前页码-1）*每页条数，长度就是每页条数
+![分页实现](../../markdown_assets/readme-1626764781564.png)
+![同时删除多个索引](../../markdown_assets/readme-1626764801449.png)
+![数据表目前有empno主键索引](../../markdown_assets/readme-1626764836150.png)
+![limit  偏移量，长度；运行时间较长](../../markdown_assets/readme-1626764853768.png)
+
+    单纯运行limit时间比较长，内部没有使用索引，翻页效果之前页码的信息给获得出来，但是“越”过去比较浪费时间
+    现在对获得相同页码信息的sql语句进行优化
+    由单纯limit变为where和limit的组合，执行速度明显加快，因为其有使用where条件字段的索引
+![通过where条件使用索引提升效率](../../markdown_assets/readme-1626764980547.png)
+![没有使用where](../../markdown_assets/readme-1626765015238.png)
+![使用了where](../../markdown_assets/readme-1626765026698.png)
 ##  静态化 - 强制不排序
+    强制不排序：order by null
+    有的sql语句在执行的时候，本身默认会有排序效果
+    但是有的业务不需要排序效果，就可以进行强制限制，进而节省“默认排序”的损耗资源
+![正常排序](../../markdown_assets/readme-1626765130404.png)
+![强制不排序，节省对应资源](../../markdown_assets/readme-1626765159298.png)
 ##  静态化 - 介绍
+    smarty的缓存技术就是静态化的体现
+![静态化](../../markdown_assets/readme-1626765976635.png)
 ##  静态化 - 简单实现静态化效果
+    什么是纯静态化：
+        把php执行、生成好的内容制作为一个静态页面，该制作过程就是静态化
+    为什么使用静态化：
+        节省php、mysql等服务器资源
+        节省用户等待时间，访问速度快
+        搜索引擎（如百度）更喜欢收录静态页面
+    实现静态化：
+        开启php缓冲区：ob_start()
+        抓取缓冲区的内容：$con = ob_get_contents()
+        利用抓取到的内容制作静态页面（文件）：file_put_contents("02.html", $con)
+        删除缓冲区内容并关闭：ob_end_clean()
+        刷新缓冲区内容并关闭：ob_end_flush()
+![实现静态化思路](../../markdown_assets/readme-1626766630837.png)
+![一个简单的php代码](../../markdown_assets/readme-1626766765186.png)
+![静态内容](../../markdown_assets/readme-1626766788481.png)
+![现在利用php把对应的静态内容从“php缓冲区”里边给抓取出来，并制作静态页面](../../markdown_assets/readme-1626766819719.png)
+
+    以上程序代码在执行的时候，浏览器页面就没有输出内容，因为ob_end_clean已经把内容从缓冲区删除了
+![生成的静态页面及对应的内容](../../markdown_assets/readme-1626766933663.png)
+![flush刷新](../../markdown_assets/readme-1626766955285.png)
+![静态内容](../../markdown_assets/readme-1626766986270.png)
+![静态化文件只给体现ob_get_contents之前收集的内容，之后输出 的内容不给体现](../../markdown_assets/readme-1626767012752.png)
 ##  静态化 - 相关函数
+    开启缓冲：
+        方法一：ob_start()
+        方法二：在php.ini中设置output_buffering = 4096（缓冲区内存）、outout_buffering = On（开启）
+    获取内容：
+        on_get_contents()：获取缓冲区内容
+        ob_get_clean()：获取并清空缓冲区内容
+        ob_get_flush()：获取并刷新输出缓冲区内容
+    清空：
+        ob_clean()：清空缓冲区内容
+        ob_get_clean()：获取并清空缓冲区内容
+        ob_end_clean()：清空并关闭缓冲区
+    刷新（缓冲区内容直接作为结果显示在浏览器）：
+        ob_flush()：推送缓冲区内容
+        ob_get_flush()：获取并刷新输出缓冲区内容
+        ob_end_flush()：推送并关闭
+    关闭：
+        ob_end_clean()：清空并关闭
+        ob_end_flush()：刷新并关闭
 ##  静态化 - 在tp项目中应用
+    在项目后台添加商品的时候  就给商品的详情生成静态页面
+    前台就直接访问商品的静态详情页面。
+![在后台展现前台模板页面](../../markdown_assets/readme-1626768963712.png)
+![在项目后台添加商品成功后就顺便生成该商品对应的静态文件](../../markdown_assets/readme-1626768986548.png)
+![生成的静态文件](../../markdown_assets/readme-1626769018033.png)
+![此时前台商品的链接地址还是“动态地址”](../../markdown_assets/readme-1626769038335.png)
+![现在需要把前台访问商品的链接地址，由动态改为“静态”地址](../../markdown_assets/readme-1626769060610.png)
+![链接地址改为静态地址了](../../markdown_assets/readme-1626769094117.png)
+![前台访问商品信息，直接访问一个静态页面即可](../../markdown_assets/readme-1626769113988.png)
+
+    如果后期商品数据有修改，就根据修改后的信息重新生成静态页面就可以了
+![利用一个私有方法，实现静态页面制作，这样各种操作(添加/修改)直接调用该makehtml方法即可，非常方便](../../markdown_assets/readme-1626769145833.png)
 ##  静态化 - 通过ajax实现动态信息显示
+    一个静态页面全部的内容都是固定的，但有的时候局部数据是随时需要变化的
+    可以利用ajax随时感知变化的信息再显示
+![通过ajax给静态页面显示变化的信息](../../markdown_assets/readme-1626770581567.png)
+![变化的信息](../../markdown_assets/readme-1626770599235.png)
+![PHP代码](../../markdown_assets/readme-1626770613400.png)
 ##  静态化 - 与headre、sessionstart、setcookie的关系
+    缓存：缓存是可以看得见的，例如有缓存文件，数据较持久
+    缓冲：是一个临时存储区域，其数据都运行在内存中，数据容易消失
+    session_start()、header()、setcookie()等函数在使用的时候，在它们之前不能有输出，否则系统会报错
+![session_start()等函数前面有输出会报错](../../markdown_assets/readme-1626771811029.png)
+![开启缓冲区就不会报错了](../../markdown_assets/readme-1626771973607.png)
+![php缓存缓冲执行逻辑](../../markdown_assets/readme-1626772035934.png)
 ##  静态化 - 配置及简单使用
+    伪静态：
+        我们在网站输入的url地址是静态的地址，但是内部走的是“动态”的程序
+        伪静态就是一个伪装效果：
+            http://网址/product/goods.php（原本的）
+            http://网址/product/goods.html（伪静态）
+![伪静态](../../markdown_assets/readme-1626774334391.png)
+    
+        伪静态的好处：
+            伪装真实的url，有一定的安全作用
+            对搜索引擎（seo）的收录有好处
+            用户使用体验非常好
+        伪静态配置：
+            通过apache/nginx/tomcat/iis服务器可以配置使用伪静态
+            如apache中：
+                修改httpd.conf，开启伪静态的重写模块支持（取消rewrite_module rewrite.so的注释）
+                虚拟主机配置，添加AllowOverride All项目
+                重启apache
+![修改httpd.conf,开启伪静态的重写模块支持](../../markdown_assets/readme-1626774783184.png)
+![虚拟主机配置，添加AllowOverride All项目](../../markdown_assets/readme-1626774823598.png)
+
+        伪静态简单使用：
+            访问：http://web.0710.com/week/order.xml
+            真实指向地址： http://web.0710.com/week/order.php
+            在被操作的“目录”下创建一个伪静态规则文件 “.htaccess”
+            文件较特殊，需要DOS命令行： >echo a > .htaccess 创建
+![创建一个伪静态规则文件 “.htaccess” ](../../markdown_assets/readme-1626774936119.png)
+![在.htaccess内部编辑伪静态规则](../../markdown_assets/readme-1626774954912.png)
+![效果](../../markdown_assets/readme-1626774975104.png)
+![php代码](../../markdown_assets/readme-1626774995971.png)
+![真实文件](../../markdown_assets/readme-1626775014208.png)
 ##  静态化 - 带参数使用
+        带参数指向：
+            访问：http://web.0710.com/week/cat_567.xml
+            真实指向地址： http://web.0710.com/week/cat.php?id=567
+![带参数使用](../../markdown_assets/readme-1626775631484.png)
+![代码](../../markdown_assets/readme-1626775704389.png)
+
+            访问：http://web.0710.com/week/dog_567_wangcai_beijing.xml
+            真实指向地址：http://web.0710.com/week/dog.php?id=567&name=wangcai&addr=beijing
+![带参数使用](../../markdown_assets/readme-1626776126528.png)
+![代码](../../markdown_assets/readme-1626776135680.png)
+![ecshop提供的伪静态例子参考](../../markdown_assets/readme-1626776265969.png)
+        
+        域名地址跳转：
+            如网站做升级，由旧域名升级使用新域名，但是老用户还习惯使用旧域名，我们要自动帮其跳转到新域名去
+            访问：http://web.0710.com/sun/a.php
+            真实指向地址：http://web.0609.com/sun/a.php
+![访问0710域名的时候会自动跳转到0609的域名去](../../markdown_assets/readme-1626776455298.png)
+![访问0710域名的时候会自动跳转到0609的域名去](../../markdown_assets/readme-1626776469573.png)
+![制作规则](../../markdown_assets/readme-1626776572085.png)
 ##  静态化 - 隐藏入口文件
+    隐藏index.php入口文件：
+![制作规则](../../markdown_assets/readme-1626776597596.png)
+![代码](../../markdown_assets/readme-1626776608789.png)
+
+    给tp框架隐藏index.php入口文件：
+![文件](../../markdown_assets/readme-1626776669495.png)
+![制作规则](../../markdown_assets/readme-1626776676706.png)
+![效果](../../markdown_assets/readme-1626776690836.png)
 ##  静态化 - tp项目中三种伪静态体现
+    TODO
+![有伪装后缀](../../markdown_assets/readme-1626776772488.png)
+![pathinfo路径模式是伪静态体现 ](../../markdown_assets/readme-1626776788100.png)
+![路由设置伪静态](../../markdown_assets/readme-1626776819052.png)
+![路由设置伪静态](../../markdown_assets/readme-1626776835309.png)
