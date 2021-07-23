@@ -9,3 +9,4 @@
 #   09 - SVN版本控制
 #   10 - Redis
 #   11 - Memcached、页面静态技术、MySQL优化
+#   12 - 电商项目实训
