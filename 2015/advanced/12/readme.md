@@ -14,15 +14,22 @@
     
     为项目导入第一批代码：
 ![创建新的空目录放我们项目中的代码【开发目录】](../../markdown_assets/readme-1626852646211.png)
+
 ![把这个空目录变成一个工作拷贝【连SVN服务器关联起来】](../../markdown_assets/readme-1626852676775.png)
+
 ![把这个空目录变成一个工作拷贝【连SVN服务器关联起来】](../../markdown_assets/readme-1626852700220.png)
+
 ![把我们项目中需要用到的代码、模板文件等都放到这个目录中](../../markdown_assets/readme-1626852811378.png)
 
         把这个目录 配置成一个虚拟主机并运行TP的代码生成项目的目录结构：
 ![在apache的配置文件中虚拟主机](../../markdown_assets/readme-1626852868595.png)
+
 ![修改本地的hosts文件添加www.39.com ](../../markdown_assets/readme-1626852889433.png)
+
 ![浏览器中测试](../../markdown_assets/readme-1626852905487.png)
+
 ![使用zendstudio5.5管理代码 ](../../markdown_assets/readme-1626852920502.png)
+
 ![到此第一个工作就完成了，生成项目的目录结构](../../markdown_assets/readme-1626852941398.png)
 ##  规划后台目录以及导入后台模板
     先规划目录结构：
@@ -30,9 +37,13 @@
 
     导入后台的模板文件：
 ![复制后台的CSS文件到项目中](../../markdown_assets/readme-1626853027872.png)
+
 ![先制作后台首页：创建一个首页控制器 ](../../markdown_assets/readme-1626853048013.png)
+
 ![把四个静态页复制到项目中 ](../../markdown_assets/readme-1626853067696.png)
+
 ![在项目中访问一下这个控制器 ](../../markdown_assets/readme-1626853094145.png)
+
 ![修改四个静态页中的CSS目录](../../markdown_assets/readme-1626853131137.png)
 
         说明：
@@ -57,6 +68,7 @@
 
     使用TP完成添加商品的功能：
 ![创建商品控制器（C）](../../markdown_assets/readme-1626854161486.png)
+
 ![创建商品控制器（C）](../../markdown_assets/readme-1626854182218.png)
     
         扩展：
@@ -65,9 +77,13 @@
             区别就是生成不同的模型
         创建商品模型（M）：
 ![定义表单验证规则](../../markdown_assets/readme-1626854262395.png)
+
 ![创建一个添加商品的表单（V）](../../markdown_assets/readme-1626854403154.png)
+
 ![创建一个添加商品的表单（V）](../../markdown_assets/readme-1626855018559.png)
+
 ![测试添加的功能](../../markdown_assets/readme-1626855040933.png)
+
 ![测试添加的功能](../../markdown_assets/readme-1626855054356.png)
 
         修改配置文件添加上DB的配置：
@@ -75,6 +91,7 @@
 ##  商品添加时的几个问题
     模型中表单规则的第四个参数1什么意思：
 ![](../../markdown_assets/readme-1626856045668.png)
+
 ![](../../markdown_assets/readme-1626856054848.png)
 
     如果表单中出现了不应该出现的字段会怎样：
@@ -84,19 +101,26 @@
 
     在TP中接收用户的数据必须使用I函数接收：
 ![用法](../../markdown_assets/readme-1626856168051.png)
+
 ![在TP的配置文件中可以配置数据用哪个函数过滤：默认](../../markdown_assets/readme-1626856187399.png)
+
 ![我们自己重新过滤函数](../../markdown_assets/readme-1626856208685.png)
 ##  使用钩子函数、使用在线编辑器、使用htmlpurifire过滤XSS
     在添加、修改、删除之前或者之后有时要执行一些代码，这些代码应该写到哪：
         使用钩子函数
 ![比如：数据在添加到数据之前先获取当前系统时间添加到表单中](../../markdown_assets/readme-1626856278385.png)
+
 ![总结](../../markdown_assets/readme-1626856316632.png)
 
     商品描述使用在线编辑器（UM）：
 ![在线编辑器（UM）](../../markdown_assets/readme-1626856595851.png)
+
 ![操作](../../markdown_assets/readme-1626856629951.png)
+
 ![在需要使用的页面导入JS和CSS文件](../../markdown_assets/readme-1626856644753.png)
+
 ![为textarea添加一个ID](../../markdown_assets/readme-1626856663763.png)
+
 ![效果](../../markdown_assets/readme-1626856688824.png)
 
     在线编辑器中的HTML内容会TP过滤转义，这样效果就失效了：不转义会被攻击：
@@ -105,7 +129,9 @@
         解决办法：
             有选择性的过滤，只过滤掉危险的JS脚本代码、保留HTML。可以使用htmlpurifier这个开源包来做
 ![操作](../../markdown_assets/readme-1626856866879.png)
+
 ![在项目中定义一个用来过滤的函数](../../markdown_assets/readme-1626856882673.png)
+
 ![在添加商品之前，把商品描述使用这个函数过滤一下](../../markdown_assets/readme-1626856900859.png)
 
     总结：如果项目中使用了在线编辑器需要配合使用HTMLPurifer实现有选择性的过滤XSS
@@ -125,11 +151,17 @@
         
     实际操作：
 ![修改表结构](../../markdown_assets/readme-1626859064547.png)
+
 ![导入到数据库中](../../markdown_assets/readme-1626859080726.png)
+
 ![修改add.html添加一个文本域](../../markdown_assets/readme-1626859099739.png)
+
 ![在添加到数据库之前先处理图片，修改商品模型](../../markdown_assets/readme-1626859117117.png)
+
 ![在添加到数据库之前先处理图片，修改商品模型](../../markdown_assets/readme-1626859133717.png)
+
 ![商品插入到数据库中之后的结构](../../markdown_assets/readme-1626859160882.png)
+
 ##  添加商品的流程
     TODO
 #   02
